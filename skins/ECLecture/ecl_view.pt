@@ -1,0 +1,114 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en" xml:lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eduComponents">
+  
+  <body>
+
+    <div metal:fill-slot="main">
+      <div metal:define-macro="main">
+
+        <div metal:use-macro="here/document_actions/macros/document_actions">
+            Document actions (print, sendto etc)
+        </div>
+    
+        <h1 class="documentFirstHeading" tal:content="here/title_or_id">
+          Title or id
+        </h1>
+
+        <div metal:use-macro="here/document_byline/macros/byline">
+          Get the byline - contains details about author and modification date.
+        </div>
+
+<!--
+        <div class="visualClear"></div>
+    
+        <h2 i18n:translate="label_lecture_descr">Lecture Description</h2>
+-->
+
+        <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;">
+          <legend i18n:translate="label_resources_legend">Available resources</legend>
+
+          <ul style="list-style-type: none; list-style-image: none; margin-left: 0;">
+            <tal:resources repeat="resource here/getAvailableResources">
+              <li tal:define="resourceTitle resource/title;
+                              resourceURL   resource/url;
+                              resourceIcon  python: resource['icon'] or '%s/link_icon.gif' % portal_url;"
+              >
+
+                <img src="" alt=""
+                    tal:condition="resourceIcon"
+                    tal:attributes="src string:${portal_url}/${resourceIcon}"/>
+
+                <a href="" 
+                   class="link-plain" 
+                   title=""
+                   tal:attributes="href string:${resourceURL};" 
+                   tal:content="resourceTitle">
+                  Link to the resource
+                </a>
+
+              </li>
+            </tal:resources>
+          </ul>
+        </fieldset>
+
+        <div class="documentDescription" tal:content="here/Description">
+            Description
+        </div>
+
+        <table class="vertical listing">
+          <tr tal:condition ="here/joinURL">
+            <th i18n:translate="label_registration">Registration</th>
+            <td>
+              <a href="" 
+                 tal:attributes="href here/getJoinURL;"
+                 i18n:translate="label_register">
+                Click here to register for this lecture
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <th i18n:translate="label_date_time">Date/Time</th>
+            <td>
+              <span 
+                tal:condition="here/getDateAndTime"
+                tal:replace="here/getDateAndTime"/>
+            </td>
+          </tr>
+          <tr>
+            <th i18n:translate="label_room">Room</th>
+            <td>
+              <span 
+                tal:condition="here/getRoom"
+                tal:replace="here/getRoom"/>
+            </td>
+          </tr>
+          <tr tal:condition="here/getDirectoryEntry">
+            <th i18n:translate="label_directory">Directory</th>
+            <td>
+              <a href=""  
+                 tal:attributes="href here/getDirectoryEntry"
+                 i18n:translate="help_directory_entry">
+                Link to the directory entry for this lecture
+              </a>
+            </td>
+          </tr>
+        </table>
+
+
+        <div class="visualClear"></div>
+
+        <div tal:replace="structure here/getText" />
+
+        <div class="visualClear"></div>
+
+      </div>
+    </div>
+
+  </body>
+</html>

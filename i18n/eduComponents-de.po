@@ -1,0 +1,78 @@
+# Mario Amelung <amelung@iws.cs.uni-magdeburg.de>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: ECLecture\n"
+"POT-Creation-Date: 2006-04-03 13:46+0000\n"
+"PO-Revision-Date: 2006-04-01 12:00+0100\n"
+"Last-Translator: Mario Amelung <amelung@iws.cs.uni-magdeburg.de>\n"
+"Language-Team: WDOK <amelung@iws.cs.uni-magdeburg.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: eduComponents\n"
+"X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
+
+#. Default: "Date and time for this lecture"
+#: ECLecture.py
+msgid "help_date_time"
+msgstr ""
+
+#. Default: "Link to the directory entry for this lecture"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "help_directory_entry"
+msgstr ""
+
+#. Default: "Link to the registration for this lecture"
+#: ECLecture.py
+msgid "help_join_url"
+msgstr ""
+
+#. Default: "Room for this lecture"
+#: ECLecture.py
+msgid "help_room"
+msgstr ""
+
+#. Default: "Body Text"
+#: ECLecture.py
+msgid "label_body_text"
+msgstr ""
+
+#. Default: "Date/Time"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_date_time"
+msgstr ""
+
+#. Default: "Directory"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_directory"
+msgstr ""
+
+#. Default: "Registration link"
+#: ECLecture.py
+msgid "label_join_url"
+msgstr ""
+
+#. Default: "Click here to register for this lecture"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_register"
+msgstr ""
+
+#. Default: "Registration"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_registration"
+msgstr ""
+
+#. Default: "Available resources"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_resources_legend"
+msgstr ""
+
+#. Default: "Room"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_room"
+msgstr ""
+

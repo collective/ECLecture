@@ -1,0 +1,39 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: ECLecture\n"
+"POT-Creation-Date: 2006-04-03 13:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: eduComponents\n"
+
+#. Default: "Body Text"
+#: ECLecture.py
+msgid = "label_body_text",
+msgstr ""
+
+#. Default: "Link to the registration for this lecture"
+#: ECLecture.py
+msgid = "help_join_url",
+msgstr ""
+
+#. Default: "Date and time for this lecture"
+#: ECLecture.py
+msgid = "help_date_time",
+msgstr ""
+
+#. Default: "Room for this lecture"
+#: ECLecture.py
+msgid = "help_room",
+msgstr ""
+
