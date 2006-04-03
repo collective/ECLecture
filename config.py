@@ -21,11 +21,10 @@ DEPENDENCIES = ['Archetypes', 'DataGridField']
 # define product and tool names
 PRODUCT_NAME = 'ECLecture'
 
-ECL_NAME = 'ECLecture'
+ECL_NAME  = 'ECLecture'
 ECL_TITLE = 'Lecture'
-ECL_META = ECL_NAME
-ECL_ICON = 'folder_icon.gif'
-#ECL_ICON = 'folder-16.png'
+ECL_META  = ECL_NAME
+ECL_ICON  = 'eclecture.png'
 
 # define permissions
 add_permission  = permissions.AddPortalContent
