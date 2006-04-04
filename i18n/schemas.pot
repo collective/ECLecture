@@ -17,9 +17,9 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eduComponents\n"
 
-#. Default: "Body Text"
+#. Default: "Registration link"
 #: ECLecture.py
-msgid = "label_body_text",
+msgid = "label_join_url"
 msgstr ""
 
 #. Default: "Link to the registration for this lecture"
@@ -27,9 +27,14 @@ msgstr ""
 msgid = "help_join_url",
 msgstr ""
 
-#. Default: "Date and time for this lecture"
+#. Default: "First session"
 #: ECLecture.py
-msgid = "help_date_time",
+msgid = "label_first_session"
+msgstr ""
+
+#. Default: "Date for the first session for this lecture"
+#: ECLecture.py
+msgid = "help_first_session"
 msgstr ""
 
 #. Default: "Room for this lecture"
@@ -37,3 +42,48 @@ msgstr ""
 msgid = "help_room",
 msgstr ""
 
+#. Default: "Directory entry"
+#: ECLecture.py
+msgid = "label_directory_entry"
+msgstr ""
+
+#. Default: "Link to the directory entry for this lecture"
+#: ECLecture.py
+msgid = "help_directory_entry"
+msgstr ""
+
+#. Default: "Available resources"
+#: ECLecture.py
+msgid = "label_available_resourcess"
+msgstr ""
+
+#. Default: "Enter available resources for this lecture"
+#: ECLecture.py
+msgid = "help_available_resources"
+msgstr ""
+
+#. Default: "Body Text"
+#: ECLecture.py
+msgid = "label_body_text",
+msgstr ""
+
+#. Default: "Enter lecture information"
+#: ECLecture.py
+msgid = "help_body_text"
+msgstr ""
+
+
+#. Default: "Title"
+#: ECLecture.py
+msgid = "Title"
+msgstr=""
+
+#. Default: "URL"
+#: ECLecture.py
+msgid = "URL"
+msgstr=""
+
+#. Default: "Icon"
+#: ECLecture.py
+msgid = "Icon"
+msgstr=""

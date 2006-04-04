@@ -4,18 +4,26 @@
 # Copyright (c) 2006 Otto-von-Guericke-Universit�t Magdeburg
 #
 # This file is part of ECLecture.
+import re
 
 from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 
+from Products.Archetypes.Registry import registerField
+
 from Products.Archetypes.public import DisplayList
 from Products.Archetypes.public import Schema
+from Products.Archetypes.public import ObjectField
 from Products.Archetypes.public import TextField
 from Products.Archetypes.public import StringField
+from Products.Archetypes.public import DateTimeField
+from Products.Archetypes.public import IntegerField
 from Products.Archetypes.public import StringWidget
 from Products.Archetypes.public import RichWidget
+from Products.Archetypes.public import CalendarWidget
+from Products.Archetypes.public import SelectionWidget
 
 from Products.ATContentTypes.configuration import zconf
 
@@ -30,9 +38,65 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
+from Products.validation import validation
+
 # local
 from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, ECL_META, ECL_ICON, I18N_DOMAIN
+from Products.ECLecture.validators import TimePeriodValidator
 
+isTimePeriod = TimePeriodValidator("isTimePeriod")
+validation.register(isTimePeriod)
+
+
+class TimePeriodField(ObjectField):
+    """A field that stores an integer representing a time value"""
+    __implements__ = ObjectField.__implements__
+
+    _properties = ObjectField._properties.copy()
+    _properties.update({
+        'type' : 'integer',
+        'size' : '5',
+        'widget' : StringWidget,
+        'default' : ['11:00', '13:00'],
+        'validators' : ('isTimePeriod'),
+        })
+
+    security  = ClassSecurityInfo()
+
+    security.declarePrivate('validate_required')
+    def validate_required(self, instance, value, errors):
+        result = True
+        
+        for item in value:
+            if not item:
+                result = False
+                break
+
+        return ObjectField.validate_required(self, instance, result, errors)
+
+    security.declarePrivate('set')
+    def set(self, instance, value, **kwargs):
+
+        result = []
+        
+        for item in value:
+            if self.required or item:
+                m = re.match('^(\d\d)[.:]?(\d\d)$', item.strip())
+                result.append((int(m.group(1)) * 60 ) + int(m.group(2)))
+            else:
+                result = []
+                break
+        
+        ObjectField.set(self, instance, result, **kwargs)
+
+
+registerField(TimePeriodField,
+              title='TimePeriod',
+              description=('')
+    )
+
+
+# ---
 ECLectureSchema = ATFolderSchema.copy() + Schema((
 
     StringField('joinURL',
@@ -42,21 +106,66 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
             description = """Link to the registration for this lecture""",
             label_msgid = 'label_join_url',
             description_msgid = 'help_join_url',
+            size = 65,
             i18n_domain = I18N_DOMAIN,
         ),
     ),
-
-    StringField('dateAndTime',
+                                                   
+    
+    TimePeriodField('timePeriod',
+        accessor = 'getTimePeriod',
+        edit_accessor = 'getTimePeriodForEdit',
         required = True,
         widget = StringWidget(
-            label = "Date/Time",
-            description = """Date and time for this lecture""",
-            label_msgid = 'label_date_time',
-            description_msgid = 'help_date_time',
+            macro = 'time_period',
+            size = 5,
+            maxlength = 5,
+            label = "Time period",
+            description = "",
+            label_msgid = 'label_time_period',
+            description_msgid = 'help_time_period',
             i18n_domain = I18N_DOMAIN,
         ),
     ),
 
+    DateTimeField('startDate',
+        required = True,
+        widget = CalendarWidget(
+            label = "Start date",
+            description = "",
+            label_msgid = 'label_start_date',
+            description_msgid = 'help_start_date',
+            show_hm = False, 
+            #show_ymd = True,
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+    
+    DateTimeField('endDate',
+        required = True,
+        widget = CalendarWidget(
+            label = "End date",
+            description = "",
+            label_msgid = 'label_end_date',
+            description_msgid = 'help_end_date',
+            show_hm = False, 
+            #show_ymd = True,
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+                                                   
+    IntegerField('recurrence',
+        vocabulary = 'getRecurrenceDisplayList',
+        widget = SelectionWidget(
+            format = "radio", # possible values: flex, select, radio
+            label = "Recurrence",
+            description = "",
+            label_msgid = 'label_recurrence',
+            description_msgid = 'help_recurrence',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+                                                   
     StringField('room',
         required = True,
         widget = StringWidget(
@@ -68,6 +177,17 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         ),
     ),
 
+    DateTimeField('firstSession',
+        widget = CalendarWidget(
+            label = "First session",
+            description = """Date for the first session for this lecture""",
+            label_msgid = 'label_first_session',
+            description_msgid = 'help_first_session',
+            #show_hm = False, 
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
     StringField('directoryEntry',
         required = False,
         widget = StringWidget(
@@ -75,15 +195,21 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
             description = """Link to the directory entry for this lecture""",
             label_msgid = 'label_directory_entry',
             description_msgid = 'help_directory_entry',
+            size = 65,
             i18n_domain = I18N_DOMAIN,
         ),
     ),
 
     DataGridField('availableResources',
-        default = ({'title':'Exercise', 'url':'exercise', 'icon':'folder-box-16.png'},),
+        default = ({'title':'Slides', 'url':'slides', 
+                    'icon':'book_icon.gif'},                    
+                   {'title':'Exercise', 'url':'exercise', 
+                    'icon':'folder-box-16.png'},),
         widget=DataGridWidget(
             label="Available resources",
-            description="Enter available resources for this lecture",
+            description=""""Enter available resources for this lecture. Title 
+is the name of a resource as shown to the user; URL must be a path inside this
+site or an URL to an external source; Icon is optional.""",
             column_names=('Title', 'URL', 'Icon',),
             label_msgid='label_available_resourcess',
             description_msgid = 'help_available_resources',
@@ -146,6 +272,35 @@ class ECLecture(ATFolder):
         })
 
     # -- methods --------------------------------------------------------------
+    security.declarePrivate('getRecurrenceDisplayList')
+    def getRecurrenceDisplayList(self):
+        """
+        Returns a display list of recurrence types.
+        """
+        dl = DisplayList(())
+        
+        dl.add(0, 'Daily')
+        dl.add(1, 'Weekly')
+
+        return dl
+
+
+    def getTimePeriod(self):
+        """
+        """
+        value = self.getTimePeriodForEdit()
+        return ' - '.join(value)
+
+    def getTimePeriodForEdit(self):
+        """
+        """
+        value = self.getField('timePeriod').get(self)
+        result = []
+        
+        for item in value:
+            result.append('%02d:%02d' % (item/60, item%60))
+            
+        return result
 
 
 registerATCT(ECLecture, PRODUCT_NAME)

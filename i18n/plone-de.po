@@ -16,3 +16,7 @@ msgstr ""
 "Domain: plone\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
+#. Default: "xxx"
+#: 
+msgid "lecture"
+msgstr "Lehrveranstaltung"

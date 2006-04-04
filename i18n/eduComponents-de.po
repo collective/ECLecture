@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-03 13:46+0000\n"
+"POT-Creation-Date: 2006-04-04 09:35+0000\n"
 "PO-Revision-Date: 2006-04-01 12:00+0100\n"
 "Last-Translator: Mario Amelung <amelung@iws.cs.uni-magdeburg.de>\n"
 "Language-Team: WDOK <amelung@iws.cs.uni-magdeburg.de>\n"
@@ -16,63 +16,108 @@ msgstr ""
 "Domain: eduComponents\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
+#. Default: "Icon"
+#: ECLecture.py
+msgid "Icon"
+msgstr "Icon"
+
+#. Default: "Title"
+#: ECLecture.py
+msgid "Title"
+msgstr "Titel"
+
+#. Default: "URL"
+#: ECLecture.py
+msgid "URL"
+msgstr "URL"
+
+#. Default: "Enter available resources for this lecture"
+#: ECLecture.py
+msgid "help_available_resources"
+msgstr "Tragen Sie hier die für die Lehrveranstaltung verfügbaren Materialien ein. Ein Eingtrag besteht aus dem Titel und dem Pfad innerhalb diese Seite bzw. einem URL zu einer externen Quelle. Optional können Sie ein Icon angeben."
+
+#. Default: "Enter lecture information"
+#: ECLecture.py
+msgid "help_body_text"
+msgstr "Geben Sie hier den Haupttext ein"
+
 #. Default: "Date and time for this lecture"
 #: ECLecture.py
 msgid "help_date_time"
-msgstr ""
+msgstr "Zeit der Vorlesung"
 
 #. Default: "Link to the directory entry for this lecture"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "help_directory_entry"
-msgstr ""
+msgstr "Link zum Verzeichniseintrag"
+
+#. Default: "Date for the first session for this lecture"
+#: ECLecture.py
+msgid "help_first_session"
+msgstr "Erster Termin für die Vorlesung"
 
 #. Default: "Link to the registration for this lecture"
 #: ECLecture.py
 msgid "help_join_url"
-msgstr ""
+msgstr "Link zur Anmeldeseite"
 
 #. Default: "Room for this lecture"
 #: ECLecture.py
 msgid "help_room"
-msgstr ""
+msgstr "Ort der Vorlesung"
+
+#. Default: "Available resources"
+#: ECLecture.py
+msgid "label_available_resourcess"
+msgstr "Materialien"
 
 #. Default: "Body Text"
 #: ECLecture.py
 msgid "label_body_text"
-msgstr ""
+msgstr "Haupttext"
 
 #. Default: "Date/Time"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_date_time"
-msgstr ""
+msgstr "Zeit"
 
 #. Default: "Directory"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_directory"
-msgstr ""
+msgstr "Verzeichnis"
+
+#. Default: "Directory entry"
+#: ECLecture.py
+msgid "label_directory_entry"
+msgstr "Link zum Verzeichniseintrag"
+
+#. Default: "First session"
+#: ECLecture.py
+msgid "label_first_session"
+msgstr "Erster Termin"
 
 #. Default: "Registration link"
 #: ECLecture.py
 msgid "label_join_url"
-msgstr ""
+msgstr "Link zur Anmeldung"
 
 #. Default: "Click here to register for this lecture"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_register"
-msgstr ""
+msgstr "Klicken Sie hier, um sich für die Lehrveranstaltung anzumelden"
 
 #. Default: "Registration"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_registration"
-msgstr ""
+msgstr "Anmeldung"
 
 #. Default: "Available resources"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_resources_legend"
-msgstr ""
+msgstr "Materialien"
 
 #. Default: "Room"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_room"
-msgstr ""
+msgstr "Raum"
 

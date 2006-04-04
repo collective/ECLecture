@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-03 13:46+0000\n"
+"POT-Creation-Date: 2006-04-04 09:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,31 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eduComponents\n"
 
+#. Default: "Icon"
+#: ECLecture.py
+msgid "Icon"
+msgstr ""
+
+#. Default: "Title"
+#: ECLecture.py
+msgid "Title"
+msgstr ""
+
+#. Default: "URL"
+#: ECLecture.py
+msgid "URL"
+msgstr ""
+
+#. Default: "Enter available resources for this lecture"
+#: ECLecture.py
+msgid "help_available_resources"
+msgstr ""
+
+#. Default: "Enter lecture information"
+#: ECLecture.py
+msgid "help_body_text"
+msgstr ""
+
 #. Default: "Date and time for this lecture"
 #: ECLecture.py
 msgid "help_date_time"
@@ -27,6 +52,11 @@ msgstr ""
 msgid "help_directory_entry"
 msgstr ""
 
+#. Default: "Date for the first session for this lecture"
+#: ECLecture.py
+msgid "help_first_session"
+msgstr ""
+
 #. Default: "Link to the registration for this lecture"
 #: ECLecture.py
 msgid "help_join_url"
@@ -35,6 +65,11 @@ msgstr ""
 #. Default: "Room for this lecture"
 #: ECLecture.py
 msgid "help_room"
+msgstr ""
+
+#. Default: "Available resources"
+#: ECLecture.py
+msgid "label_available_resourcess"
 msgstr ""
 
 #. Default: "Body Text"
@@ -50,6 +85,16 @@ msgstr ""
 #. Default: "Directory"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_directory"
+msgstr ""
+
+#. Default: "Directory entry"
+#: ECLecture.py
+msgid "label_directory_entry"
+msgstr ""
+
+#. Default: "First session"
+#: ECLecture.py
+msgid "label_first_session"
 msgstr ""
 
 #. Default: "Registration link"
