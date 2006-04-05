@@ -106,13 +106,12 @@
           <tr tal:define="lecturer here/getLecturer"
               tal:condition="lecturer">
             <th i18n:translate="label_lecturer">Lecturer</th>
-            <td>
-              <a href=""
-                 class="link-plain"  
-                 tal:attributes="href python: mtool.getHomeUrl(lecturer, verifyPermission=1)"
-                 tal:content="python: mtool.getMemberById(lecturer).getProperty('fullname') or lecturer">
-                The lecture's fullname or user ID
-              </a>
+            <td tal:define="info python:mtool.getMemberInfo(lecturer)">
+	      <a href="#"
+		tal:attributes="href python: mtool.getHomeUrl(lecturer)"
+		tal:content="python:info and info['fullname'] or lecturer">
+		The lecturer's fullname or user ID
+	      </a>
             </td>
           </tr>
           <tr tal:condition="here/getDirectoryEntry">
@@ -140,3 +139,13 @@
 
   </body>
 </html>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode:xml
+sgml-local-catalogs:("/usr/local/lib/sgml/XHTML11.cat")
+sgml-validate-command:"xmllint \\-\\-valid \\-\\-noout %s %s"
+sgml-indent-step:2
+sgml-indent-data:t
+fill-column:79
+End:
+-->
