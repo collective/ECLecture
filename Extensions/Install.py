@@ -82,6 +82,13 @@ def install(self):
     # register tool to preferences panel
     addPrefsPanel(self, out)
 
+    # enable portal_factory for given types
+    factory_tool = getToolByName(self, 'portal_factory')
+    factory_types=[
+        ECL_NAME,
+        ] + factory_tool.getFactoryTypes().keys()
+    factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
+
     print >> out, "Successfully installed %s." % PRODUCT_NAME
     return out.getvalue()
 

@@ -19,71 +19,180 @@ msgstr ""
 
 #. Default: "Registration link"
 #: ECLecture.py
-msgid = "label_join_url"
+msgid "label_join_url"
 msgstr ""
 
 #. Default: "Link to the registration for this lecture"
 #: ECLecture.py
-msgid = "help_join_url",
+msgid "help_join_url",
 msgstr ""
 
 #. Default: "First session"
 #: ECLecture.py
-msgid = "label_first_session"
+msgid "label_first_session"
 msgstr ""
 
 #. Default: "Date for the first session for this lecture"
 #: ECLecture.py
-msgid = "help_first_session"
+msgid "help_first_session"
 msgstr ""
 
 #. Default: "Room for this lecture"
 #: ECLecture.py
-msgid = "help_room",
+msgid "help_room",
 msgstr ""
 
 #. Default: "Directory entry"
 #: ECLecture.py
-msgid = "label_directory_entry"
+msgid "label_directory_entry"
 msgstr ""
 
 #. Default: "Link to the directory entry for this lecture"
 #: ECLecture.py
-msgid = "help_directory_entry"
+msgid "help_directory_entry"
 msgstr ""
 
 #. Default: "Available resources"
 #: ECLecture.py
-msgid = "label_available_resourcess"
+msgid "label_available_resourcess"
 msgstr ""
 
 #. Default: "Enter available resources for this lecture"
 #: ECLecture.py
-msgid = "help_available_resources"
+msgid "help_available_resources"
 msgstr ""
 
 #. Default: "Body Text"
 #: ECLecture.py
-msgid = "label_body_text",
+msgid "label_body_text",
 msgstr ""
 
 #. Default: "Enter lecture information"
 #: ECLecture.py
-msgid = "help_body_text"
+msgid "help_body_text"
 msgstr ""
 
+#. Default: "Lecturer"
+#: ECLecture.py
+msgid "label_lecturer"
+msgstr ""
+
+#. Default: "Enter user name of the lecturer"
+#: ECLecture.py
+msgid "help_lecturer"
+msgstr ""
+
+#. Default: "Time period"
+#: ECLecture.py
+msgid "label_time_period"
+msgstr ""
+
+#. Default: "Start and end times of this lecture
+#: ECLecture.py
+msgid "help_time_period"
+msgstr ""
+
+#. Default: "Start date",
+#: ECLecture.py
+msgid "label_start_date"
+msgstr ""
+
+#. Default: "First regular date"
+#: ECLecture.py
+msgid "help_start_date"
+msgstr ""
+
+#. Default: "End date"
+#: ECLecture.py 
+msgid "label_end_date"
+msgstr ""
+
+#. Default: "Last regular date"
+#: ECLecture.py
+msgid "help_end_date"
+msgstr ""
+
+#. Default: "Recurrence"
+#: ECLecture.py
+msgid "label_recurrence"
+msgstr ""
+
+#. Default: "How often this lecture takes place"
+#: ECLecture.py
+msgid "help_recurrence"
+msgstr ""
 
 #. Default: "Title"
 #: ECLecture.py
-msgid = "Title"
-msgstr=""
+msgid "Title"
+msgstr ""
 
 #. Default: "URL"
 #: ECLecture.py
-msgid = "URL"
-msgstr=""
+msgid "URL"
+msgstr ""
 
 #. Default: "Icon"
 #: ECLecture.py
-msgid = "Icon"
-msgstr=""
+msgid "Icon"
+msgstr ""
+
+#. Default: "once"
+#: ECLecture.py
+msgid "once"
+msgstr ""
+
+#. Default: "daily"
+#: ECLecture.py
+msgid "daily"
+msgstr ""
+
+#. Default: "weekly"
+#: ECLecture.py
+msgid "weekly"
+msgstr ""
+
+#. Default: "monthly"
+#: ECLecture.py
+msgid "monthly"
+msgstr ""
+
+#. Default: "yearly"
+#: ECLecture.py
+msgid "yearly"
+msgstr ""
+
+#. Default: "Monday"
+#: ECLecture.py
+msgid "Monday"
+msgstr ""
+
+#. Default: "Tuesday"
+#: ECLecture.py
+msgid "Tuesday"
+msgstr ""
+
+#. Default: "Wednesday"
+#: ECLecture.py
+msgid "Wednesday"
+msgstr ""
+
+#. Default: "Thursday"
+#: ECLecture.py
+msgid "Thursday"
+msgstr ""
+
+#. Default: "Friday"
+#: ECLecture.py
+msgid "Friday"
+msgstr ""
+
+#. Default: "Saturday"
+#: ECLecture.py
+msgid "Saturday"
+msgstr ""
+
+#. Default: "Sunday"
+#: ECLecture.py
+msgid "Sunday"
+msgstr ""

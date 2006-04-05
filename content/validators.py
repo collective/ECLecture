@@ -31,6 +31,8 @@ except ImportError:
 
 class TimePeriodValidator:
     """
+    Ensure that we don't get a value for start and/or end time of a time period
+    which are not valid.
     """
     __implements__ = IValidator
 

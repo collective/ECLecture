@@ -30,7 +30,7 @@ from Products.Archetypes.Registry import registerField
 from Products.validation import validation
 
 
-from Products.ECLecture.validators import TimePeriodValidator
+from validators import TimePeriodValidator
 
 # -- register time period validator -------------------------------------------
 isTimePeriod = TimePeriodValidator("isTimePeriod")

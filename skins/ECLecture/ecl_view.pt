@@ -75,15 +75,25 @@
           </tr>
           <tr>
             <th i18n:translate="label_time">Time</th>
-            <td>
-              <span 
-                tal:condition="here/getTimePeriod"
-                tal:replace="here/getTimePeriod"/>
+            <td tal:define="weekday here/getStartDateWeekday;
+                            timePeriod here/getTimePeriod">
+              <span tal:condition="weekday" tal:omit-tag="">
+                <span tal:omit-tag="" i18n:translate="" tal:content="weekday"/>,
+              </span>
+              <span tal:omit-tag=""
+                  tal:condition="timePeriod"
+                  tal:content="timePeriod"/>
             </td>
           </tr>
-          <tr tal:condition="python: here.firstSession">
+          <tr tal:define="datetime python: here.firstSession"
+              tal:condition="datetime">
             <th i18n:translate="label_first_session">First session</th>
-            <td tal:content="python: here.toLocalizedTime(here.firstSession, True)"/>
+            <td> 
+              <span tal:condition="python: datetime.hour() == 0 and datetime.minute() == 0"
+                tal:content="python: here.toLocalizedTime(here.firstSession, False)"/>
+              <span tal:condition="python: datetime.hour() != 0 or datetime.minute() != 0"
+                tal:content="python: here.toLocalizedTime(here.firstSession, True)"/>
+            </td>
           </tr>
           <tr>
             <th i18n:translate="label_room">Room</th>
@@ -91,6 +101,18 @@
               <span 
                 tal:condition="here/getRoom"
                 tal:replace="here/getRoom"/>
+            </td>
+          </tr>
+          <tr tal:define="lecturer here/getLecturer"
+              tal:condition="lecturer">
+            <th i18n:translate="label_lecturer">Lecturer</th>
+            <td>
+              <a href=""
+                 class="link-plain"  
+                 tal:attributes="href python: mtool.getHomeUrl(lecturer, verifyPermission=1)"
+                 tal:content="python: mtool.getMemberById(lecturer).getProperty('fullname') or lecturer">
+                The lecture's fullname or user ID
+              </a>
             </td>
           </tr>
           <tr tal:condition="here/getDirectoryEntry">

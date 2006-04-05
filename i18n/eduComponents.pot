@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-04 09:35+0000\n"
+"POT-Creation-Date: 2006-04-05 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,34 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eduComponents\n"
 
+#. Default: "Friday"
+#: ECLecture.py
+msgid "Friday"
+msgstr ""
+
 #. Default: "Icon"
 #: ECLecture.py
 msgid "Icon"
+msgstr ""
+
+#. Default: "Monday"
+#: ECLecture.py
+msgid "Monday"
+msgstr ""
+
+#. Default: "Saturday"
+#: ECLecture.py
+msgid "Saturday"
+msgstr ""
+
+#. Default: "Sunday"
+#: ECLecture.py
+msgid "Sunday"
+msgstr ""
+
+#. Default: "Thursday"
+#: ECLecture.py
+msgid "Thursday"
 msgstr ""
 
 #. Default: "Title"
@@ -27,9 +52,24 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#. Default: "Tuesday"
+#: ECLecture.py
+msgid "Tuesday"
+msgstr ""
+
 #. Default: "URL"
 #: ECLecture.py
 msgid "URL"
+msgstr ""
+
+#. Default: "Wednesday"
+#: ECLecture.py
+msgid "Wednesday"
+msgstr ""
+
+#. Default: "daily"
+#: ECLecture.py
+msgid "daily"
 msgstr ""
 
 #. Default: "Enter available resources for this lecture"
@@ -42,14 +82,14 @@ msgstr ""
 msgid "help_body_text"
 msgstr ""
 
-#. Default: "Date and time for this lecture"
-#: ECLecture.py
-msgid "help_date_time"
-msgstr ""
-
 #. Default: "Link to the directory entry for this lecture"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "help_directory_entry"
+msgstr ""
+
+#. Default: "Last regular date"
+#: ECLecture.py
+msgid "help_end_date"
 msgstr ""
 
 #. Default: "Date for the first session for this lecture"
@@ -62,9 +102,29 @@ msgstr ""
 msgid "help_join_url"
 msgstr ""
 
+#. Default: "Enter user name of the lecturer"
+#: ECLecture.py
+msgid "help_lecturer"
+msgstr ""
+
+#. Default: "How often this lecture takes place"
+#: ECLecture.py
+msgid "help_recurrence"
+msgstr ""
+
 #. Default: "Room for this lecture"
 #: ECLecture.py
 msgid "help_room"
+msgstr ""
+
+#. Default: "First regular date"
+#: ECLecture.py
+msgid "help_start_date"
+msgstr ""
+
+#. Default: "Start and end times of this lecture
+#: ECLecture.py
+msgid "help_time_period"
 msgstr ""
 
 #. Default: "Available resources"
@@ -77,11 +137,6 @@ msgstr ""
 msgid "label_body_text"
 msgstr ""
 
-#. Default: "Date/Time"
-#: .\skins\ECLecture\ecl_view.pt
-msgid "label_date_time"
-msgstr ""
-
 #. Default: "Directory"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_directory"
@@ -92,14 +147,29 @@ msgstr ""
 msgid "label_directory_entry"
 msgstr ""
 
-#. Default: "First session"
+#. Default: "End date"
 #: ECLecture.py
+msgid "label_end_date"
+msgstr ""
+
+#. Default: "First session"
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_first_session"
 msgstr ""
 
 #. Default: "Registration link"
 #: ECLecture.py
 msgid "label_join_url"
+msgstr ""
+
+#. Default: "Lecturer"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_lecturer"
+msgstr ""
+
+#. Default: "Recurrence"
+#: ECLecture.py
+msgid "label_recurrence"
 msgstr ""
 
 #. Default: "Click here to register for this lecture"
@@ -120,5 +190,40 @@ msgstr ""
 #. Default: "Room"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_room"
+msgstr ""
+
+#. Default: "Start date",
+#: ECLecture.py
+msgid "label_start_date"
+msgstr ""
+
+#. Default: "Time"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_time"
+msgstr ""
+
+#. Default: "Time period"
+#: ECLecture.py
+msgid "label_time_period"
+msgstr ""
+
+#. Default: "monthly"
+#: ECLecture.py
+msgid "monthly"
+msgstr ""
+
+#. Default: "once"
+#: ECLecture.py
+msgid "once"
+msgstr ""
+
+#. Default: "weekly"
+#: ECLecture.py
+msgid "weekly"
+msgstr ""
+
+#. Default: "yeary"
+#: ECLecture.py
+msgid "yearly"
 msgstr ""
 

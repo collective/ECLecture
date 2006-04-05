@@ -50,24 +50,28 @@ from Products.DataGridField.DataGridWidget import DataGridWidget
 
 # local imports
 from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, ECL_META, ECL_ICON, I18N_DOMAIN
-from Products.ECLecture.TimePeriodField import TimePeriodField
+from TimePeriodField import TimePeriodField
+
+NO_RECURRENCE = 0
+DAILY = 1
+WEEKLY = 2
+MONTHLY = 3
+YEARLY = 4
 
 # -- schema definition --------------------------------------------------------
 ECLectureSchema = ATFolderSchema.copy() + Schema((
 
-    StringField('joinURL',
-        required = False,
+    StringField('lecturer',
+        required = True,
         widget = StringWidget(
-            label = "Registration link",
-            description = """Link to the registration for this lecture""",
-            label_msgid = 'label_join_url',
-            description_msgid = 'help_join_url',
-            size = 65,
+            label = "Lecturer",
+            description = "Enter user name of the lecturer",
+            label_msgid = 'label_lecturer',
+            description_msgid = 'help_lecturer',
             i18n_domain = I18N_DOMAIN,
         ),
     ),
-                                                   
-    
+
     TimePeriodField('timePeriod',
         accessor = 'getTimePeriod',
         edit_accessor = 'getTimePeriodForEdit',
@@ -77,7 +81,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
             size = 5,
             maxlength = 5,
             label = "Time period",
-            description = "",
+            description = "Start and end times of this lecture",
             label_msgid = 'label_time_period',
             description_msgid = 'help_time_period',
             i18n_domain = I18N_DOMAIN,
@@ -88,7 +92,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         required = True,
         widget = CalendarWidget(
             label = "Start date",
-            description = "",
+            description = "First regular date",
             label_msgid = 'label_start_date',
             description_msgid = 'help_start_date',
             show_hm = False, 
@@ -101,7 +105,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         required = True,
         widget = CalendarWidget(
             label = "End date",
-            description = "",
+            description = "Last regular date",
             label_msgid = 'label_end_date',
             description_msgid = 'help_end_date',
             show_hm = False, 
@@ -111,35 +115,49 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
     ),
                                                    
     IntegerField('recurrence',
+        required = True,
         vocabulary = 'getRecurrenceDisplayList',
+        default = WEEKLY,
         widget = SelectionWidget(
             format = "radio", # possible values: flex, select, radio
             label = "Recurrence",
-            description = "",
+            description = "How often this lecture takes place",
             label_msgid = 'label_recurrence',
             description_msgid = 'help_recurrence',
             i18n_domain = I18N_DOMAIN,
         ),
     ),
                                                    
+    DateTimeField('firstSession',
+        widget = CalendarWidget(
+            label = "First session",
+            description = "Date for the first session for this lecture",
+            label_msgid = 'label_first_session',
+            description_msgid = 'help_first_session',
+            #show_hm = False, 
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
     StringField('room',
         required = True,
         widget = StringWidget(
             label = "Room",
-            description = """Room for this lecture""",
+            description = "Room for this lecture",
             label_msgid = 'label_room',
             description_msgid = 'help_room',
             i18n_domain = I18N_DOMAIN,
         ),
     ),
 
-    DateTimeField('firstSession',
-        widget = CalendarWidget(
-            label = "First session",
-            description = """Date for the first session for this lecture""",
-            label_msgid = 'label_first_session',
-            description_msgid = 'help_first_session',
-            #show_hm = False, 
+    StringField('joinURL',
+        required = False,
+        widget = StringWidget(
+            label = "Registration link",
+            description = "Link to the registration for this lecture",
+            label_msgid = 'label_join_url',
+            description_msgid = 'help_join_url',
+            size = 65,
             i18n_domain = I18N_DOMAIN,
         ),
     ),
@@ -148,7 +166,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         required = False,
         widget = StringWidget(
             label = "Directory entry",
-            description = """Link to the directory entry for this lecture""",
+            description = "Link to the directory entry for this lecture",
             label_msgid = 'label_directory_entry',
             description_msgid = 'help_directory_entry',
             size = 65,
@@ -221,6 +239,10 @@ class ECLecture(ATFolder):
     immediate_view = 'ecl_view'
 
     #suppl_views    = ()
+    _at_rename_after_creation = True
+
+    typeDescription = "A folder containing details about a lecture."
+    typeDescMsgId = 'description_edit_eclecture'
 
     # -- actions --------------------------------------------------------------
     aliases = updateAliases(ATFolder, {
@@ -228,21 +250,23 @@ class ECLecture(ATFolder):
         })
 
     # -- methods --------------------------------------------------------------
-    security.declarePrivate('getRecurrenceDisplayList')
+    security.declarePublic('getRecurrenceDisplayList')
     def getRecurrenceDisplayList(self):
         """
         Returns a display list of recurrence types.
         """
         dl = DisplayList(())
         
-        dl.add(0, 'Daily')
-        dl.add(1, 'Weekly')
-        dl.add(2, 'Monthly')
-        dl.add(3, 'Yearly')
+        dl.add(NO_RECURRENCE, self.translate(msgid='once', domain=I18N_DOMAIN, default='once'))
+        dl.add(DAILY, self.translate(msgid='daily', domain=I18N_DOMAIN, default='daily'))
+        dl.add(WEEKLY, self.translate(msgid='weekly', domain=I18N_DOMAIN, default='weekly'))
+        dl.add(MONTHLY, self.translate(msgid='monthly', domain=I18N_DOMAIN, default='monthly'))
+        #dl.add(YEARLY, self.translate(msgid='yearly', domain=I18N_DOMAIN, default='yearly'))
 
         return dl
 
 
+    security.declarePublic('getTimePeriod')
     def getTimePeriod(self):
         """
         @return a string representing a time period
@@ -251,6 +275,17 @@ class ECLecture(ATFolder):
         return ' - '.join(value)
 
 
+    security.declarePublic('getStartDateWeekday')
+    def getStartDateWeekday(self):
+        """
+        """
+        if self.recurrence in [NO_RECURRENCE, WEEKLY]:
+            date = self.getField('startDate').get(self)
+            if date:
+                return date.Day()
+
+
+    security.declarePrivate('getTimePeriodForEdit')
     def getTimePeriodForEdit(self):
         """
         @return a list with two values representing start and end time of a 
@@ -259,8 +294,12 @@ class ECLecture(ATFolder):
         value = self.getField('timePeriod').get(self)
         result = []
         
-        for item in value:
-            result.append('%02d:%02d' % (item/60, item%60))
+        try:
+            for item in value:
+                if item:
+                    result.append('%02d:%02d' % (item/60, item%60))
+        except:
+            raise Exception(repr(value))
             
         return result
 

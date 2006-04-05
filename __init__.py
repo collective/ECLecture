@@ -5,6 +5,10 @@
 #
 # This file is part of ECLecture.
 
+from zLOG import LOG, INFO
+
+LOG('ECLecture', INFO, 'Installing Product')
+
 import os, os.path
 
 from Globals import package_home
@@ -16,13 +20,14 @@ from Products.CMFCore.DirectoryView import registerDirectory
 # local imports
 from Products.ECLecture.config import *
 
+
 registerDirectory(SKINS_DIR, GLOBALS)
 
 def initialize(context):
     """
     """
     # Import Types here to register them
-    import ECLecture
+    from Products.ECLecture import content
 
     from AccessControl import ModuleSecurityInfo
     from AccessControl import allow_module, allow_class, allow_type

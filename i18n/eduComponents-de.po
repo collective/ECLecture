@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-04 09:35+0000\n"
-"PO-Revision-Date: 2006-04-01 12:00+0100\n"
+"POT-Creation-Date: 2006-04-05 11:54+0000\n"
+"PO-Revision-Date: 2006-04-05 11:37+0100\n"
 "Last-Translator: Mario Amelung <amelung@iws.cs.uni-magdeburg.de>\n"
 "Language-Team: WDOK <amelung@iws.cs.uni-magdeburg.de>\n"
 "MIME-Version: 1.0\n"
@@ -16,20 +16,60 @@ msgstr ""
 "Domain: eduComponents\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
+#. Default: "Friday"
+#: ECLecture.py
+msgid "Friday"
+msgstr "Freitag"
+
 #. Default: "Icon"
 #: ECLecture.py
 msgid "Icon"
 msgstr "Icon"
+
+#. Default: "Monday"
+#: ECLecture.py
+msgid "Monday"
+msgstr "Montag"
+
+#. Default: "Saturday"
+#: ECLecture.py
+msgid "Saturday"
+msgstr "Samstag"
+
+#. Default: "Sunday"
+#: ECLecture.py
+msgid "Sunday"
+msgstr "Sonntag"
+
+#. Default: "Thursday"
+#: ECLecture.py
+msgid "Thursday"
+msgstr "Donnerstag"
 
 #. Default: "Title"
 #: ECLecture.py
 msgid "Title"
 msgstr "Titel"
 
+#. Default: "Tuesday"
+#: ECLecture.py
+msgid "Tuesday"
+msgstr "Dienstag"
+
 #. Default: "URL"
 #: ECLecture.py
 msgid "URL"
 msgstr "URL"
+
+#. Default: "Wednesday"
+#: ECLecture.py
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#. Default: "daily"
+#: ECLecture.py
+msgid "daily"
+msgstr "täglich"
 
 #. Default: "Enter available resources for this lecture"
 #: ECLecture.py
@@ -41,30 +81,50 @@ msgstr "Tragen Sie hier die für die Lehrveranstaltung verfügbaren Materialien 
 msgid "help_body_text"
 msgstr "Geben Sie hier den Haupttext ein"
 
-#. Default: "Date and time for this lecture"
-#: ECLecture.py
-msgid "help_date_time"
-msgstr "Zeit der Vorlesung"
-
 #. Default: "Link to the directory entry for this lecture"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "help_directory_entry"
 msgstr "Link zum Verzeichniseintrag"
 
+#. Default: "Last regular date"
+#: ECLecture.py
+msgid "help_end_date"
+msgstr "Letzter regulärer Termin"
+
 #. Default: "Date for the first session for this lecture"
 #: ECLecture.py
 msgid "help_first_session"
-msgstr "Erster Termin für die Vorlesung"
+msgstr "Termin für eine Vorbesprechung"
 
 #. Default: "Link to the registration for this lecture"
 #: ECLecture.py
 msgid "help_join_url"
 msgstr "Link zur Anmeldeseite"
 
+#. Default: "Enter user name of the lecturer"
+#: ECLecture.py
+msgid "help_lecturer"
+msgstr "Benutzername des Dozenten"
+
+#. Default: "How often this lecture takes place"
+#: ECLecture.py
+msgid "help_recurrence"
+msgstr "Turnus dieser Lehrveranstaltung"
+
 #. Default: "Room for this lecture"
 #: ECLecture.py
 msgid "help_room"
-msgstr "Ort der Vorlesung"
+msgstr "Ort der Lehrveranstaltung"
+
+#. Default: "First regular date"
+#: ECLecture.py
+msgid "help_start_date"
+msgstr "Erster regulärer Termin"
+
+#. Default: "Start and end times of this lecture
+#: ECLecture.py
+msgid "help_time_period"
+msgstr "Begin und Ende der Lehrveranstaltung"
 
 #. Default: "Available resources"
 #: ECLecture.py
@@ -76,11 +136,6 @@ msgstr "Materialien"
 msgid "label_body_text"
 msgstr "Haupttext"
 
-#. Default: "Date/Time"
-#: .\skins\ECLecture\ecl_view.pt
-msgid "label_date_time"
-msgstr "Zeit"
-
 #. Default: "Directory"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_directory"
@@ -91,15 +146,30 @@ msgstr "Verzeichnis"
 msgid "label_directory_entry"
 msgstr "Link zum Verzeichniseintrag"
 
-#. Default: "First session"
+#. Default: "End date"
 #: ECLecture.py
+msgid "label_end_date"
+msgstr "Letzter Termin"
+
+#. Default: "First session"
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_first_session"
-msgstr "Erster Termin"
+msgstr "Vorbesprechung"
 
 #. Default: "Registration link"
 #: ECLecture.py
 msgid "label_join_url"
 msgstr "Link zur Anmeldung"
+
+#. Default: "Lecturer"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_lecturer"
+msgstr "Dozent"
+
+#. Default: "Recurrence"
+#: ECLecture.py
+msgid "label_recurrence"
+msgstr "Turnus"
 
 #. Default: "Click here to register for this lecture"
 #: .\skins\ECLecture\ecl_view.pt
@@ -120,4 +190,40 @@ msgstr "Materialien"
 #: .\skins\ECLecture\ecl_view.pt
 msgid "label_room"
 msgstr "Raum"
+
+#. Default: "Start date",
+#: ECLecture.py
+msgid "label_start_date"
+msgstr "Erster Termin"
+
+#. Default: "Time"
+#: .\skins\ECLecture\ecl_view.pt
+msgid "label_time"
+msgstr "Zeit"
+
+#. Default: "Time period"
+#: ECLecture.py
+msgid "label_time_period"
+msgstr "Zeit"
+
+#. Default: "monthly"
+#: ECLecture.py
+msgid "monthly"
+msgstr "monatlich"
+
+#. Default: "once"
+#: ECLecture.py
+msgid "once"
+msgstr "einmalig"
+
+#. Default: "weekly"
+#: ECLecture.py
+msgid "weekly"
+msgstr "wöchentlich"
+
+#. Default: "yeary"
+#: ECLecture.py
+#, fuzzy
+msgid "yearly"
+msgstr "jährlich"
 
