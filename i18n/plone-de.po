@@ -16,7 +16,17 @@ msgstr ""
 "Domain: plone\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
-#. Default: "xxx"
+#. Default: "Lecture"
 #: 
-msgid "lecture"
+msgid "Lecture"
 msgstr "Lehrveranstaltung"
+
+#. Default: "Participants"
+#: 
+msgid "Participants"
+msgstr "Teilnehmer"
+
+#. Default: "A folder containing details about a lecture."
+#: 
+msgid "description_edit_eclecture"
+msgstr "Ein Ordner, der Informationen über eine Lehrveranstaltung enthält."

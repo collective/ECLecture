@@ -52,6 +52,16 @@ msgstr ""
 msgid "help_directory_entry"
 msgstr ""
 
+#. Default: "Associated group"
+#: ECLecture.py
+msgid "label_associated_group"
+msgstr ""
+
+#. Default: "You can associate a group with this lecture to represent its participants"
+#: ECLecture.py
+msgid "help_associated_group"
+msgstr ""
+
 #. Default: "Available resources"
 #: ECLecture.py
 msgid "label_available_resourcess"

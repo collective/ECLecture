@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-05 11:54+0000\n"
+"POT-Creation-Date: 2006-04-05 17:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,6 +72,11 @@ msgstr ""
 msgid "daily"
 msgstr ""
 
+#. Default: "You can associate a group with this lecture to represent its participants"
+#: ECLecture.py
+msgid "help_associated_group"
+msgstr ""
+
 #. Default: "Enter available resources for this lecture"
 #: ECLecture.py
 msgid "help_available_resources"
@@ -83,7 +88,7 @@ msgid "help_body_text"
 msgstr ""
 
 #. Default: "Link to the directory entry for this lecture"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "help_directory_entry"
 msgstr ""
 
@@ -127,6 +132,11 @@ msgstr ""
 msgid "help_time_period"
 msgstr ""
 
+#. Default: "Associated group: ${groupname}"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "label_associated_group"
+msgstr ""
+
 #. Default: "Available resources"
 #: ECLecture.py
 msgid "label_available_resourcess"
@@ -138,7 +148,7 @@ msgid "label_body_text"
 msgstr ""
 
 #. Default: "Directory"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_directory"
 msgstr ""
 
@@ -153,7 +163,7 @@ msgid "label_end_date"
 msgstr ""
 
 #. Default: "First session"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_first_session"
 msgstr ""
 
@@ -163,7 +173,7 @@ msgid "label_join_url"
 msgstr ""
 
 #. Default: "Lecturer"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_lecturer"
 msgstr ""
 
@@ -173,22 +183,22 @@ msgid "label_recurrence"
 msgstr ""
 
 #. Default: "Click here to register for this lecture"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_register"
 msgstr ""
 
 #. Default: "Registration"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_registration"
 msgstr ""
 
 #. Default: "Available resources"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_resources_legend"
 msgstr ""
 
 #. Default: "Room"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_room"
 msgstr ""
 
@@ -198,7 +208,7 @@ msgid "label_start_date"
 msgstr ""
 
 #. Default: "Time"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_time"
 msgstr ""
 
@@ -222,7 +232,7 @@ msgstr ""
 msgid "weekly"
 msgstr ""
 
-#. Default: "yeary"
+#. Default: "yearly"
 #: ECLecture.py
 msgid "yearly"
 msgstr ""

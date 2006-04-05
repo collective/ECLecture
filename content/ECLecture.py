@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006 Otto-von-Guericke-Universit�t Magdeburg
+# Copyright (c) 2006 Otto-von-Guericke-Universität Magdeburg
 #
 # This file is part of ECLecture.
 #
@@ -21,7 +21,7 @@
 
 from AccessControl import ClassSecurityInfo
 
-from Products.CMFCore.permissions import View
+from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 
 from Products.Archetypes.public import DisplayList
@@ -49,7 +49,8 @@ from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
 # local imports
-from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, ECL_META, ECL_ICON, I18N_DOMAIN
+from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, \
+     ECL_META, ECL_ICON, I18N_DOMAIN, edit_permission
 from TimePeriodField import TimePeriodField
 
 NO_RECURRENCE = 0
@@ -57,6 +58,8 @@ DAILY = 1
 WEEKLY = 2
 MONTHLY = 3
 YEARLY = 4
+
+NO_GROUP = '----'
 
 # -- schema definition --------------------------------------------------------
 ECLectureSchema = ATFolderSchema.copy() + Schema((
@@ -174,18 +177,32 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         ),
     ),
 
+    StringField('associatedGroup',
+                required = False,
+                vocabulary = 'getGroupsDisplayList',
+                default = NO_GROUP,
+                widget = SelectionWidget(
+                    format = "select", # possible values: flex, select, radio
+                    label = "Associated group",
+                    description = "You can associate a group with this lecture to represent its participants",
+                    label_msgid = 'label_associated_group',
+                    description_msgid = 'help_associated_group',
+                    i18n_domain = I18N_DOMAIN,
+                ),
+    ),
+
     DataGridField('availableResources',
         default = ({'title':'Slides', 'url':'slides', 
                     'icon':'book_icon.gif'},                    
                    {'title':'Exercise', 'url':'exercise', 
                     'icon':'folder-box-16.png'},),
-        widget=DataGridWidget(
-            label="Available resources",
-            description=""""Enter available resources for this lecture. Title 
+        widget = DataGridWidget(
+            label = "Available resources",
+            description = """Enter available resources for this lecture. Title 
 is the name of a resource as shown to the user; URL must be a path inside this
 site or an URL to an external source; Icon is optional.""",
-            column_names=('Title', 'URL', 'Icon',),
-            label_msgid='label_available_resourcess',
+            column_names = ('Title', 'URL', 'Icon',),
+            label_msgid = 'label_available_resourcess',
             description_msgid = 'help_available_resources',
             i18n_domain = I18N_DOMAIN,
         ),
@@ -245,6 +262,17 @@ class ECLecture(ATFolder):
     typeDescMsgId = 'description_edit_eclecture'
 
     # -- actions --------------------------------------------------------------
+    actions = updateActions(ATFolder, (
+        {
+        'action':      'string:$object_url/ecl_participants',
+        'category':    'object',
+        'id':          'ecl_participants',
+        'name':        'Participants',
+        'permissions': (edit_permission,),
+        'condition'  : 'python: here.associatedGroup != "----"'
+        },
+    ))
+
     aliases = updateAliases(ATFolder, {
         'view': 'ecl_view',
         })
@@ -257,12 +285,32 @@ class ECLecture(ATFolder):
         """
         dl = DisplayList(())
         
-        dl.add(NO_RECURRENCE, self.translate(msgid='once', domain=I18N_DOMAIN, default='once'))
-        dl.add(DAILY, self.translate(msgid='daily', domain=I18N_DOMAIN, default='daily'))
-        dl.add(WEEKLY, self.translate(msgid='weekly', domain=I18N_DOMAIN, default='weekly'))
-        dl.add(MONTHLY, self.translate(msgid='monthly', domain=I18N_DOMAIN, default='monthly'))
-        #dl.add(YEARLY, self.translate(msgid='yearly', domain=I18N_DOMAIN, default='yearly'))
+        dl.add(NO_RECURRENCE, self.translate(msgid='once', domain=I18N_DOMAIN,
+                                             default='once'))
+        dl.add(DAILY, self.translate(msgid='daily', domain=I18N_DOMAIN,
+                                     default='daily'))
+        dl.add(WEEKLY, self.translate(msgid='weekly', domain=I18N_DOMAIN,
+                                      default='weekly'))
+        dl.add(MONTHLY, self.translate(msgid='monthly', domain=I18N_DOMAIN,
+                                       default='monthly'))
+        # dl.add(YEARLY, self.translate(msgid='yearly', domain=I18N_DOMAIN,
+        #                               default='yearly'))
 
+        return dl
+
+    security.declarePublic('getRecurrenceDisplayList')
+    def getGroupsDisplayList(self):
+        """
+        Return all available groups as a display list.
+        """
+        dl = DisplayList(())
+        dl.add(NO_GROUP, NO_GROUP)
+
+        groups_tool = getToolByName(self, 'portal_groups')
+        groups = groups_tool.searchForGroups(REQUEST=None)
+        for group in groups:
+            dl.add(group.getGroupId(), group.getGroupName())
+        
         return dl
 
 
