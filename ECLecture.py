@@ -4,18 +4,28 @@
 # Copyright (c) 2006 Otto-von-Guericke-Universit�t Magdeburg
 #
 # This file is part of ECLecture.
-import re
+#
+# ECAssignmentBox is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# ECAssignmentBox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ECAssignmentBox; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 
-from Products.Archetypes.Registry import registerField
-
 from Products.Archetypes.public import DisplayList
 from Products.Archetypes.public import Schema
-from Products.Archetypes.public import ObjectField
 from Products.Archetypes.public import TextField
 from Products.Archetypes.public import StringField
 from Products.Archetypes.public import DateTimeField
@@ -38,65 +48,11 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
-from Products.validation import validation
-
-# local
+# local imports
 from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, ECL_META, ECL_ICON, I18N_DOMAIN
-from Products.ECLecture.validators import TimePeriodValidator
+from Products.ECLecture.TimePeriodField import TimePeriodField
 
-isTimePeriod = TimePeriodValidator("isTimePeriod")
-validation.register(isTimePeriod)
-
-
-class TimePeriodField(ObjectField):
-    """A field that stores an integer representing a time value"""
-    __implements__ = ObjectField.__implements__
-
-    _properties = ObjectField._properties.copy()
-    _properties.update({
-        'type' : 'integer',
-        'size' : '5',
-        'widget' : StringWidget,
-        'default' : ['11:00', '13:00'],
-        'validators' : ('isTimePeriod'),
-        })
-
-    security  = ClassSecurityInfo()
-
-    security.declarePrivate('validate_required')
-    def validate_required(self, instance, value, errors):
-        result = True
-        
-        for item in value:
-            if not item:
-                result = False
-                break
-
-        return ObjectField.validate_required(self, instance, result, errors)
-
-    security.declarePrivate('set')
-    def set(self, instance, value, **kwargs):
-
-        result = []
-        
-        for item in value:
-            if self.required or item:
-                m = re.match('^(\d\d)[.:]?(\d\d)$', item.strip())
-                result.append((int(m.group(1)) * 60 ) + int(m.group(2)))
-            else:
-                result = []
-                break
-        
-        ObjectField.set(self, instance, result, **kwargs)
-
-
-registerField(TimePeriodField,
-              title='TimePeriod',
-              description=('')
-    )
-
-
-# ---
+# -- schema definition --------------------------------------------------------
 ECLectureSchema = ATFolderSchema.copy() + Schema((
 
     StringField('joinURL',
@@ -281,18 +237,24 @@ class ECLecture(ATFolder):
         
         dl.add(0, 'Daily')
         dl.add(1, 'Weekly')
+        dl.add(2, 'Monthly')
+        dl.add(3, 'Yearly')
 
         return dl
 
 
     def getTimePeriod(self):
         """
+        @return a string representing a time period
         """
         value = self.getTimePeriodForEdit()
         return ' - '.join(value)
 
+
     def getTimePeriodForEdit(self):
         """
+        @return a list with two values representing start and end time of a 
+                time period
         """
         value = self.getField('timePeriod').get(self)
         result = []
