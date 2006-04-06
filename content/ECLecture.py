@@ -59,7 +59,7 @@ WEEKLY = 2
 MONTHLY = 3
 YEARLY = 4
 
-NO_GROUP = '----'
+NO_GROUP = ''
 
 # -- schema definition --------------------------------------------------------
 ECLectureSchema = ATFolderSchema.copy() + Schema((
@@ -269,7 +269,7 @@ class ECLecture(ATFolder):
         'id':          'ecl_participants',
         'name':        'Participants',
         'permissions': (edit_permission,),
-        'condition'  : 'python: here.associatedGroup != "----"'
+        'condition'  : 'python: here.associatedGroup'
         },
     ))
 
@@ -304,7 +304,7 @@ class ECLecture(ATFolder):
         Return all available groups as a display list.
         """
         dl = DisplayList(())
-        dl.add(NO_GROUP, NO_GROUP)
+        dl.add(NO_GROUP, '----')
 
         groups_tool = getToolByName(self, 'portal_groups')
         groups = groups_tool.searchForGroups(REQUEST=None)
@@ -312,6 +312,27 @@ class ECLecture(ATFolder):
             dl.add(group.getGroupId(), group.getGroupName())
         
         return dl
+
+    def getGroupMembers(self, groupname):
+        """
+        This is a horrible workaround for the silly and totally
+        unnecessary (the code is already there!) limitation that you
+        can't retrieve the group members for groups stored in LDAP.
+
+        Returns a list of member objects.
+        """
+        mtool = self.portal_membership
+        groups = self.portal_groups.listGroupIds()
+        
+        members = []
+
+        for userid in mtool.listMemberIds():
+            if userid:
+                member = mtool.getMemberById(userid)
+                if 'group_' + groupname in member.getGroups():
+                    members.append(member)
+
+        return members
 
 
     security.declarePublic('getTimePeriod')
