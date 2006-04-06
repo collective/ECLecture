@@ -37,7 +37,7 @@
             <tal:resources repeat="resource here/getAvailableResources">
               <li tal:define="resourceTitle resource/title;
                               resourceURL   resource/url;
-                              resourceIcon  python: resource['icon'] or '%s/document_icon.gif' % portal_url;"
+                              resourceIcon  python: resource['icon'] or 'document_icon.gif';"
               >
 
                 <img src="" alt=""
