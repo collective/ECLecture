@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-05 17:16+0000\n"
+"POT-Creation-Date: 2006-04-07 16:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,19 +72,29 @@ msgstr ""
 msgid "daily"
 msgstr ""
 
-#. Default: "You can associate a group with this lecture to represent its participants"
-#: ECLecture.py
+#. Default: "You can associate a group with this course to represent its participants"
+#: content/ECLecture.py
 msgid "help_associated_group"
 msgstr ""
 
-#. Default: "Enter available resources for this lecture"
-#: ECLecture.py
+#. Default: "Enter available resources for this course. Title  is the name of a resource as shown to the user; URL must be a path inside this site or an URL to an external source; Icon is optional."
+#: content/ECLecture.py
 msgid "help_available_resources"
 msgstr ""
 
-#. Default: "Enter lecture information"
-#: ECLecture.py
+#. Default: "Enter course information"
+#: content/ECLecture.py
 msgid "help_body_text"
+msgstr ""
+
+#. Default: "Enter the type of this course (e.g., Lecture or Lab Exercise)"
+#: content/ECLecture.py
+msgid "help_course_type"
+msgstr ""
+
+#. Default: "Credits which can be gained in this course"
+#: content/ECLecture.py
+msgid "help_credits"
 msgstr ""
 
 #. Default: "Link to the directory entry for this lecture"
@@ -93,58 +103,83 @@ msgid "help_directory_entry"
 msgstr ""
 
 #. Default: "Last regular date"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "help_end_date"
 msgstr ""
 
-#. Default: "Date for the first session for this lecture"
-#: ECLecture.py
+#. Default: "Date for the first session for this course"
+#: content/ECLecture.py
 msgid "help_first_session"
 msgstr ""
 
-#. Default: "Link to the registration for this lecture"
-#: ECLecture.py
+#. Default: "Enter user name of the instructor"
+#: content/ECLecture.py
+msgid "help_instructor"
+msgstr ""
+
+#. Default: "Link to the registration for this course"
+#: content/ECLecture.py
 msgid "help_join_url"
 msgstr ""
 
-#. Default: "Enter user name of the lecturer"
-#: ECLecture.py
-msgid "help_lecturer"
+#. Default: "Location for this course"
+#: content/ECLecture.py
+msgid "help_location"
 msgstr ""
 
-#. Default: "How often this lecture takes place"
-#: ECLecture.py
+#. Default: "If there is an enrollment limit, specify the maximum number of participants"
+#: content/ECLecture.py
+msgid "help_max_participants"
+msgstr ""
+
+#. Default: "Describe which prerequisites are required for this course"
+#: content/ECLecture.py
+msgid "help_prereq"
+msgstr ""
+
+#. Default: "How often this course takes place"
+#: content/ECLecture.py
 msgid "help_recurrence"
 msgstr ""
 
-#. Default: "Room for this lecture"
-#: ECLecture.py
-msgid "help_room"
-msgstr ""
-
 #. Default: "First regular date"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "help_start_date"
 msgstr ""
 
-#. Default: "Start and end times of this lecture
-#: ECLecture.py
+#. Default: "Describe for which audience this course is intended"
+#: content/ECLecture.py
+msgid "help_target"
+msgstr ""
+
+#. Default: "Start and end times of this course"
+#: content/ECLecture.py
 msgid "help_time_period"
 msgstr ""
 
-#. Default: "Associated group: ${groupname}"
+#. Default: "Associated group"
 #: ./skins/ECLecture/ecl_participants.pt
 msgid "label_associated_group"
 msgstr ""
 
 #. Default: "Available resources"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_available_resourcess"
 msgstr ""
 
 #. Default: "Body Text"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_body_text"
+msgstr ""
+
+#. Default: "Course type"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_course_type"
+msgstr ""
+
+#. Default: "Credits"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_credits"
 msgstr ""
 
 #. Default: "Directory"
@@ -153,12 +188,12 @@ msgid "label_directory"
 msgstr ""
 
 #. Default: "Directory entry"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_directory_entry"
 msgstr ""
 
 #. Default: "End date"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_end_date"
 msgstr ""
 
@@ -167,18 +202,33 @@ msgstr ""
 msgid "label_first_session"
 msgstr ""
 
+#. Default: "Instructor"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_instructor"
+msgstr ""
+
 #. Default: "Registration link"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_join_url"
 msgstr ""
 
-#. Default: "Lecturer"
+#. Default: "Location"
 #: ./skins/ECLecture/ecl_view.pt
-msgid "label_lecturer"
+msgid "label_location"
+msgstr ""
+
+#. Default: "Enrollment limit"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_max_participants"
+msgstr ""
+
+#. Default: "Prerequisites"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_prereq"
 msgstr ""
 
 #. Default: "Recurrence"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_recurrence"
 msgstr ""
 
@@ -197,14 +247,14 @@ msgstr ""
 msgid "label_resources_legend"
 msgstr ""
 
-#. Default: "Room"
-#: ./skins/ECLecture/ecl_view.pt
-msgid "label_room"
+#. Default: "Start date"
+#: content/ECLecture.py
+msgid "label_start_date"
 msgstr ""
 
-#. Default: "Start date",
-#: ECLecture.py
-msgid "label_start_date"
+#. Default: "Target group"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_target"
 msgstr ""
 
 #. Default: "Time"
@@ -213,7 +263,7 @@ msgid "label_time"
 msgstr ""
 
 #. Default: "Time period"
-#: ECLecture.py
+#: content/ECLecture.py
 msgid "label_time_period"
 msgstr ""
 

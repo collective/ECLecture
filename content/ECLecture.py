@@ -34,6 +34,7 @@ from Products.Archetypes.public import StringWidget
 from Products.Archetypes.public import RichWidget
 from Products.Archetypes.public import CalendarWidget
 from Products.Archetypes.public import SelectionWidget
+from Products.Archetypes.public import TextAreaWidget
 
 from Products.ATContentTypes.configuration import zconf
 
@@ -64,13 +65,24 @@ NO_GROUP = ''
 # -- schema definition --------------------------------------------------------
 ECLectureSchema = ATFolderSchema.copy() + Schema((
 
-    StringField('lecturer',
+    StringField('courseType',
+        required = False,
+        widget = StringWidget(
+            label = "Course type",
+            description = "Enter the type of this course (e.g., Lecture or Lab Exercise)",
+            label_msgid = 'label_course_type',
+            description_msgid = 'help_course_type',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
+    StringField('instructor',
         required = True,
         widget = StringWidget(
-            label = "Lecturer",
-            description = "Enter user name of the lecturer",
-            label_msgid = 'label_lecturer',
-            description_msgid = 'help_lecturer',
+            label = "Instructor",
+            description = "Enter user name of the instructor",
+            label_msgid = 'label_instructor',
+            description_msgid = 'help_instructor',
             i18n_domain = I18N_DOMAIN,
         ),
     ),
@@ -84,7 +96,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
             size = 5,
             maxlength = 5,
             label = "Time period",
-            description = "Start and end times of this lecture",
+            description = "Start and end times of this course",
             label_msgid = 'label_time_period',
             description_msgid = 'help_time_period',
             i18n_domain = I18N_DOMAIN,
@@ -124,7 +136,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         widget = SelectionWidget(
             format = "radio", # possible values: flex, select, radio
             label = "Recurrence",
-            description = "How often this lecture takes place",
+            description = "How often this course takes place",
             label_msgid = 'label_recurrence',
             description_msgid = 'help_recurrence',
             i18n_domain = I18N_DOMAIN,
@@ -134,7 +146,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
     DateTimeField('firstSession',
         widget = CalendarWidget(
             label = "First session",
-            description = "Date for the first session for this lecture",
+            description = "Date for the first session for this course",
             label_msgid = 'label_first_session',
             description_msgid = 'help_first_session',
             #show_hm = False, 
@@ -142,13 +154,58 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         ),
     ),
 
-    StringField('room',
+    StringField('location',
         required = True,
         widget = StringWidget(
-            label = "Room",
-            description = "Room for this lecture",
-            label_msgid = 'label_room',
-            description_msgid = 'help_room',
+            label = "Location",
+            description = "Location for this course",
+            label_msgid = 'label_location',
+            description_msgid = 'help_location',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
+    StringField('credits',
+        required = False,
+        widget = StringWidget(
+            label = "Credits",
+            description = "Credits which can be gained in this course",
+            label_msgid = 'label_credits',
+            description_msgid = 'help_credits',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
+    TextField('prereq',
+        required = False,
+        widget = TextAreaWidget(
+            label = "Prerequisites",
+            description = "Describe which prerequisites are required for this course",
+            label_msgid = 'label_prereq',
+            description_msgid = 'help_prereq',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
+    TextField('target',
+        required = False,
+        widget = TextAreaWidget(
+            label = "Target group",
+            description = "Describe for which audience this course is intended",
+            label_msgid = 'label_target',
+            description_msgid = 'help_target',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
+    IntegerField('maxParticipants',
+        required = False,
+        widget = StringWidget(
+            label = "Maximum number of participants",
+            size = 4,
+            description = "If there is an enrollment limit, specify the maximum number of participants",
+            label_msgid = 'label_max_participants',
+            description_msgid = 'help_max_participants',
             i18n_domain = I18N_DOMAIN,
         ),
     ),
@@ -157,7 +214,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         required = False,
         widget = StringWidget(
             label = "Registration link",
-            description = "Link to the registration for this lecture",
+            description = "Link to the registration for this course",
             label_msgid = 'label_join_url',
             description_msgid = 'help_join_url',
             size = 65,
@@ -169,7 +226,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         required = False,
         widget = StringWidget(
             label = "Directory entry",
-            description = "Link to the directory entry for this lecture",
+            description = "Link to the directory entry for this course",
             label_msgid = 'label_directory_entry',
             description_msgid = 'help_directory_entry',
             size = 65,
@@ -184,7 +241,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
                 widget = SelectionWidget(
                     format = "select", # possible values: flex, select, radio
                     label = "Associated group",
-                    description = "You can associate a group with this lecture to represent its participants",
+                    description = "You can associate a group with this course to represent its participants",
                     label_msgid = 'label_associated_group',
                     description_msgid = 'help_associated_group',
                     i18n_domain = I18N_DOMAIN,
@@ -198,7 +255,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
                     'icon':'folder-box-16.png'},),
         widget = DataGridWidget(
             label = "Available resources",
-            description = """Enter available resources for this lecture. Title 
+            description = """Enter available resources for this course. Title 
 is the name of a resource as shown to the user; URL must be a path inside this
 site or an URL to an external source; Icon is optional.""",
             column_names = ('Title', 'URL', 'Icon',),
@@ -223,7 +280,7 @@ site or an URL to an external source; Icon is optional.""",
         widget = RichWidget(
             label = "Body Text",
             label_msgid = "label_body_text",
-            description = "Enter lecture information",
+            description = "Enter course information",
             description_msgid = "help_body_text",
             rows = 18,
             i18n_domain = I18N_DOMAIN,
@@ -258,7 +315,7 @@ class ECLecture(ATFolder):
     #suppl_views    = ()
     _at_rename_after_creation = True
 
-    typeDescription = "A folder containing details about a lecture."
+    typeDescription = "A folder containing details about a lecture or a course."
     typeDescMsgId = 'description_edit_eclecture'
 
     # -- actions --------------------------------------------------------------

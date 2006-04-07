@@ -73,6 +73,24 @@
               </a>
             </td>
           </tr>
+
+	  <tr tal:condition="here/getCourseType">
+	    <th i18n:translate="label_course_type">Course type</th>
+	    <td tal:content="here/getCourseType"></td>
+	  </tr>
+
+          <tr tal:define="instructor here/getInstructor"
+              tal:condition="instructor">
+            <th i18n:translate="label_instructor">Instructor</th>
+            <td tal:define="info python:mtool.getMemberInfo(instructor)">
+	      <a href="#"
+		tal:attributes="href python: mtool.getHomeUrl(instructor)"
+		tal:content="python:info and info['fullname'] or instructor">
+		The instructor's fullname or user ID
+	      </a>
+            </td>
+          </tr>
+
           <tr>
             <th i18n:translate="label_time">Time</th>
             <td tal:define="weekday here/getStartDateWeekday;
@@ -96,24 +114,24 @@
             </td>
           </tr>
           <tr>
-            <th i18n:translate="label_room">Room</th>
+            <th i18n:translate="label_location">Location</th>
             <td>
               <span 
-                tal:condition="here/getRoom"
-                tal:replace="here/getRoom"/>
+                tal:condition="here/getLocation"
+                tal:replace="here/getLocation"/>
             </td>
           </tr>
-          <tr tal:define="lecturer here/getLecturer"
-              tal:condition="lecturer">
-            <th i18n:translate="label_lecturer">Lecturer</th>
-            <td tal:define="info python:mtool.getMemberInfo(lecturer)">
-	      <a href="#"
-		tal:attributes="href python: mtool.getHomeUrl(lecturer)"
-		tal:content="python:info and info['fullname'] or lecturer">
-		The lecturer's fullname or user ID
-	      </a>
-            </td>
-          </tr>
+
+	  <tr tal:condition="here/getCredits">
+	    <th i18n:translate="label_credits">Credits</th>
+	    <td tal:content="here/getCredits"></td>
+	  </tr>
+
+	  <tr tal:condition="here/getMaxParticipants">
+	    <th i18n:translate="label_max_participants">Enrollment limit</th>
+	    <td tal:content="here/getMaxParticipants"></td>
+	  </tr>
+
           <tr tal:condition="here/getDirectoryEntry">
             <th i18n:translate="label_directory">Directory</th>
             <td>
@@ -128,11 +146,21 @@
         </table>
 
 
-        <div class="visualClear"></div>
+        <div class="visualClear"/>
 
         <div tal:replace="structure here/getText" />
 
-        <div class="visualClear"></div>
+        <div class="visualClear"/>
+
+	<div tal:condition="here/getPrereq">
+	  <h2 i18n:translate="label_prereq">Prerequisites</h2>
+	  <p tal:content="here/getPrereq"/>
+	</div>
+
+	<div tal:condition="here/getTarget">
+	  <h2 i18n:translate="label_target">Target group</h2>
+	  <p tal:content="here/getTarget"/>
+	</div>
 
       </div>
     </div>
