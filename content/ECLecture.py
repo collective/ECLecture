@@ -165,6 +165,17 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         ),
     ),
 
+    StringField('courseLanguage',
+        vocabulary = 'getLanguagesDL',
+        widget = SelectionWidget(
+            label = 'Language of instruction',
+            description = 'The language used for teaching this course',
+            label_msgid = 'label_course_language',
+            description_msgid = 'help_course_language',
+            i18n_domain = I18N_DOMAIN,
+        ),
+    ),
+
     StringField('credits',
         required = False,
         widget = StringWidget(
@@ -369,6 +380,26 @@ class ECLecture(ATFolder):
             dl.add(group.getGroupId(), group.getGroupName())
         
         return dl
+
+
+    security.declareProtected(permissions.View, 'languages')
+    def getLanguagesDL(self):
+        """
+        Vocabulary method for the courseLanguage field.
+
+        This method is based on languages() in ExtensibleMetadata.py. 
+        availableLanguages() is defined in a Script (Python)
+        (CMFPlone/skins/plone_scripts/availableLanguages.py)
+        """
+        available_langs = getattr(self, 'availableLanguages', None)
+        if available_langs is None:
+            return DisplayList(
+                (('en','English'), ('de','German'), ('fr','French'),
+                 ('es','Spanish'), ('pt','Portuguese'), ('ru','Russian')))
+        if callable(available_langs):
+            available_langs = available_langs()
+        return DisplayList(available_langs)
+
 
     def getGroupMembers(self, groupname):
         """

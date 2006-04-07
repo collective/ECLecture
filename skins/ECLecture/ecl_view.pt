@@ -122,6 +122,12 @@
             </td>
           </tr>
 
+	  <tr tal:condition="here/getCourseLanguage">
+	    <th i18n:translate="label_course_language">Language of instruction</th>
+	    <td i18n:domain="plone" i18n:translate=""
+	      tal:content="python: dict(here.availableLanguages())[here.getCourseLanguage()]"></td>
+	  </tr>
+
 	  <tr tal:condition="here/getCredits">
 	    <th i18n:translate="label_credits">Credits</th>
 	    <td tal:content="here/getCredits"></td>

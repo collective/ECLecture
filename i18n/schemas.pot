@@ -97,6 +97,16 @@ msgstr = ""
 msgid = "help_location"
 msgstr = ""
 
+#. Default: "Language of instruction"
+#: content/ECLecture.py
+msgid = "label_course_language"
+msgstr = ""
+
+#. Default: "The language used for teaching this course"
+#: content/ECLecture.py
+msgid = "help_course_language"
+msgstr = ""
+
 #. Default: "Credits"
 #: content/ECLecture.py
 msgid = "label_credits"

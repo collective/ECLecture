@@ -30,3 +30,18 @@ msgstr "Teilnehmer"
 #: 
 msgid "description_edit_eclecture"
 msgstr "Ein Ordner, der Informationen über eine Lehrveranstaltung enthält."
+
+#. Default: "English"
+#:
+msgid "English"
+msgstr "Englisch"
+
+#. Default: "German"
+#:
+msgid "German"
+msgstr "Deutsch"
+
+#. Default: "French"
+#:
+msgid "French"
+msgstr "Französisch"

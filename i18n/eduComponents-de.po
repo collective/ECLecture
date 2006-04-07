@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-07 16:06+0000\n"
+"POT-Creation-Date: 2006-04-07 17:50+0000\n"
 "PO-Revision-Date: 2006-04-05 11:37+0100\n"
 "Last-Translator: Mario Amelung <amelung@iws.cs.uni-magdeburg.de>\n"
 "Language-Team: WDOK <amelung@iws.cs.uni-magdeburg.de>\n"
@@ -85,6 +85,11 @@ msgstr "Tragen Sie hier die für die Lehrveranstaltung verfügbaren Materialien 
 #: content/ECLecture.py
 msgid "help_body_text"
 msgstr "Geben Sie hier den Haupttext ein"
+
+#. Default: "The language used for teaching this course"
+#: content/ECLecture.py
+msgid "help_course_language"
+msgstr "Die Sprache, in der die Veranstaltung gehalten wird"
 
 #. Default: "Enter the type of this course (e.g., Lecture or Lab Exercise)"
 #: content/ECLecture.py
@@ -170,6 +175,11 @@ msgstr "Materialien"
 #: content/ECLecture.py
 msgid "label_body_text"
 msgstr "Haupttext"
+
+#. Default: "Language of instruction"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_course_language"
+msgstr "Unterrichtssprache"
 
 #. Default: "Course type"
 #: ./skins/ECLecture/ecl_view.pt

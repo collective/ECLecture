@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-07 16:06+0000\n"
+"POT-Creation-Date: 2006-04-07 17:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,6 +85,11 @@ msgstr ""
 #. Default: "Enter course information"
 #: content/ECLecture.py
 msgid "help_body_text"
+msgstr ""
+
+#. Default: "The language used for teaching this course"
+#: content/ECLecture.py
+msgid "help_course_language"
 msgstr ""
 
 #. Default: "Enter the type of this course (e.g., Lecture or Lab Exercise)"
@@ -170,6 +175,11 @@ msgstr ""
 #. Default: "Body Text"
 #: content/ECLecture.py
 msgid "label_body_text"
+msgstr ""
+
+#. Default: "Language of instruction"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_course_language"
 msgstr ""
 
 #. Default: "Course type"
