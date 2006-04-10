@@ -435,7 +435,7 @@ class ECLecture(ATFolder):
         @return a string representing a time period
         """
         value = self.getTimePeriodForEdit()
-        return ' - '.join(value)
+        return '–'.join(value)
 
 
     security.declarePublic('getStartDateWeekday')
