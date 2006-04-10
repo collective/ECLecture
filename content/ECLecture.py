@@ -189,6 +189,9 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
 
     TextField('prereq',
         required = False,
+        default_content_type = zconf.ATDocument.default_content_type,
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types = zconf.ATDocument.allowed_content_types,
         widget = TextAreaWidget(
             label = "Prerequisites",
             description = "Describe which prerequisites are required for this course",
@@ -200,6 +203,9 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
 
     TextField('target',
         required = False,
+        default_content_type = zconf.ATDocument.default_content_type,
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types = zconf.ATDocument.allowed_content_types,
         widget = TextAreaWidget(
             label = "Target group",
             description = "Describe for which audience this course is intended",

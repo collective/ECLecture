@@ -154,18 +154,18 @@
 
         <div class="visualClear"/>
 
-        <div tal:replace="structure here/getText" />
+        <div tal:replace="structure here/getText"/>
 
         <div class="visualClear"/>
 
 	<div tal:condition="here/getPrereq">
 	  <h2 i18n:translate="label_prereq">Prerequisites</h2>
-	  <p tal:content="here/getPrereq"/>
+	  <div tal:replace="structure here/getPrereq"/>
 	</div>
 
 	<div tal:condition="here/getTarget">
 	  <h2 i18n:translate="label_target">Target group</h2>
-	  <p tal:content="here/getTarget"/>
+	  <div tal:replace="structure here/getTarget"/>
 	</div>
 
       </div>
