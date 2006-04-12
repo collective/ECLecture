@@ -101,11 +101,32 @@
               <span tal:condition="weekday" tal:omit-tag="">
                 <span tal:omit-tag="" i18n:translate="" tal:content="weekday"/>,
               </span>
-              <span tal:omit-tag=""
-                  tal:condition="timePeriod"
-                  tal:content="timePeriod"/>
+	      <span tal:condition="not: here/getRecurrence" tal:omit-tag="">
+		<span tal:omit-tag=""
+		  tal:content="python: here.toLocalizedTime(here.getStartDate())"/>,
+	      </span>
+	      <span tal:omit-tag=""
+		tal:condition="timePeriod"
+		tal:content="timePeriod"/>
             </td>
           </tr>
+
+	  <tr tal:condition="python: here.getRecurrence()">
+	    <th i18n:translate="label_recurrence">Recurrence</th>
+	    <td>
+	      <span i18n:translate="recurrence_text">
+		<span i18n:name="recurrence" tal:content="python:
+		  here.getRecurrenceDisplayList().getValue(here.getRecurrence())"/>
+		from
+		<span i18n:name="start_date" tal:content="python:
+		  here.toLocalizedTime(here.getStartDate())"/>
+		until
+		<span i18n:name="end_date"
+		  tal:content="python: here.toLocalizedTime(here.getEndDate())"/>
+	      </span>
+	    </td>
+	  </tr>
+
           <tr tal:define="datetime python: here.firstSession"
               tal:condition="datetime">
             <th i18n:translate="label_first_session">First session</th>

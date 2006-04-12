@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-12 11:40+0000\n"
+"POT-Creation-Date: 2006-04-12 14:13+0000\n"
 "PO-Revision-Date: 2006-04-05 11:37+0100\n"
 "Last-Translator: Mario Amelung <amelung@iws.cs.uni-magdeburg.de>\n"
 "Language-Team: WDOK <amelung@iws.cs.uni-magdeburg.de>\n"
@@ -71,6 +71,16 @@ msgstr "Mittwoch"
 msgid "daily"
 msgstr "täglich"
 
+#. Default: "Assignments"
+#: ECLecture.py
+msgid "default_assignments_title"
+msgstr "Aufgaben"
+
+#. Default: "Slides"
+#: ECLecture.py
+msgid "default_slides_title"
+msgstr "Folien"
+
 #. Default: "You can associate a group with this course to represent its participants"
 #: content/ECLecture.py
 msgid "help_associated_group"
@@ -102,7 +112,7 @@ msgid "help_credits"
 msgstr "Leistungspunkte, die in dieser Veranstaltung erworben werden können"
 
 #. Default: "Link to the directory entry for this lecture"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "help_directory_entry"
 msgstr "Link zum Verzeichniseintrag"
 
@@ -162,7 +172,7 @@ msgid "help_time_period"
 msgstr "Begin und Ende der Lehrveranstaltung"
 
 #. Default: "Associated group"
-#: .\skins\ECLecture\ecl_participants.pt
+#: ./skins/ECLecture/ecl_participants.pt
 msgid "label_associated_group"
 msgstr "Zugeordnete Gruppe"
 
@@ -177,22 +187,22 @@ msgid "label_body_text"
 msgstr "Haupttext"
 
 #. Default: "Language of instruction"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_course_language"
 msgstr "Unterrichtssprache"
 
 #. Default: "Course type"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_course_type"
 msgstr "Veranstaltungstyp"
 
 #. Default: "Credits"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_credits"
 msgstr "Punkte"
 
 #. Default: "Directory"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_directory"
 msgstr "Verzeichnis"
 
@@ -207,12 +217,12 @@ msgid "label_end_date"
 msgstr "Letzter Termin"
 
 #. Default: "First session"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_first_session"
 msgstr "Vorbesprechung"
 
 #. Default: "Instructor"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_instructor"
 msgstr "Dozent"
 
@@ -222,42 +232,42 @@ msgid "label_join_url"
 msgstr "Link zur Anmeldung"
 
 #. Default: "Location"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_location"
 msgstr "Raum"
 
 #. Default: "Major"
-#: .\skins\ECLecture\ecl_participants.pt
+#: ./skins/ECLecture/ecl_participants.pt
 msgid "label_major"
 msgstr ""
 
 #. Default: "Enrollment limit"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_max_participants"
 msgstr "Teilnehmerzahl"
 
 #. Default: "Prerequisites"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_prereq"
 msgstr "Voraussetzungen"
 
 #. Default: "Recurrence"
-#: content/ECLecture.py
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_recurrence"
 msgstr "Turnus"
 
 #. Default: "Click here to register for this lecture"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_register"
 msgstr "Klicken Sie hier, um sich für die Lehrveranstaltung anzumelden"
 
 #. Default: "Registration"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_registration"
 msgstr "Anmeldung"
 
 #. Default: "Available resources"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_resources_legend"
 msgstr "Materialien"
 
@@ -267,17 +277,17 @@ msgid "label_start_date"
 msgstr "Erster Termin"
 
 #. Default: "Student ID"
-#: .\skins\ECLecture\ecl_participants.pt
+#: ./skins/ECLecture/ecl_participants.pt
 msgid "label_student_id"
 msgstr ""
 
 #. Default: "Target group"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_target"
 msgstr "Zielgruppe"
 
 #. Default: "Time"
-#: .\skins\ECLecture\ecl_view.pt
+#: ./skins/ECLecture/ecl_view.pt
 msgid "label_time"
 msgstr "Zeit"
 
@@ -296,6 +306,11 @@ msgstr "monatlich"
 msgid "once"
 msgstr "einmalig"
 
+#. Default: "${recurrence} from ${start_date} until ${end_date}"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "recurrence_text"
+msgstr "${recurrence} vom ${start_date} bis zum ${end_date}"
+
 #. Default: "weekly"
 #: ECLecture.py
 msgid "weekly"
@@ -306,12 +321,3 @@ msgstr "wöchentlich"
 msgid "yearly"
 msgstr "jährlich"
 
-#. Default: "Slides"
-#: ECLecture.py
-msgid "default_slides_title"
-msgstr "Folien"
-
-#. Default: "Assignments"
-#: ECLecture.py
-msgid "default_assignments_title"
-msgstr "Aufgaben"
