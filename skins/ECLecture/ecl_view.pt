@@ -34,11 +34,14 @@
         <h2 i18n:translate="label_lecture_descr">Lecture Description</h2>
 -->
 
-        <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;">
+        <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;"
+            tal:define="resources here/getAvailableResources"
+            tal:condition="resources">
+
           <legend i18n:translate="label_resources_legend">Available resources</legend>
 
           <ul style="list-style-type: none; list-style-image: none; margin-left: 0;">
-            <tal:resources repeat="resource here/getAvailableResources">
+            <tal:resources repeat="resource resources">
               <li tal:define="resourceTitle resource/title;
                               resourceURL   resource/url;
                               resourceIcon  python: resource['icon'] or 'document_icon.gif';"
