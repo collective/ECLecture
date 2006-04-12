@@ -2,9 +2,8 @@
 
 Overview
 
-  ECLecture is a Plone product which allows the creation,
-  submission and grading of online assignments (exercises, homework),
-  both for traditional on-site courses and for e-learning.
+  ECLecture is a Plone product for managing lectures, seminars and 
+  other courses.
 
 Download
 
@@ -14,25 +13,28 @@ Download
 
 Prerequisites
 
- To use ECLecture you need a Plone 2.1.x installation.  Check
- "plone.org":http://plone.org/products/plone for Plone's
- prerequisites.
+  To use ECLecture you need a Plone 2.1.x installation.  Check
+  "plone.org":http://plone.org/products/plone for Plone's
+  prerequisites.
+ 
+  You also need DataGridField, available from 
+  "plone.org/products/datagridfield/":plone.org/products/datagridfield/.
 
 Installation
 
- If you have a suitable Zope/Plone installation, you can install
- ECLecture as follows:
+  If you have a suitable Zope/Plone installation, you can install
+  ECLecture as follows:
 
- 1. Extract the archive into the 'Products' directory of your Zope
-    instance. (You can find out where your Zope instance is installed
-    by opening the Zope Management Interface (ZMI) and going to the
-    Control Panel; the directory listed as 'INSTANCE_HOME' is what
-    you're looking for.)
+  1. Extract the archive into the 'Products' directory of your Zope
+     instance. (You can find out where your Zope instance is installed
+     by opening the Zope Management Interface (ZMI) and going to the
+     Control Panel; the directory listed as 'INSTANCE_HOME' is what
+     you're looking for.)
 
- 2. Restart Zope
+  2. Restart Zope
 
- 3. Use the 'portal_quickinstaller' of your Plone site in which you
-    want to use ECLecture.
+  3. Use the 'portal_quickinstaller' of your Plone site in which you
+     want to use ECLecture.
 
 Support
 
@@ -53,23 +55,23 @@ Credits
 
 License
 
- ECLecture is licensed under the
- "GPL":http://opensource.org/licenses/gpl-license.
+  ECLecture is licensed under the
+  "GPL":http://opensource.org/licenses/gpl-license.
 
- Copyright © 2006 Otto-von-Guericke-Universität Magdeburg
+  Copyright © 2006 Otto-von-Guericke-Universität Magdeburg
 
- ECLecture is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
+  ECLecture is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
 
- ECLecture is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+  ECLecture is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with ECLecture; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  You should have received a copy of the GNU General Public License
+  along with ECLecture; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 

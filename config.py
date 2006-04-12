@@ -15,8 +15,7 @@ I18N_DOMAIN = 'eduComponents'
 SKINS_DIR = 'skins'
 
 # define dependencies
-#DEPENDENCIES = ['Archetypes', 'DataGridField', 'AddRemoveWidget', 'intelligenttext']
-DEPENDENCIES = ['Archetypes', 'DataGridField']
+DEPENDENCIES = ['DataGridField']
 
 # define product and tool names
 PRODUCT_NAME = 'ECLecture'
