@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-07 17:50+0000\n"
+"POT-Creation-Date: 2006-04-12 11:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,7 +103,7 @@ msgid "help_credits"
 msgstr ""
 
 #. Default: "Link to the directory entry for this lecture"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "help_directory_entry"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgid "help_time_period"
 msgstr ""
 
 #. Default: "Associated group"
-#: ./skins/ECLecture/ecl_participants.pt
+#: .\skins\ECLecture\ecl_participants.pt
 msgid "label_associated_group"
 msgstr ""
 
@@ -178,22 +178,22 @@ msgid "label_body_text"
 msgstr ""
 
 #. Default: "Language of instruction"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_course_language"
 msgstr ""
 
 #. Default: "Course type"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_course_type"
 msgstr ""
 
 #. Default: "Credits"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_credits"
 msgstr ""
 
 #. Default: "Directory"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_directory"
 msgstr ""
 
@@ -208,12 +208,12 @@ msgid "label_end_date"
 msgstr ""
 
 #. Default: "First session"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_first_session"
 msgstr ""
 
 #. Default: "Instructor"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_instructor"
 msgstr ""
 
@@ -223,17 +223,22 @@ msgid "label_join_url"
 msgstr ""
 
 #. Default: "Location"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_location"
 msgstr ""
 
+#. Default: "Major"
+#: .\skins\ECLecture\ecl_participants.pt
+msgid "label_major"
+msgstr ""
+
 #. Default: "Enrollment limit"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_max_participants"
 msgstr ""
 
 #. Default: "Prerequisites"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_prereq"
 msgstr ""
 
@@ -243,17 +248,17 @@ msgid "label_recurrence"
 msgstr ""
 
 #. Default: "Click here to register for this lecture"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_register"
 msgstr ""
 
 #. Default: "Registration"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_registration"
 msgstr ""
 
 #. Default: "Available resources"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_resources_legend"
 msgstr ""
 
@@ -262,13 +267,18 @@ msgstr ""
 msgid "label_start_date"
 msgstr ""
 
+#. Default: "Student ID"
+#: .\skins\ECLecture\ecl_participants.pt
+msgid "label_student_id"
+msgstr ""
+
 #. Default: "Target group"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_target"
 msgstr ""
 
 #. Default: "Time"
-#: ./skins/ECLecture/ecl_view.pt
+#: .\skins\ECLecture\ecl_view.pt
 msgid "label_time"
 msgstr ""
 
@@ -297,3 +307,12 @@ msgstr ""
 msgid "yearly"
 msgstr ""
 
+#. Default: "Slides"
+#: ECLecture.py
+msgid "default_slides_title"
+msgstr ""
+
+#. Default: "Assignments"
+#: ECLecture.py
+msgid "default_assignments_title"
+msgstr ""

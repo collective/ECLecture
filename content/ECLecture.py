@@ -266,10 +266,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
     ),
 
     DataGridField('availableResources',
-        default = ({'title':'Slides', 'url':'slides', 
-                    'icon':'book_icon.gif'},                    
-                   {'title':'Exercise', 'url':'exercise', 
-                    'icon':'folder-box-16.png'},),
+        default_method = 'getDefaultResources',
         widget = DataGridWidget(
             label = "Available resources",
             description = """Enter available resources for this course. Title 
@@ -465,6 +462,22 @@ class ECLecture(ATFolder):
             raise Exception(repr(value))
             
         return result
+    
+    
+    def getDefaultResources(self):
+        
+        slidesTitle = self.translate(domain=I18N_DOMAIN,
+                                     msgid='default_slides_title',
+                                     default='Slides')
+        
+        assignmentsTitle = self.translate(domain=I18N_DOMAIN,
+                                          msgid='default_assignments_title',
+                                          default='Assignments')
 
+        return ({'title':slidesTitle, 'url':'slides', 
+                'icon':'book_icon.gif'},                    
+               {'title':assignmentsTitle, 'url':'assignments', 
+                'icon':'topic_icon.gif'},
+        )
 
 registerATCT(ECLecture, PRODUCT_NAME)

@@ -91,3 +91,13 @@ msgstr ""
 #: ECLecture.py
 msgid "Sunday"
 msgstr ""
+
+#. Default: "Slides"
+#: ECLecture.py
+msgid "default_slides_title"
+msgstr ""
+
+#. Default: "Assignments"
+#: ECLecture.py
+msgid "default_assignments_title"
+msgstr ""
