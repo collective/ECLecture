@@ -18,7 +18,7 @@ Prerequisites
   prerequisites.
  
   You also need DataGridField, available from 
-  "plone.org/products/datagridfield/":plone.org/products/datagridfield/.
+  "plone.org/products/datagridfield/":http://plone.org/products/datagridfield/.
 
 Installation
 
