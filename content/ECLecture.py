@@ -252,21 +252,23 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
     ),
 
     StringField('associatedGroup',
-                required = False,
-                vocabulary = 'getGroupsDisplayList',
-                default = NO_GROUP,
-                widget = SelectionWidget(
-                    format = "select", # possible values: flex, select, radio
-                    label = "Associated group",
-                    description = "You can associate a group with this course to represent its participants",
-                    label_msgid = 'label_associated_group',
-                    description_msgid = 'help_associated_group',
-                    i18n_domain = I18N_DOMAIN,
-                ),
+        required = False,
+        vocabulary = 'getGroupsDisplayList',
+        default = NO_GROUP,
+        widget = SelectionWidget(
+            format = "select", # possible values: flex, select, radio
+            label = "Associated group",
+            description = "You can associate a group with this course to represent its participants",
+            label_msgid = 'label_associated_group',
+            description_msgid = 'help_associated_group',
+            i18n_domain = I18N_DOMAIN,
+        ),
     ),
 
     DataGridField('availableResources',
         default_method = 'getDefaultResources',
+        #required = True,
+        columns = ('title', 'url', 'icon'),
         widget = DataGridWidget(
             label = "Available resources",
             description = """Enter available resources for this course. Title 
@@ -277,8 +279,6 @@ site or an URL to an external source; Icon is optional.""",
             description_msgid = 'help_available_resources',
             i18n_domain = I18N_DOMAIN,
         ),
-        required = True,
-        columns = ('title', 'url', 'icon')
     ),
 
     TextField('text',
