@@ -37,16 +37,18 @@
 	  </p>
 
 	  <tal:block tal:condition="groupMembers" i18n:domain="plone">
-	    <table class="listing" summary="Group Members Listing">
+	    <table class="listing" summary="Group Members Listing"
+	      tal:define="student_id_attr portal_properties/ecab_properties/student_id_attr | nothing;
+	                  major_attr      portal_properties/ecab_properties/major_attr | nothing;">
 	      <thead>
 		<tr>
 		  <th>#</th>
 		  <th i18n:translate="label_name">Group/User name</th>
 		  <th i18n:translate="listingheader_email_address">E-mail Address</th>
 		  <th i18n:translate="label_student_id" i18n:domain="eduComponents"
-		    tal:condition="python: ecab_utils and ecab_utils.student_id_attr">Student ID</th>
+		    tal:condition="student_id_attr">Student ID</th>
 		  <th i18n:translate="label_major" i18n:domain="eduComponents"
-		    tal:condition="python: ecab_utils and ecab_utils.major_attr">Major</th>
+		    tal:condition="major_attr">Major</th>
 		</tr>
 	      </thead>
 
@@ -71,7 +73,7 @@
 
 		    <tal:block tal:condition="python: not isGroup(this_user)">
 		      <td tal:define="info python:mtool.getMemberInfo(this_user.getId())">
-			<img src="user.gif" alt="" />
+			<img src="user.gif" alt=""/>
 			<a href=""
 			  tal:attributes="href string:prefs_user_details?userid=${this_user/getId}"
 			  tal:content="python: ecab_utils
@@ -92,11 +94,11 @@
 			</a>
 		      </td>
 
-		      <td tal:condition="python: ecab_utils and ecab_utils.student_id_attr"
-			tal:content="python: this_user.getProperty(ecab_utils.student_id_attr)"/>
+		      <td tal:condition="student_id_attr"
+			tal:content="python: this_user.getProperty(student_id_attr)"/>
 
-		      <td tal:condition="python: ecab_utils and ecab_utils.major_attr"
-			tal:content="python: this_user.getProperty(ecab_utils.major_attr)"/>
+		      <td tal:condition="major_attr"
+			tal:content="python: this_user.getProperty(major_attr)"/>
 
 		    </tal:block>
 		  </tr>
