@@ -31,6 +31,11 @@ msgstr "Teilnehmer"
 msgid "description_edit_eclecture"
 msgstr "Ein Ordner, der Informationen über eine Lehrveranstaltung enthält."
 
+#. Default: "Lectures view"
+#: skins/ECLecture/folder_lectures_view.pt.metadata
+msgid "Lectures view"
+msgstr "Lehrveranstaltungen"
+
 #. Default: "English"
 #:
 msgid "English"

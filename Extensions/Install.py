@@ -89,6 +89,16 @@ def install(self):
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
 
+    # register a custom view for folders
+    portal_types = getToolByName(self, 'portal_types')
+    folderFTI = portal_types.Folder
+    try:
+        if 'folder_lectures_view' not in folderFTI.view_methods:
+            folderFTI.view_methods += ('folder_lectures_view',)
+            print >> out, "Added new view template for folders."
+    except:
+        print >> out, "Adding new view template for folders failed."
+
     print >> out, "Successfully installed %s." % PRODUCT_NAME
     return out.getvalue()
 
@@ -104,6 +114,21 @@ def uninstall(self):
 
     # remove tool from portal root
     removeTool(self)
+
+    # remove custom view for folders
+    portal_types = getToolByName(self, 'portal_types')
+    folderFTI = portal_types.Folder
+    try:
+        if 'folder_lectures_view' in folderFTI.view_methods:
+            source = folderFTI.view_methods
+            views = []
+            for view in source:
+                if view not in ('folder_lectures_view',):
+                    views.append(view)
+            folderFTI.manage_changeProperties(view_methods=tuple(views))
+            print >> out, "Removed view template from folder."
+    except:
+        print >> out, "Removing view template from folder failed."
 
     print >> out, "Successfully uninstalled %s." % PRODUCT_NAME
     return out.getvalue()
