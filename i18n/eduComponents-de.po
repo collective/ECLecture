@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-12 14:13+0000\n"
+"POT-Creation-Date: 2006-05-12 15:17+0000\n"
 "PO-Revision-Date: 2006-04-05 11:37+0100\n"
 "Last-Translator: Mario Amelung <amelung@iws.cs.uni-magdeburg.de>\n"
 "Language-Team: WDOK <amelung@iws.cs.uni-magdeburg.de>\n"
@@ -193,6 +193,7 @@ msgstr "Unterrichtssprache"
 
 #. Default: "Course type"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_course_type"
 msgstr "Veranstaltungstyp"
 
@@ -223,6 +224,7 @@ msgstr "Vorbesprechung"
 
 #. Default: "Instructor"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_instructor"
 msgstr "Dozent"
 
@@ -233,6 +235,7 @@ msgstr "Link zur Anmeldung"
 
 #. Default: "Location"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_location"
 msgstr "Raum"
 
@@ -253,6 +256,7 @@ msgstr "Voraussetzungen"
 
 #. Default: "Recurrence"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_recurrence"
 msgstr "Turnus"
 
@@ -288,6 +292,7 @@ msgstr "Zielgruppe"
 
 #. Default: "Time"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_time"
 msgstr "Zeit"
 
@@ -295,6 +300,11 @@ msgstr "Zeit"
 #: content/ECLecture.py
 msgid "label_time_period"
 msgstr "Zeit"
+
+#. Default: "<strong>Note:</strong> The <em>lectures view</em> was selected for this folder. However, this folder doesn't contain any lecture items. A standard folder listing is displayed instead. You may want to select a different view mode from the <em>display</em> menu."
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "lectures_view_no_lectures"
+msgstr "<strong>Hinweis:</strong> Für diesen Ordner ist die Ansicht <em>Lehrveranstaltungen</em> eingestellt. Da der Ordner jedoch keine Lehrveranstaltungen enthält, wird die Standardansicht angezeigt.  Möglicherweise ist es daher sinnvoll, eine andere Ansicht aus dem Menü <em>Ansicht</em> zu wählen."
 
 #. Default: "monthly"
 #: ECLecture.py
@@ -308,6 +318,7 @@ msgstr "einmalig"
 
 #. Default: "${recurrence} from ${start_date} until ${end_date}"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "recurrence_text"
 msgstr "${recurrence} vom ${start_date} bis zum ${end_date}"
 

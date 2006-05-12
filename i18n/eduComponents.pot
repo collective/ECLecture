@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
-"POT-Creation-Date: 2006-04-12 14:13+0000\n"
+"POT-Creation-Date: 2006-05-12 15:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -194,6 +194,7 @@ msgstr ""
 
 #. Default: "Course type"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_course_type"
 msgstr ""
 
@@ -224,6 +225,7 @@ msgstr ""
 
 #. Default: "Instructor"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_instructor"
 msgstr ""
 
@@ -234,6 +236,7 @@ msgstr ""
 
 #. Default: "Location"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_location"
 msgstr ""
 
@@ -254,6 +257,7 @@ msgstr ""
 
 #. Default: "Recurrence"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_recurrence"
 msgstr ""
 
@@ -289,12 +293,18 @@ msgstr ""
 
 #. Default: "Time"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_time"
 msgstr ""
 
 #. Default: "Time period"
 #: content/ECLecture.py
 msgid "label_time_period"
+msgstr ""
+
+#. Default: "<strong>Note:</strong> The <em>lectures view</em> was selected for this folder. However, this folder doesn't contain any lecture items. A standard folder listing is displayed instead. You may want to select a different view mode from the <em>display</em> menu."
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "lectures_view_no_lectures"
 msgstr ""
 
 #. Default: "monthly"
@@ -309,6 +319,7 @@ msgstr ""
 
 #. Default: "${recurrence} from ${start_date} until ${end_date}"
 #: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "recurrence_text"
 msgstr ""
 

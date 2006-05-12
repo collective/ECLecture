@@ -8,10 +8,6 @@
   i18n:domain="eduComponents">
 
   <body>
-    <metal:block fill-slot="css_slot">
-      <style type="text/css" media="screen" tal:content="string: @import url($portal_url/ecabstyles.css);"></style>
-    </metal:block>
-
     <metal:main fill-slot="main">
       <tal:main-macro metal:define-macro="main">
 
@@ -29,7 +25,7 @@
 	  Up one level
 	</a>
 
-	<div class="documentDescription"
+	<p class="documentDescription"
 	  tal:content="structure here/Description"
 	  tal:condition="here/Description"/>
 
@@ -37,12 +33,20 @@
 	  auth_filter   nocall: modules/ZTUtils/LazyFilter;
 	  raw_items     python: here.contentValues(filter={'portal_type': 'ECLecture'});
 	  items         python: auth_filter(raw_items, skip='View');
-	  use_view_action site_properties/typesUseViewActionInListings;"
-	  tal:condition="items">
+	  use_view_action site_properties/typesUseViewActionInListings;">
+
+	  <div tal:condition="not: items">
+	    <p i18n:translate="lectures_view_no_lectures"><strong>Note:</strong>
+	      The <em>lectures view</em> was selected for this folder.
+	      However, this folder doesn't contain any lecture items.  A
+	      standard folder listing is displayed instead.  You may want to
+	      select a different view mode from the <em>display</em> menu.</p>
+	    <div metal:use-macro="here/folder_listing/macros/listing"/>
+	  </div>
 
 	  <table class="listing" tal:condition="items">
 	    <thead>
-	      <th>title</th>
+	      <th i18n:domain="plone" i18n:translate="title">Title</th>
 	      <th i18n:translate="label_course_type">Course type</th>
 	      <th i18n:translate="label_instructor">Instructor</th>
 	      <th i18n:translate="label_time">Time</th>
@@ -51,17 +55,18 @@
 	    </thead>
 	    <tbody>
 	      <tal:repeat repeat="item items">
-		<tr tal:define="
-		  item_wf_state item/review_state | python: wtool.getInfoFor(item, 'review_state', '');
-		  item_wf_state_class python:'state-' + normalizeString(item_wf_state);
-		  is_published python: item_wf_state == 'published';
-		  item_url item/getURL|item/absolute_url;
-		  item_id item/getId|item/id;
-		  item_title_or_id item/pretty_title_or_id;
-		  item_description item/Description | nothing;
-		  item_type item/portal_type;
-		  item_type_class python: 'contenttype-' +
-		  normalizeString(item_type);">
+		<tr
+		  tal:define="oddrow              repeat/item/odd;
+			      item_wf_state       item/review_state | python: wtool.getInfoFor(item, 'review_state', '');
+			      item_wf_state_class python:'state-' + normalizeString(item_wf_state);
+			      is_published        python: item_wf_state == 'published';
+			      item_url            item/getURL|item/absolute_url;
+			      item_id             item/getId|item/id;
+			      item_title_or_id    item/pretty_title_or_id;
+			      item_description    item/Description | nothing;
+			      item_type           item/portal_type;
+			      item_type_class     python: 'contenttype-' + normalizeString(item_type);"
+		  tal:attributes="class python: test(oddrow, 'even', 'odd')">
 		  <td>
 		    <a href="#" 
 		      tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url+'/');
@@ -83,8 +88,8 @@
 		    </a>
 		  </td>
 
-		  <td tal:define="weekday item/getStartDateWeekday;
-		    timePeriod item/getTimePeriod">
+		  <td tal:define="weekday    item/getStartDateWeekday;
+		                  timePeriod item/getTimePeriod">
 		    <span tal:condition="weekday" tal:omit-tag="">
 		      <span tal:omit-tag="" i18n:translate="" tal:content="weekday"/>,
 		    </span>
@@ -99,11 +104,11 @@
 
 		  <td>
 		    <span i18n:translate="recurrence_text">
-		      <span i18n:name="recurrence" tal:content="python:
-			item.getRecurrenceDisplayList().getValue(item.getRecurrence())"/>
+		      <span i18n:name="recurrence"
+			tal:content="python: item.getRecurrenceDisplayList().getValue(item.getRecurrence())"/>
 		      from
-		      <span i18n:name="start_date" tal:content="python:
-			item.toLocalizedTime(item.getStartDate())"/>
+		      <span i18n:name="start_date"
+			tal:content="python: item.toLocalizedTime(item.getStartDate())"/>
 		      until
 		      <span i18n:name="end_date"
 			tal:content="python: item.toLocalizedTime(item.getEndDate())"/>
@@ -122,9 +127,6 @@
 	  </table>
 
 	</div>
-
-	<div metal:use-macro="here/document_byline/macros/byline"/>
-
       </tal:main-macro>
     </metal:main>
 

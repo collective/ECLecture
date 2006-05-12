@@ -16,7 +16,6 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eduComponents\n"
-
 #. Default: "Course type"
 #: content/ECLecture.py
 msgid = "label_course_type"
