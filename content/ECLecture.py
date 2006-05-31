@@ -369,7 +369,7 @@ class ECLecture(ATFolder):
 
         return dl
 
-    security.declarePublic('getRecurrenceDisplayList')
+    security.declarePublic('getGroupsDisplayList')
     def getGroupsDisplayList(self):
         """
         Return all available groups as a display list.
@@ -385,7 +385,7 @@ class ECLecture(ATFolder):
         return dl
 
 
-    security.declareProtected(permissions.View, 'languages')
+    security.declareProtected(permissions.View, 'getLanguagesDL')
     def getLanguagesDL(self):
         """
         Vocabulary method for the courseLanguage field.
