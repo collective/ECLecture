@@ -27,7 +27,7 @@
 	  group python:gtool.getGroupById(groupname);
 	  grouptitle group/getGroupTitleOrName|groupname;
 	  groupMembers python: here.acl_users.haveLDAPGroupFolder() and
-	              here.getGroupMembers(groupname) or group.getGroupMembers;
+	    here.getGroupMembers(groupname) or group.getGroupMembers();
 	  isGroup nocall:gtool/isGroup;
 	  ecab_utils nocall:portal/ecab_utils|nothing;">
 
@@ -111,7 +111,7 @@
 	    <a href="#" 
 	      tal:attributes="href python: 'mailto:' +
 	        ','.join([url.url_quote(user.getProperty('email'))
-	        for user in groupMembers()])"
+	        for user in groupMembers])"
 	      i18n:translate="send_mail_to_all_participants"
 	      >Send e-mail to all participants</a>
 	  </p>
