@@ -107,6 +107,14 @@
 	    </table>
 	  </tal:block>
 
+	  <p tal:define="url modules/Products/PythonScripts/standard">
+	    <a href="#" 
+	      tal:attributes="href python: 'mailto:' +
+	        ','.join([url.url_quote(user.getProperty('email'))
+	        for user in groupMembers()])"
+	      i18n:translate="send_mail_to_all_participants"
+	      >Send e-mail to all participants</a>
+	  </p>
 	</div>
       </div>
     </div>

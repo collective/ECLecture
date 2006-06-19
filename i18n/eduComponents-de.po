@@ -176,6 +176,11 @@ msgstr "Begin und Ende der Lehrveranstaltung"
 msgid "label_associated_group"
 msgstr "Zugeordnete Gruppe"
 
+#. Default: "Send e-mail to all participants"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "send_mail_to_all_participants"
+msgstr "E-Mail an alle Teilnehmer"
+
 #. Default: "Available resources"
 #: content/ECLecture.py
 msgid "label_available_resourcess"

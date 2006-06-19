@@ -177,6 +177,11 @@ msgstr ""
 msgid "label_associated_group"
 msgstr ""
 
+#. Default: "Send e-mail to all participants"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "send_mail_to_all_participants"
+msgstr ""
+
 #. Default: "Available resources"
 #: content/ECLecture.py
 msgid "label_available_resourcess"
