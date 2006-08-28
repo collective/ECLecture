@@ -1,4 +1,5 @@
 # Mario Amelung <amelung@iws.cs.uni-magdeburg.de>, 2006.
+# -*- coding: utf-8 -*-
 msgid ""
 msgstr ""
 "Project-Id-Version: ECLecture\n"
@@ -128,8 +129,8 @@ msgstr "Termin für eine Vorbesprechung"
 
 #. Default: "Enter user name of the instructor"
 #: content/ECLecture.py
-msgid "help_instructor"
-msgstr "Benutzername des Dozenten"
+msgid "help_instructors"
+msgstr "Benutzernamen oder Namen der Dozenten; ein Name pro Zeile"
 
 #. Default: "Link to the registration for this course"
 #: content/ECLecture.py
@@ -229,9 +230,14 @@ msgstr "Vorbesprechung"
 
 #. Default: "Instructor"
 #: ./skins/ECLecture/ecl_view.pt
-#: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_instructor"
 msgstr "Dozent"
+
+#. Default: "Instructor"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "label_instructors"
+msgstr "Dozenten"
 
 #. Default: "Registration link"
 #: content/ECLecture.py

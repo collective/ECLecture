@@ -19,6 +19,8 @@
 # along with ECLecture; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+import re
+
 from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore import permissions
@@ -28,9 +30,11 @@ from Products.Archetypes.public import DisplayList
 from Products.Archetypes.public import Schema
 from Products.Archetypes.public import TextField
 from Products.Archetypes.public import StringField
+from Products.Archetypes.public import LinesField
 from Products.Archetypes.public import DateTimeField
 from Products.Archetypes.public import IntegerField
 from Products.Archetypes.public import StringWidget
+from Products.Archetypes.public import LinesWidget
 from Products.Archetypes.public import RichWidget
 from Products.Archetypes.public import CalendarWidget
 from Products.Archetypes.public import SelectionWidget
@@ -76,13 +80,15 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         ),
     ),
 
-    StringField('instructor',
+    LinesField('instructor',
         required = True,
-        widget = StringWidget(
-            label = "Instructor",
-            description = "Enter user name of the instructor",
-            label_msgid = 'label_instructor',
-            description_msgid = 'help_instructor',
+        languageIndependent = True,
+        searchable = True,
+        widget = LinesWidget(
+            label = "Instructors",
+            description = "User names or names of instructors, one per line",
+            label_msgid = 'label_instructors',
+            description_msgid = 'help_instructors',
             i18n_domain = I18N_DOMAIN,
         ),
     ),

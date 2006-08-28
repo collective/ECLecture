@@ -82,16 +82,25 @@
 	    <td tal:content="here/getCourseType"></td>
 	  </tr>
 
-          <tr tal:define="instructor here/getInstructor"
-              tal:condition="instructor">
-            <th i18n:translate="label_instructor">Instructor</th>
-            <td tal:define="info python:mtool.getMemberInfo(instructor)">
-	      <a href="#"
-		tal:attributes="href python: mtool.getHomeUrl(instructor)"
-		tal:content="python:info and info['fullname'] or instructor">
-		The instructor's fullname or user ID
-	      </a>
-            </td>
+          <tr tal:define="instructors here/getInstructor"
+	      tal:condition="instructors">
+            <th tal:condition="python: len(instructors) == 1" i18n:translate="label_instructor">Instructor</th>
+	    <th tal:condition="python: len(instructors)  > 1" i18n:translate="label_instructors">Instructors</th>
+	    <td>
+	      <tal:loop tal:repeat="userid python: instructors">
+		<tal:if condition="userid">
+		  <a href="#"
+		    tal:attributes="href python: mtool.getHomeUrl(userid)"
+		    tal:content="python: mtool.getMemberInfo(userid)
+		    and mtool.getMemberInfo(userid)['fullname']
+		    or userid">
+		    The instructors' fullnames or user IDs
+		  </a><span tal:condition="not: repeat/userid/end"
+		    tal:replace="string:, "/>
+		</tal:if>
+	      </tal:loop>
+	    </td>
+
           </tr>
 
           <tr>

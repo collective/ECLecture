@@ -48,7 +48,7 @@
 	    <thead>
 	      <th i18n:domain="plone" i18n:translate="title">Title</th>
 	      <th i18n:translate="label_course_type">Course type</th>
-	      <th i18n:translate="label_instructor">Instructor</th>
+	      <th i18n:translate="label_instructors">Instructors</th>
 	      <th i18n:translate="label_time">Time</th>
 	      <th i18n:translate="label_recurrence">Recurrence</th>
 	      <th i18n:translate="label_location">Location</th>
@@ -78,14 +78,20 @@
 
 		  <td tal:content="item/getCourseType"/>
 
-		  <td tal:define="instructor item/getInstructor"
-		    tal:condition="instructor">
-		    <a href="#"
-		      tal:define="info python:mtool.getMemberInfo(instructor)"
-		      tal:attributes="href python: mtool.getHomeUrl(instructor)"
-		      tal:content="python:info and info['fullname'] or instructor">
-		      The instructor's fullname or user ID
-		    </a>
+		  <td tal:define="instructors item/getInstructor"
+		    tal:condition="instructors">
+		    <tal:loop tal:repeat="userid python: instructors">
+		      <tal:if condition="userid">
+			<a href="#"
+			  tal:attributes="href python: mtool.getHomeUrl(userid)"
+			  tal:content="python: mtool.getMemberInfo(userid)
+			  and mtool.getMemberInfo(userid)['fullname']
+			  or userid">
+			  The instructors' fullnames or user IDs
+			</a><span tal:condition="not: repeat/userid/end"
+			  tal:replace="string:, "/>
+		      </tal:if>
+		    </tal:loop>
 		  </td>
 
 		  <td tal:define="weekday    item/getStartDateWeekday;
