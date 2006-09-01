@@ -82,7 +82,7 @@
 	    <td tal:content="here/getCourseType"></td>
 	  </tr>
 
-          <tr tal:define="instructors here/getInstructor"
+          <tr tal:define="instructors here/getInstructors"
 	      tal:condition="instructors">
             <th tal:condition="python: len(instructors) == 1" i18n:translate="label_instructor">Instructor</th>
 	    <th tal:condition="python: len(instructors)  > 1" i18n:translate="label_instructors">Instructors</th>

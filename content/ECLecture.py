@@ -80,7 +80,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         ),
     ),
 
-    LinesField('instructor',
+    LinesField('instructors',
         required = True,
         languageIndependent = True,
         searchable = True,

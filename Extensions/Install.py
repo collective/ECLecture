@@ -13,6 +13,7 @@ from Products.CMFCore.utils import getToolByName
 
 # local imports
 from Products.ECLecture.config import *
+from Products.ECLecture.Extensions.Migrations import migrate
 
 def installDependencies(self, out):
     """
@@ -98,6 +99,10 @@ def install(self):
             print >> out, "Added new view template for folders."
     except:
         print >> out, "Adding new view template for folders failed."
+
+    # Run migrations
+    #if RUN_MIGRATIONS:
+    print >> out, migrate(self)
 
     print >> out, "Successfully installed %s." % PRODUCT_NAME
     return out.getvalue()
