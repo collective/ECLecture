@@ -78,7 +78,7 @@
 
 		  <td tal:content="item/getCourseType"/>
 
-		  <td tal:define="instructors item/getInstructor"
+		  <td tal:define="instructors item/getInstructors"
 		    tal:condition="instructors">
 		    <tal:loop tal:repeat="userid python: instructors">
 		      <tal:if condition="userid">
