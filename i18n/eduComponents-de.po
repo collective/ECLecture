@@ -233,7 +233,7 @@ msgstr "Vorbesprechung"
 msgid "label_instructor"
 msgstr "Dozent"
 
-#. Default: "Instructor"
+#. Default: "Instructors"
 #: ./skins/ECLecture/ecl_view.pt
 #: ./skins/ECLecture/folder_lectures_view.pt
 msgid "label_instructors"
@@ -280,6 +280,32 @@ msgstr "Klicken Sie hier, um sich für die Lehrveranstaltung anzumelden"
 #: ./skins/ECLecture/ecl_view.pt
 msgid "label_registration"
 msgstr "Anmeldung"
+
+#  This text is used in place of ${registration} in the messages
+#  notice_registration and notice_limited_registration.
+#. Default: "registration"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "link_to_registration"
+msgstr "Anmeldung"
+
+#. Default: "Note: There is an enrollment limit for this course."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_limited"
+msgstr "Die Teilnehmerzahl dieser Veranstaltung ist beschränkt."
+
+#  ${registration} will be replaced with the text specified in
+#  link_to_registration.
+#. Default: "Note: This course requires ${registration}."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_registration"
+msgstr "Hinweis: Für diese Veranstaltung ist eine ${registration} erforderlich."
+
+#  ${registration} will be replaced with the text specified in
+#  link_to_registration.
+#. Default: "Note: There is an enrollment limit for this course and ${registration} is required."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_limited_registration"
+msgstr "Die Teilnehmerzahl dieser Veranstaltung ist beschränkt und eine ${registration} ist erforderlich."
 
 #. Default: "Available resources"
 #: ./skins/ECLecture/ecl_view.pt

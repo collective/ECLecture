@@ -72,7 +72,7 @@
                  class="link-plain" 
                  tal:attributes="href here/getJoinURL;"
                  i18n:translate="label_register">
-                Click here to register for this lecture
+                Click here to register for this course
               </a>
             </td>
           </tr>
@@ -186,6 +186,40 @@
 
 
         <div class="visualClear"/>
+
+	<tal:if condition="python: here.getJoinURL()
+	                           and not here.getMaxParticipants ()">
+	  <p class="portalMessage"
+	    i18n:translate="notice_registration">
+	    Note: This course requires
+	    <span i18n:name="registration">
+	      <a i18n:translate="link_to_registration"
+		href="#" tal:attributes="href here/getJoinURL; class
+		string:link-plain">registration</a>
+	    </span>.
+	  </p>
+	</tal:if>
+
+	<tal:if condition="python: not here.getJoinURL()
+	                           and here.getMaxParticipants()">
+	  <p class="portalMessage"
+	    i18n:translate="notice_limited">Note: There is an enrollment limit
+	    for this course.
+	  </p>
+	</tal:if>
+
+	<tal:if condition="python: here.getJoinURL()
+	                           and here.getMaxParticipants()">
+	  <p class="portalMessage"
+	    i18n:translate="notice_limited_registration">Note: There is an
+	    enrollment limit for this course and
+	    <span i18n:name="registration">
+	      <a i18n:translate="link_to_registration"
+		href="#" tal:attributes="href
+		here/getJoinURL;">registration</a>
+	    </span> is required.
+	  </p>
+	</tal:if>
 
         <div tal:replace="structure here/getText"/>
 

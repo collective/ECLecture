@@ -281,6 +281,32 @@ msgstr ""
 msgid "label_registration"
 msgstr ""
 
+#  This text is used in place of ${registration} in the messages
+#  notice_registration and notice_limited_registration.
+#. Default: "registration"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "link_to_registration"
+msgstr ""
+
+#. Default: "Note: There is an enrollment limit for this course."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_limited"
+msgstr ""
+
+#  ${registration} will be replaced with the text specified in
+#  link_to_registration.
+#. Default: "Note: This course requires ${registration}."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_registration"
+msgstr ""
+
+#  ${registration} will be replaced with the text specified in
+#  link_to_registration.
+#. Default: "Note: There is an enrollment limit for this course and ${registration} is required."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_limited_registration"
+msgstr ""
+
 #. Default: "Available resources"
 #: ./skins/ECLecture/ecl_view.pt
 msgid "label_resources_legend"
