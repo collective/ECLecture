@@ -194,8 +194,9 @@
 	    Note: This course requires
 	    <span i18n:name="registration">
 	      <a i18n:translate="link_to_registration"
-		href="#" tal:attributes="href here/getJoinURL; class
-		string:link-plain">registration</a>
+		href="#"
+		tal:attributes="href  here/getJoinURL;
+		                class string:link-plain">registration</a>
 	    </span>.
 	  </p>
 	</tal:if>
@@ -215,8 +216,9 @@
 	    enrollment limit for this course and
 	    <span i18n:name="registration">
 	      <a i18n:translate="link_to_registration"
-		href="#" tal:attributes="href
-		here/getJoinURL;">registration</a>
+		href="#"
+		tal:attributes="href  here/getJoinURL;
+		                class string:link-plain">registration</a>
 	    </span> is required.
 	  </p>
 	</tal:if>
