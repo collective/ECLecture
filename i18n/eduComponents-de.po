@@ -369,3 +369,7 @@ msgstr "wöchentlich"
 msgid "yearly"
 msgstr "jährlich"
 
+#. Default: "Today's Lectures"
+#: skins/ECLecture/portlet_ecl.pt
+msgid "portlet_ecl_title"
+msgstr "Lehrveranstaltungen"

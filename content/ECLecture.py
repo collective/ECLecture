@@ -47,11 +47,13 @@ from Products.ATContentTypes.content.base import updateActions, updateAliases
 
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
-
+from Products.ATContentTypes.interfaces import IATEvent
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
+
+from DateTime import DateTime
 
 # local imports
 from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, \
@@ -317,7 +319,7 @@ finalizeATCTSchema(ECLectureSchema, folderish=True, moveDiscussion=False)
 class ECLecture(ATFolder):
     """A folder which contains lecture information."""
 
-    __implements__ = (ATFolder.__implements__)
+    __implements__ = (ATFolder.__implements__, IATEvent)
 
     security       = ClassSecurityInfo()
 
@@ -485,5 +487,52 @@ class ECLecture(ATFolder):
                {'title':assignmentsTitle, 'url':'assignments', 
                 'icon':'topic_icon.gif'},
         )
+
+    security.declarePublic('start')
+    def start(self):
+        """
+        Method providing an Event-like interface (works with
+        CalendarX, for example).
+        """
+        return self.startDate
+
+    security.declarePublic('end')
+    def end(self):
+        """
+        Method providing an Event-like interface (works with
+        CalendarX, for example).
+        """
+        return self.endDate
+
+    security.declarePublic('lectureTakesPlace')
+    def lectureTakesPlace(self, datetime=None):
+        """
+        Return True if the lecture takes place on the given date. If
+        no date is specified, the current date will be used.
+
+        TODO: Currently not implemented for monthly and yearly recurrence.
+        """
+        
+        result = False
+        if not datetime:
+            datetime = DateTime()
+
+        if datetime >= self.startDate.earliestTime() \
+               and datetime <= self.endDate.latestTime():
+            if self.recurrence == NO_RECURRENCE:
+                result = self.startDate.isCurrentDay()
+            elif self.recurrence == DAILY:
+                result = True
+            elif self.recurrence == WEEKLY:
+                result = datetime.dow() == self.startDate.dow()
+            elif self.recurrence == MONTHLY:
+                # TODO
+                result = False
+            elif self.recurrence == YEARLY:
+                # TODO
+                result = False
+        return result
+
+    
 
 registerATCT(ECLecture, PRODUCT_NAME)
