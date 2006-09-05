@@ -15,6 +15,34 @@ from Products.CMFCore.utils import getToolByName
 from Products.ECLecture.config import *
 from Products.ECLecture.Extensions.Migrations import migrate
 
+def addCatalogIndex(self, out, catalog, index, type, extra=None):
+    """Add the given index name, of the given type, to the catalog."""
+    if index not in catalog.indexes():
+        catalog.addIndex(index, type, extra)
+        print >> out, "Added index", index, "to catalog"
+    else:
+        print >> out, "Index", index, "already in catalog"
+
+def addCatalogMetadata(self, out, catalog, column):
+    """Add the given column to the catalog's metadata schema"""
+    if column not in catalog.schema():
+        catalog.addColumn(column)
+        print >> out, "Added", column, "to catalog metadata"
+    else:
+        print >> out, column, "already in catalog metadata"
+
+def removeCatalogMetadata(self, out, catalog, column):
+    """Delete the given metadata column"""
+    # QueueCatalog work-around
+    if catalog.meta_type == 'ZCatalog Queue':
+         catalog = self.unrestrictedTraverse(catalog._location)
+    if column in catalog.schema():
+        catalog.delColumn(column)
+        print >> out, "Removed column", column
+    else:
+        print >> out, "Column", column, "not in catalog"
+
+
 def installDependencies(self, out):
     """
     Checks wether or not depending products are installed. 
@@ -38,6 +66,18 @@ def removeTool(self):
     """
     pass
 
+
+def setupCatalog(self, out, reinstall):
+    catalog = getToolByName(self, 'portal_catalog')
+    addCatalogMetadata(self, out, catalog, 'getTimePeriod')
+    addCatalogIndex(self, out, catalog, 'getTimePeriod', 'FieldIndex')
+
+def cleanCatalog(self, out, reinstall):
+    catalog = getToolByName(self, 'portal_catalog')
+    if not reinstall:
+        removeCatalogMetadata(self, out, catalog, 'getTimePeriod')
+
+
 def addPrefsPanel(self, out):
     """
     Add the tool to Plone's preferences panel.
@@ -59,7 +99,7 @@ def setWorkflow(self, out):
     pass
 
 
-def install(self):
+def install(self, reinstall=False):
     """
     Installs the product.
     """
@@ -79,6 +119,9 @@ def install(self):
 
     # install tools
     setupTool(self, out)
+
+    # setup catalog metadata
+    setupCatalog(self, out, reinstall)
 
     # register tool to preferences panel
     addPrefsPanel(self, out)
@@ -108,11 +151,14 @@ def install(self):
     return out.getvalue()
 
 
-def uninstall(self):
+def uninstall(self, reinstall=False):
     """ 
     Uninstalls the product.
     """
     out = StringIO()
+
+    # remove metadata from catalog
+    cleanCatalog(self, out, reinstall)
 
     # remove tool from prefs panel
     removePrefsPanel(self)
