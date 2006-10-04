@@ -20,11 +20,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import re
+from types import StringType, IntType
 
 from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
+
+from Products.CMFPlone.utils import log
 
 from Products.Archetypes.public import DisplayList
 from Products.Archetypes.public import Schema
@@ -99,6 +102,7 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
         accessor = 'getTimePeriod',
         edit_accessor = 'getTimePeriodForEdit',
         required = True,
+        default = ['11:00', '13:00'],
         widget = StringWidget(
             macro = 'time_period',
             size = 5,
@@ -461,13 +465,17 @@ class ECLecture(ATFolder):
         """
         value = self.getField('timePeriod').get(self)
         result = []
-        
+
         try:
             for item in value:
-                if item:
+                if type(item) is IntType:
                     result.append('%02d:%02d' % (item/60, item%60))
+                elif type(item) is StringType:
+                    # When the object is created, this can be the
+                    # default value (a string)
+                    result.append(item)
         except:
-            raise Exception(repr(value))
+            raise Exception(repr(item))
             
         return result
     
@@ -494,7 +502,8 @@ class ECLecture(ATFolder):
         Method providing an Event-like interface (works with
         CalendarX, for example).
         """
-        return self.startDate
+        date = getattr(self, 'startDate', None)
+        return date is None and self.created() or date
 
     security.declarePublic('end')
     def end(self):
@@ -502,7 +511,8 @@ class ECLecture(ATFolder):
         Method providing an Event-like interface (works with
         CalendarX, for example).
         """
-        return self.endDate
+        date = getattr(self, 'endDate', None)
+        return date is None and self.start() or date    
 
     security.declarePublic('lectureTakesPlace')
     def lectureTakesPlace(self, datetime=None):
