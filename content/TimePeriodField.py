@@ -50,7 +50,7 @@ class TimePeriodField(ObjectField):
         'type' : 'integer',
         'size' : '5',
         'widget' : StringWidget,
-        'default' : ['11:00', '13:00'],
+        'default' : [],
         'validators' : ('isTimePeriod'),
         })
 
