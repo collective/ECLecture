@@ -438,6 +438,55 @@ class ECLecture(ATFolder):
         return members
 
 
+    security.declarePublic('isParticipant')
+    def isParticipant(self, user_id):
+        """ """
+        group = self.associatedGroup
+        member = self.portal_membership.getMemberById(str(user_id))
+        if hasattr(member, 'getGroupsWithoutPrefix'):
+            return group in member.getGroupsWithoutPrefix()
+        else:
+            # This can happen for users who are not members of the
+            # Plone site (admin)
+            return False
+
+
+    security.declarePublic('addParticipant')
+    def addParticipant(self, user_id):
+        """
+        Add a user to the group associated with this lecture.
+        """
+        group = self.associatedGroup
+
+        if group:
+            try:
+                self.acl_users.getGroupByName(group).addMember(user_id)
+            except ValueError, ve:
+                # This can happen for users who are not members of the
+                # Plone site (admin)
+                log('addParticipant: %s', ve)
+                return False
+            return True
+            
+
+    security.declarePublic('removeParticipant')
+    def removeParticipant(self, user_id):
+        """
+        Remove a user from the group associated with this lecture.
+        """
+        group = self.associatedGroup
+
+        if group:
+            try:
+                self.acl_users.getGroupByName(group).removeMember(user_id)
+            except ValueError, ve:
+                # This can happen for users who are not members of the
+                # Plone site (admin)
+                log('removeParticipant: %s', ve)
+                return False
+            return True
+
+
     security.declarePublic('getTimePeriod')
     def getTimePeriod(self):
         """

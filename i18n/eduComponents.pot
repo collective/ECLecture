@@ -273,7 +273,7 @@ msgstr ""
 
 #. Default: "Click here to register for this lecture"
 #: ./skins/ECLecture/ecl_view.pt
-msgid "label_register"
+msgid "label_enroll"
 msgstr ""
 
 #. Default: "Registration"

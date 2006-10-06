@@ -10,7 +10,8 @@
   <body>
 
     <div metal:fill-slot="main">
-      <div metal:define-macro="main">
+      <div metal:define-macro="main"
+	tal:define="user_id       python: member.getId();">
 
         <div metal:use-macro="here/document_actions/macros/document_actions">
             Document actions (print, sendto etc)
@@ -65,17 +66,41 @@
         </fieldset>
 
         <table class="vertical listing">
-          <tr tal:condition ="here/joinURL">
+          <tr tal:condition="here/joinURL">
             <th i18n:translate="label_registration">Registration</th>
             <td>
-              <a href=""
-                 class="link-plain" 
-                 tal:attributes="href here/getJoinURL;"
-                 i18n:translate="label_register">
-                Click here to register for this course
-              </a>
+	      <tal:if tal:condition="python: not here.isParticipant(user_id)">
+		<a href=""
+		  class="link-plain" 
+		  tal:attributes="href here/getJoinURL;"
+		  i18n:translate="label_enroll">
+		  Click here to enroll in this course
+		</a>
+	      </tal:if>
+	      <tal:if tal:condition="python: here.isParticipant(user_id)">
+		<a href=""
+		  class="link-plain" 
+		  tal:attributes="href here/getJoinURL;"
+		  i18n:translate="label_cancellation">
+		  Click here to cancel your enrollment in this course
+		</a>
+	      </tal:if>
             </td>
           </tr>
+
+	  <tr tal:condition="here/getMaxParticipants">
+	    <th i18n:translate="label_max_participants">Enrollment limit</th>
+	    <td tal:define="max here/getMaxParticipants;
+	      current python: len(here.getGroupMembers(here.associatedGroup))">
+	      <span tal:omit-tag="" tal:content="max"/>
+	      <span tal:omit-tag="" i18n:translate="current_enrollment">
+		(currently enrolled:
+		<span i18n:name="number"
+		  tal:attributes="style python:test(current >= max, 'color:red;;', '');"
+		  tal:content="current"/>)
+	      </span>
+	    </td>
+	  </tr>
 
 	  <tr tal:condition="here/getCourseType">
 	    <th i18n:translate="label_course_type">Course type</th>
@@ -84,8 +109,10 @@
 
           <tr tal:define="instructors here/getInstructors"
 	      tal:condition="instructors">
-            <th tal:condition="python: len(instructors) == 1" i18n:translate="label_instructor">Instructor</th>
-	    <th tal:condition="python: len(instructors)  > 1" i18n:translate="label_instructors">Instructors</th>
+            <th tal:condition="python: len(instructors) == 1"
+	      i18n:translate="label_instructor">Instructor</th>
+	    <th tal:condition="python: len(instructors)  > 1"
+	      i18n:translate="label_instructors">Instructors</th>
 	    <td>
 	      <tal:loop tal:repeat="userid python: instructors">
 		<tal:if condition="userid">
@@ -166,11 +193,6 @@
 	    <td tal:content="here/getCredits"></td>
 	  </tr>
 
-	  <tr tal:condition="here/getMaxParticipants">
-	    <th i18n:translate="label_max_participants">Enrollment limit</th>
-	    <td tal:content="here/getMaxParticipants"></td>
-	  </tr>
-
           <tr tal:condition="here/getDirectoryEntry">
             <th i18n:translate="label_directory">Directory</th>
             <td>
@@ -187,41 +209,53 @@
 
         <div class="visualClear"/>
 
-	<tal:if condition="python: here.getJoinURL()
-	                           and not here.getMaxParticipants ()">
-	  <p class="portalMessage"
-	    i18n:translate="notice_registration">
-	    Note: This course requires
-	    <span i18n:name="registration">
-	      <a i18n:translate="link_to_registration"
-		href="#"
-		tal:attributes="href  here/getJoinURL;
-		                class string:link-plain">registration</a>
-	    </span>.
-	  </p>
-	</tal:if>
+	<tal:block condition="python: not here.isParticipant(user_id)">
+	  <tal:if condition="python: here.getJoinURL()
+	    and not here.getMaxParticipants ()">
+	    <p class="portalMessage"
+	      i18n:translate="notice_registration">
+	      Note: This course requires
+	      <span i18n:name="registration">
+		<a i18n:translate="link_to_registration"
+		  href="#"
+		  tal:attributes="href  here/getJoinURL;
+		  class string:link-plain">registration</a>
+	      </span>.
+	    </p>
+	  </tal:if>
 
-	<tal:if condition="python: not here.getJoinURL()
-	                           and here.getMaxParticipants()">
-	  <p class="portalMessage"
-	    i18n:translate="notice_limited">Note: There is an enrollment limit
-	    for this course.
-	  </p>
-	</tal:if>
+	  <tal:if condition="python: not here.getJoinURL()
+	    and here.getMaxParticipants()">
+	    <p class="portalMessage"
+	      i18n:translate="notice_limited">Note: There is an enrollment limit
+	      for this course.
+	    </p>
+	  </tal:if>
 
-	<tal:if condition="python: here.getJoinURL()
-	                           and here.getMaxParticipants()">
-	  <p class="portalMessage"
-	    i18n:translate="notice_limited_registration">Note: There is an
-	    enrollment limit for this course and
-	    <span i18n:name="registration">
-	      <a i18n:translate="link_to_registration"
-		href="#"
-		tal:attributes="href  here/getJoinURL;
-		                class string:link-plain">registration</a>
-	    </span> is required.
-	  </p>
-	</tal:if>
+	  <tal:if condition="python: here.getJoinURL()
+	    and here.getMaxParticipants()">
+	    <p class="portalMessage"
+	      i18n:translate="notice_limited_registration">Note: There is an
+	      enrollment limit for this course and
+	      <span i18n:name="registration">
+		<a i18n:translate="link_to_registration"
+		  href="#"
+		  tal:attributes="href  here/getJoinURL;
+		  class string:link-plain">registration</a>
+	      </span> is required.
+	    </p>
+	  </tal:if>
+	</tal:block>
+
+	<tal:block condition="python: here.isParticipant(user_id)">
+	  <p i18n:translate="note_enrolled"
+	    style="border: 1px solid gray;;
+	    padding: 0.5em 1em 0.5em 3em;;
+	    margin: 1em 0em;; background-image: url(info_icon.gif);;
+	    background-repeat: no-repeat;;
+	    background-position: 5px 50%;;">
+	    <b>Note:</b> You are enrolled in this course.</p>
+	</tal:block>
 
         <div tal:replace="structure here/getText"/>
 
