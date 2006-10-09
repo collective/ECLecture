@@ -373,3 +373,24 @@ msgstr "jährlich"
 #: skins/ECLecture/portlet_ecl.pt
 msgid "portlet_ecl_title"
 msgstr "Lehrveranstaltungen"
+
+
+#. Default: "Please login in to see if you are already enrolled in this course."
+#: skins/ECLecture/ecl_view.pt
+msgid "label_login_to_see_enrollment"
+msgstr "Bitte melden Sie sich an, um zu sehen, ob Sie bereits für diese Lehrveranstaltung angemeldet sind."
+
+#. Default: "Click here to cancel your enrollment in this course"
+#: skins/ECLecture/ecl_view.pt
+msgid "label_cancellation"
+msgstr "Klicken Sie hier, um sich von dieser Lehrveranstaltung abzumelden"
+
+#. Default: "<b>Note:</b> You are enrolled in this course.</p>"
+#: skins/ECLecture/ecl_view.pt
+msgid "note_enrolled"
+msgstr "<strong>Hinweis:</strong> Sie sind für diese Lehrveranstaltung angemeldet."
+
+#. Default: "(currently enrolled: ${number})"
+#: skins/ECLecture/ecl_view.pt
+msgid "current_enrollment"
+msgstr "(aktuell angemeldet: ${number})"
