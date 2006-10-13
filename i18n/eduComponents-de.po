@@ -90,7 +90,7 @@ msgstr "Sie können dieser Lehrveranstaltung eine Gruppe zuordnen, die ihre Teil
 #. Default: "Enter available resources for this course. Title  is the name of a resource as shown to the user; URL must be a path inside this site or an URL to an external source; Icon is optional."
 #: content/ECLecture.py
 msgid "help_available_resources"
-msgstr "Tragen Sie hier die für die Lehrveranstaltung verfügbaren Materialien ein. Ein Eingtrag besteht aus dem Titel und dem Pfad innerhalb diese Seite bzw. einem URL zu einer externen Quelle. Optional können Sie ein Symbol angeben."
+msgstr "Tragen Sie hier die für die Lehrveranstaltung verfügbaren Materialien ein. Ein Eingtrag besteht aus dem Titel und dem Pfad innerhalb diese Seite bzw. einem URL zu einer externen Quelle. Veröffentlichte Inhalte innerhalb dieser Lehrveranstaltung werden automatisch hinzugefügt."
 
 #. Default: "Enter course information"
 #: content/ECLecture.py
@@ -394,3 +394,8 @@ msgstr "<strong>Hinweis:</strong> Sie sind für diese Lehrveranstaltung angemeld
 #: skins/ECLecture/ecl_view.pt
 msgid "current_enrollment"
 msgstr "(aktuell angemeldet: ${number})"
+
+#. Default: "The maximum number of participants has been reached."
+#: skins/ECLecture/ecl_view.pt
+msgid "label_enrollment_limit_reached"
+msgstr "Die maximale Teilnehmerzahl wurde erreicht."

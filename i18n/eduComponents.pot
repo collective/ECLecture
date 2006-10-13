@@ -395,3 +395,8 @@ msgstr ""
 #: skins/ECLecture/ecl_view.pt
 msgid "current_enrollment"
 msgstr ""
+
+#. Default: "The maximum number of participants has been reached."
+#: skins/ECLecture/ecl_view.pt
+msgid "label_enrollment_limit_reached"
+msgstr ""

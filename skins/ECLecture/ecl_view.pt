@@ -36,29 +36,49 @@
 -->
 
         <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;"
-            tal:define="resources here/getAvailableResources"
-            tal:condition="resources">
+            tal:define="externalRes here/getAvailableResources;
+                        searchPath  python: '/'.join(here.getPhysicalPath());
+                        localRes    python: here.portal_catalog.searchResults(
+                            path={'query':searchPath, 'depth':1,}, 
+                            sort_on='getObjPositionInParent', 
+                            review_state='published');"
+            >
+            <!--  tal:condition="python: externalRes or localRes"
+            , review_state='published'-->
 
           <legend i18n:translate="label_resources_legend">Available resources</legend>
 
           <ul style="list-style-type: none; list-style-image: none; margin-left: 0;">
-            <tal:resources repeat="resource resources">
-              <li tal:define="resourceTitle resource/title;
-                              resourceURL   resource/url;
-                              resourceIcon  python: resource['icon'] or 'document_icon.gif';"
+            <tal:resources repeat="resource externalRes">
+              <li tal:define="title resource/title;
+                              url   resource/url;"
               >
+                <!-- link with default icon -->
+                <span class="contenttype-topic visualIconPadding">
+                  <a href="" 
+                     class="link-plain" 
+                     title=""
+                     tal:attributes="href string:${url};" 
+                     tal:content="title">
+                    Link to the resource
+                  </a>
+                </span>
 
-                <img src="" alt=""
-                    tal:condition="resourceIcon"
-                    tal:attributes="src string:${portal_url}/${resourceIcon}"/>
-
-                <a href="" 
-                   class="link-plain" 
-                   title=""
-                   tal:attributes="href string:${resourceURL};" 
-                   tal:content="resourceTitle">
-                  Link to the resource
-                </a>
+              </li>
+            </tal:resources>
+            
+            <tal:resources repeat="resource localRes">
+              <li>
+                <!-- link with icon of this protal type -->
+                <span tal:attributes="class python: 'contenttype-' + normalizeString(resource.portal_type) + ' visualIconPadding'">
+                  <a href="" 
+                     class="link-plain" 
+                     title=""
+                     tal:attributes="href resource/getURL" 
+                     tal:content="resource/pretty_title_or_id">
+                    Link to the resource
+                  </a>
+                </span>
 
               </li>
             </tal:resources>
@@ -71,7 +91,12 @@
             <th i18n:translate="label_registration">Registration</th>
             <td>
 
-              <tal:if condition="python: (joinURL == 'ecl_register')">
+              <!-- ecl_register is used, thats fine -->
+              <tal:if condition="python: (joinURL == 'ecl_register')"
+                  define="canEnroll python:not here.hasEnrollmentLimitReached();
+                          isParticipant python:here.isParticipant(user_id);"
+              >
+                <!-- Anonymous user, please log in -->
                 <tal:if condition="python: isAnon">
                   <a href=""
                     class="link_plain"
@@ -81,7 +106,16 @@
                   </a>
                 </tal:if>
 
-                <tal:if condition="python: (not isAnon) and (not here.isParticipant(user_id))">
+                <!-- user isn't already enrolled but the enrollment limit has been reached -->
+                <tal:if condition="python: (not isAnon) and (not isParticipant) and (not canEnroll)">
+                  <span tal:attributes="style python:'color:red;;';" 
+                      i18n:translate="label_enrollment_limit_reached">
+                    The maximum number of participants has been reached.
+                  </span>
+                </tal:if>
+
+                <!-- user isn't already enrolled and enrollment limit has not been reached -->
+                <tal:if condition="python: (not isAnon) and (not isParticipant) and (canEnroll)">
                   <a href=""
                     class="link-plain" 
                     tal:attributes="href here/getJoinURL;"
@@ -89,7 +123,9 @@
                     Click here to enroll in this course
                   </a>
                 </tal:if>
-                <tal:if condition="python: (not isAnon) and (here.isParticipant(user_id))">
+
+                <!-- user is enrolled; show link for cancellation of enrollment -->
+                <tal:if condition="python: (not isAnon) and (isParticipant)">
                   <a href=""
                     class="link-plain" 
                     tal:attributes="href here/getJoinURL;"
@@ -100,6 +136,7 @@
               </tal:if>
               
               <!-- show registration link if this course does not use ecl_register -->
+              <!-- FIXME: add a condition so the link will not be shown if the enrollment limit has been reached -->
               <tal:if condition="python: not (joinURL == 'ecl_register')">
                 <a href=""
                    class="link-plain" 

@@ -12,11 +12,6 @@ I18N_DOMAIN = 'eduComponents'
 
 REQUEST  = container.REQUEST
 RESPONSE = REQUEST.RESPONSE
-# print REQUEST
-# return printed
-
-# user_id = REQUEST.get('user_id', None)
-# user_id = member.getId()
 
 user_id = str(REQUEST.get('AUTHENTICATED_USER', None))
 member  = context.portal_membership.getMemberById(str(user_id))
@@ -26,37 +21,43 @@ status  = 'failure'
 msg     = 'Enrollment error'
 
 if not context.isParticipant(user_id):
-    action = 'add'
-    ret = context.addParticipant(user_id)
+    # check enrollment limit
+    if not context.hasEnrollmentLimitReached():
+        # try to add user
+        if context.addParticipant(user_id):
+            status = 'success'
+            msg = context.translate(
+                msgid   = 'enrollment_sucessful',
+                domain  = I18N_DOMAIN,
+                default = 'You have been successfully enrolled.')
+        else:
+            status = 'failure'
+            msg = context.translate(
+                msgid   = 'enrollment_failed',
+                domain  = I18N_DOMAIN,
+                default = 'Enrollment failed, please contact the instructor.')
+    else:
+        # enrollment limit has reached
+        status = 'failure'
+        msg = context.translate(
+            msgid   = 'label_enrollment_limit_reached',
+            domain  = I18N_DOMAIN,
+            default = 'Enrollment failed. The maximum number of participants has been reached.')
+        
 else:
-    action = 'remove'
-    ret = context.removeParticipant(user_id)
-
-if ret:
-    status = 'success'
-else:
-    status = 'failure'
-
-if action == 'add' and status == 'success':
-    msg = context.translate(
-        msgid   = 'enrollment_sucessful',
-        domain  = I18N_DOMAIN,
-        default = 'You have been successfully enrolled.')
-elif action == 'add' and status == 'failure':
-    msg = context.translate(
-        msgid   = 'enrollment_failed',
-        domain  = I18N_DOMAIN,
-        default = 'Enrollment failed, please contact the instructor.')
-elif action == 'remove' and status == 'success':
-    msg = context.translate(
-        msgid   = 'cancellation_successful',
-        domain  = I18N_DOMAIN,
-        default = 'You are no longer enrolled.')
-elif action == 'remove' and status == 'failure':
-    msg = context.translate(
-        msgid   = 'cancellation_failed',
-        domain  = I18N_DOMAIN,
-        default = 'Cancellation of enrollment failed, please contact the instructor.')
+    # try to cancel enrollment of user
+    if context.removeParticipant(user_id):
+        status = 'success'
+        msg = context.translate(
+            msgid   = 'cancellation_successful',
+            domain  = I18N_DOMAIN,
+            default = 'You are no longer enrolled.')
+    else:
+        status = 'failure'
+        msg = context.translate(
+            msgid   = 'cancellation_failed',
+            domain  = I18N_DOMAIN,
+            default = 'Cancellation of enrollment failed, please contact the instructor.')
 
 #return state.set(status = status, portal_status_message = msg)
 RESPONSE.redirect('%s?portal_status_message=%s' % 
