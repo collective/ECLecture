@@ -1,1 +1,1 @@
-1.2 (unreleased, with registration)
+1.3 (unreleased, with registration)
