@@ -42,9 +42,8 @@
                             path={'query':searchPath, 'depth':1,}, 
                             sort_on='getObjPositionInParent', 
                             review_state='published');"
-            >
-            <!--  tal:condition="python: externalRes or localRes"
-            , review_state='published'-->
+            tal:condition="python: externalRes or localRes"
+        >
 
           <legend i18n:translate="label_resources_legend">Available resources</legend>
 
