@@ -55,6 +55,8 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
+from Products.DataGridField.Column import Column
+from Products.DataGridField.LinkColumn import LinkColumn
 
 from DateTime import DateTime
 
@@ -278,23 +280,26 @@ ECLectureSchema = ATFolderSchema.copy() + Schema((
     ),
 
     DataGridField('availableResources',
-        default_method = 'getDefaultResources',
+        searchable = True,
+        #default_method = 'getDefaultResources',
         #required = True,
-        columns = ('title', 'url', 'icon'),
+        columns = ('title', 'url'),
+        allow_empty_rows = False,
         widget = DataGridWidget(
-            label = "Available resources",
-            description = """Enter available resources for this course. Title 
-is the name of a resource as shown to the user; URL must be a path inside this
-site or an URL to an external source; Icon is optional.""",
-            column_names = ('Title', 'URL', 'Icon',),
             label_msgid = 'label_available_resourcess',
+            label = "Available resources",
             description_msgid = 'help_available_resources',
+            description = """Enter available resources for this course. Title 
+is the name of a resource as shown to the user, URL must be a path inside
+this site or an URL to an external source. Please remember that published 
+items inside this course are added by default.""",
+            column_names = ('Title', 'URL',),
             i18n_domain = I18N_DOMAIN,
         ),
     ),
 
     TextField('text',
-        required=True,
+        #required=True,
         searchable=True,
         primary=True,
         #storage = AnnotationStorage(migrate=True),
@@ -390,7 +395,10 @@ class ECLecture(ATFolder):
         dl.add(NO_GROUP, '----')
 
         groups_tool = getToolByName(self, 'portal_groups')
-        groups = groups_tool.searchForGroups(REQUEST=None)
+        #groups = groups_tool.searchForGroups(REQUEST=None)
+        # HINT: There is a problem with searchForGroups in Plone 2.5
+        groups = groups_tool.listGroups()
+
         for group in groups:
             dl.add(group.getGroupId(), group.getGroupName())
         
@@ -429,11 +437,14 @@ class ECLecture(ATFolder):
         
         members = []
 
-        for userid in mtool.listMemberIds():
-            if userid:
-                member = mtool.getMemberById(userid)
-                if 'group_' + groupname in member.getGroups():
-                    members.append(member)
+        if groupname:
+            for userid in mtool.listMemberIds():
+                if userid:
+                    member = mtool.getMemberById(userid)
+                    if 'group_' + groupname in member.getGroups():
+                        members.append(member)
+            # end for
+        # end if
 
         return members
 
@@ -451,22 +462,48 @@ class ECLecture(ATFolder):
             return False
 
 
+    security.declarePublic('hasEnrollmentLimitReached')
+    def hasEnrollmentLimitReached(self):
+        """
+        Returns wether or not a user can enroll in this course due to the
+        enrollment limit (maxParticipants).
+        """
+        max = self.getMaxParticipants();
+        current = len(self.getGroupMembers(self.getAssociatedGroup()))
+        
+        if max: 
+            result = not (current < max)
+        else:
+            result = False
+              
+        return result
+    
+
     security.declarePublic('addParticipant')
     def addParticipant(self, user_id):
         """
         Add a user to the group associated with this lecture.
         """
-        group = self.associatedGroup
+        groups_tool = getToolByName(self, 'portal_groups')
+        group = groups_tool.getGroupById(self.associatedGroup)
 
+        #log('xxx: %s' % self.associatedGroup)
+        #log('xxx: %s' % group)
+
+        # FIXME: There is a problem in Plone 2.5: acl_users.getGroupByName 
+        #        returns None
         if group:
             try:
-                self.acl_users.getGroupByName(group).addMember(user_id)
+                group.addMember(user_id)
             except ValueError, ve:
                 # This can happen for users who are not members of the
                 # Plone site (admin)
-                log('addParticipant: %s', ve)
+                log('addParticipant: %s' % ve)
                 return False
-            return True
+        else:
+            raise Exception('%s is not a valid group.' % self.associatedGroup)
+            
+        return True
             
 
     security.declarePublic('removeParticipant')
@@ -529,21 +566,22 @@ class ECLecture(ATFolder):
         return result
     
     
-    def getDefaultResources(self):
-        
-        slidesTitle = self.translate(domain=I18N_DOMAIN,
-                                     msgid='default_slides_title',
-                                     default='Slides')
-        
-        assignmentsTitle = self.translate(domain=I18N_DOMAIN,
-                                          msgid='default_assignments_title',
-                                          default='Assignments')
-
-        return ({'title':slidesTitle, 'url':'slides', 
-                'icon':'book_icon.gif'},                    
-               {'title':assignmentsTitle, 'url':'assignments', 
-                'icon':'topic_icon.gif'},
-        )
+#    def getDefaultResources(self):
+#        """
+#        """
+#        slidesTitle = self.translate(domain=I18N_DOMAIN,
+#                                     msgid='default_slides_title',
+#                                     default='Slides')
+#        
+#        assignmentsTitle = self.translate(domain=I18N_DOMAIN,
+#                                          msgid='default_assignments_title',
+#                                          default='Assignments')
+#
+#        return ({'title':slidesTitle, 'url':'slides', 
+#                'icon':'book_icon.gif'},                    
+#               {'title':assignmentsTitle, 'url':'assignments', 
+#                'icon':'topic_icon.gif'},
+#        )
 
     security.declarePublic('start')
     def start(self):
