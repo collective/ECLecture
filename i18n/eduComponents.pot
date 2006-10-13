@@ -398,5 +398,28 @@ msgstr ""
 
 #. Default: "The maximum number of participants has been reached."
 #: skins/ECLecture/ecl_view.pt
+#: skins/ECLecture/ecl_register.cpy
 msgid "label_enrollment_limit_reached"
 msgstr ""
+
+
+#. Default: "You have been successfully enrolled."
+#: skins/ECLecture/ecl_register.cpy
+msgid "enrollment_sucessful"
+msgstr ""
+
+#. Default: "Enrollment failed, please contact the instructor."
+#: skins/ECLecture/ecl_register.cpy
+msgid "enrollment_failed"
+msgstr ""
+
+#. Default: "You are no longer enrolled."
+#: skins/ECLecture/ecl_register.cpy
+msgid "cancellation_successful"
+msgstr ""
+
+#. Default: "Cancellation of enrollment failed, please contact the instructor."
+#: skins/ECLecture/ecl_register.cpy
+msgid "cancellation_failed"
+msgstr ""
+
