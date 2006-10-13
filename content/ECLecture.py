@@ -55,8 +55,8 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
-from Products.DataGridField.Column import Column
-from Products.DataGridField.LinkColumn import LinkColumn
+#from Products.DataGridField.Column import Column
+#from Products.DataGridField.LinkColumn import LinkColumn
 
 from DateTime import DateTime
 
