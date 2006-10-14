@@ -485,7 +485,8 @@ class ECLecture(ATFolder):
         Add a user to the group associated with this lecture.
         """
         groups_tool = getToolByName(self, 'portal_groups')
-        group = groups_tool.getGroupById(self.associatedGroup)
+        #group = groups_tool.getGroupById(self.associatedGroup)
+        group = self.acl_users.getGroupByName(self.associatedGroup)
 
         #log('xxx: %s' % self.associatedGroup)
         #log('xxx: %s' % group)
