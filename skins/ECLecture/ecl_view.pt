@@ -8,6 +8,10 @@
       i18n:domain="eduComponents">
   
   <body>
+    <metal:block fill-slot="css_slot">
+      <style type="text/css" media="screen" tal:content="string: @import url($portal_url/ecl_styles.css);">
+      </style>
+    </metal:block>
 
     <div metal:fill-slot="main">
       <div metal:define-macro="main"
@@ -307,13 +311,8 @@
         </tal:block>
 
         <tal:block condition="python: here.isParticipant(user_id)">
-          <p i18n:translate="note_enrolled"
-            style="border: 1px solid gray;;
-            padding: 0.5em 1em 0.5em 3em;;
-            margin: 1em 0em;; background-image: url(info_icon.gif);;
-            background-repeat: no-repeat;;
-            background-position: 5px 50%;;">
-            <b>Note:</b> You are enrolled in this course.</p>
+          <p class="ec-hint" i18n:translate="note_enrolled">
+            Note: You are enrolled in this course.</p>
         </tal:block>
 
         <div tal:replace="structure here/getText"/>
