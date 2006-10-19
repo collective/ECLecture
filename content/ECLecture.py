@@ -59,6 +59,7 @@ from Products.DataGridField.DataGridWidget import DataGridWidget
 #from Products.DataGridField.LinkColumn import LinkColumn
 
 from DateTime import DateTime
+import urllib
 
 # local imports
 from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, \
@@ -447,6 +448,31 @@ class ECLecture(ATFolder):
         # end if
 
         return members
+
+
+    def getGroupMembersMailto(self, groupMembers, type=None):
+        """
+        Return a mailto: link with the e-mail addresses of the users
+        given in groupMembers (a list of user names). If type is
+        'bcc', create a link that contains the user in the To: header
+        and the participants in the Bcc: header.
+        """
+        currentUser = self.portal_membership.getAuthenticatedMember()
+        currentEmail = currentUser.getProperty('email')
+        addresses = []
+
+        for user in groupMembers:
+            email = user.getProperty('email')
+            if email != currentEmail and email not in addresses:
+                addresses.append(email)
+
+        if type == 'bcc':
+            return 'mailto:?to=%s&bcc=%s' % (currentEmail, ','.join(addresses))
+        else:
+            return 'mailto:%s' % ','.join(addresses)
+
+        #return 'mailto:' + ','.join([urllib.quote(user.getProperty('email'))
+        #                      for user in groupMembers])
 
 
     security.declarePublic('isParticipant')

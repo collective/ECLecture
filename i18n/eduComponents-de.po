@@ -182,6 +182,11 @@ msgstr "Zugeordnete Gruppe"
 msgid "send_mail_to_all_participants"
 msgstr "E-Mail an alle Teilnehmer"
 
+#. Default: "Send e-mail to all participants using Bcc:"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "send_mail_to_all_participants_bcc"
+msgstr "E-Mail an alle Teilnehmer mittels Bcc:"
+
 #. Default: "Available resources"
 #: content/ECLecture.py
 msgid "label_available_resourcess"

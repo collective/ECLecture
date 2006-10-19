@@ -182,6 +182,11 @@ msgstr ""
 msgid "send_mail_to_all_participants"
 msgstr ""
 
+#. Default: "Send e-mail to all participants using Bcc:"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "send_mail_to_all_participants_bcc"
+msgstr ""
+
 #. Default: "Available resources"
 #: content/ECLecture.py
 msgid "label_available_resourcess"
