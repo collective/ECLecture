@@ -8,12 +8,12 @@
                  end={'query': here.ZopeTime(),
                       'range': 'min'},
                  sort_on='getTimePeriod',
-                 review_state='published')[:5];"
+                 review_state='published');"
      tal:condition="results">
 
       <tal:filter
 	define="result_objects   python: map(lambda (item): item.getObject(), results);
-	filtered_results python: filter(lambda (item): item.lectureTakesPlace(), result_objects)">
+	filtered_results python: filter(lambda (item): item.lectureTakesPlace(), result_objects)[:5]">
 
 	<dl tal:condition="filtered_results" class="portlet" id="portlet-ecl">
 
