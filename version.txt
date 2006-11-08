@@ -1,1 +1,1 @@
-1.3 (unreleased, with registration)
+1.3 (unreleased; with registration, inherits from ecfolder if available)

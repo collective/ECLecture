@@ -48,8 +48,8 @@ from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.base import registerATCT
 from Products.ATContentTypes.content.base import updateActions, updateAliases
 
-from Products.ATContentTypes.content.folder import ATFolderSchema
-from Products.ATContentTypes.content.folder import ATFolder
+#from Products.ATContentTypes.content.folder import ATFolderSchema
+#from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.interfaces import IATEvent
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
@@ -62,6 +62,13 @@ from DateTime import DateTime
 import urllib
 
 # local imports
+try:
+    from Products.ECAssignmentBox.ECFolder import ECFolder as SuperClass
+    from Products.ECAssignmentBox.ECFolder import ECFolderSchema as SuperSchema
+except:
+    from Products.ATContentTypes.content.folder import ATFolder as SuperClass
+    from Products.ATContentTypes.content.folder import ATFolderSchema as SuperSchema
+
 from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, \
      ECL_META, ECL_ICON, I18N_DOMAIN, edit_permission
 from TimePeriodField import TimePeriodField
@@ -75,7 +82,7 @@ YEARLY = 4
 NO_GROUP = ''
 
 # -- schema definition --------------------------------------------------------
-ECLectureSchema = ATFolderSchema.copy() + Schema((
+ECLectureSchema = SuperSchema.copy() + Schema((
 
     StringField('courseType',
         required = False,
@@ -323,13 +330,22 @@ items inside this course are added by default.""",
 
 ),)
 
+if 'directions' in ECLectureSchema:
+    # hide directions field if inheriting from ECFolder
+    ECLectureSchema['directions'].widget.visible = {'view' : 'invisible',
+                                                    'edit' : 'invisible' }
+    # move inherited fields to separate edit page
+    ECLectureSchema['completedStates'].schemata = 'ecfolder'
+    ECLectureSchema['projectedAssignments'].schemata = 'ecfolder'
+
+
 finalizeATCTSchema(ECLectureSchema, folderish=True, moveDiscussion=False)
 
 
-class ECLecture(ATFolder):
+class ECLecture(SuperClass):
     """A folder which contains lecture information."""
 
-    __implements__ = (ATFolder.__implements__, IATEvent)
+    __implements__ = (SuperClass.__implements__, IATEvent)
 
     security       = ClassSecurityInfo()
 
@@ -351,7 +367,7 @@ class ECLecture(ATFolder):
     typeDescMsgId = 'description_edit_eclecture'
 
     # -- actions --------------------------------------------------------------
-    actions = updateActions(ATFolder, (
+    actions = updateActions(SuperClass, (
         {
         'action':      'string:$object_url/ecl_participants',
         'category':    'object',
@@ -362,7 +378,7 @@ class ECLecture(ATFolder):
         },
     ))
 
-    aliases = updateAliases(ATFolder, {
+    aliases = updateAliases(SuperClass, {
         'view': 'ecl_view',
         })
 
