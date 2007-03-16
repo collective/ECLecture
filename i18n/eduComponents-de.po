@@ -177,6 +177,11 @@ msgstr "Begin und Ende der Lehrveranstaltung"
 msgid "label_associated_group"
 msgstr "Zugeordnete Gruppe"
 
+#. Default: "# Participants"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "label_number_participants"
+msgstr "Anzahl Teilnehmer"
+
 #. Default: "Send e-mail to all participants"
 #: ./skins/ECLecture/ecl_participants.pt
 msgid "send_mail_to_all_participants"

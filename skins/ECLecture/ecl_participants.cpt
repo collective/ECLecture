@@ -7,7 +7,6 @@
       i18n:domain="eduComponents">
   
   <body>
-
     <div metal:fill-slot="main">
       <div metal:define-macro="main">
 
@@ -31,18 +30,42 @@
 	  isGroup nocall:gtool/isGroup;
 	  ecab_utils nocall:portal/ecab_utils|nothing;">
 
-	  <p>
-	    <b i18n:translate="label_associated_group">Associated group</b>:
-	    <span tal:replace="groupname"/>
-	  </p>
+	  <table class="vertical listing">
+	    <tr>
+	      <th i18n:translate="label_associated_group">Associated group</th>
+	      <td tal:content="groupname"/>
+	    </tr>
+	    <tr>
+	      <th i18n:translate="label_number_participants"># Participants</th>
+	      <td tal:content="python: len(groupMembers)"/>
+	    </tr>
+	  </table>
 
-	  <tal:block tal:condition="groupMembers" i18n:domain="plone">
+	  <form tal:condition="groupMembers"
+	    name="overview"
+	    action="#"
+	    method="post"
+	    tal:attributes="action here_url"
+	    i18n:domain="plone"
+	    >
 	    <table class="listing" summary="Group Members Listing"
 	      tal:define="student_id_attr portal_properties/ecab_properties/student_id_attr | nothing;
 	                  major_attr      portal_properties/ecab_properties/major_attr | nothing;">
 	      <thead>
 		<tr>
-		  <th>#</th>
+		  <th class="nosort"><input class="noborder"
+		      type="checkbox"
+		      src="select_all_icon.gif"
+		      name="selectButton"
+		      title="Select all items"
+		      onClick="toggleSelect(this);"
+		      tal:attributes="src string:$portal_url/select_all_icon.gif"
+		      alt="Select all items"
+		      i18n:domain="plone"
+		      i18n:attributes="title alt"
+		      />
+		  </th>
+		  <!-- <th>#</th> -->
 		  <th i18n:translate="label_name">Group/User name</th>
 		  <th i18n:translate="listingheader_email_address">E-mail Address</th>
 		  <th i18n:translate="label_student_id" i18n:domain="eduComponents"
@@ -57,7 +80,15 @@
 		  <tr tal:define="oddrow repeat/this_user/odd"
 		    tal:attributes="class python:test(oddrow,'odd','even')">
 
-		    <td align="right" tal:content="repeat/this_user/number"/>
+		    <td>
+		      <input type="checkbox" class="noborder" name="ids:list" value="#"
+			tal:attributes="
+			value    this_user/getId;
+			tabindex tabindex/next;"
+			/>
+		    </td>
+
+		    <!-- <td align="right" tal:content="repeat/this_user/number"/> -->
 
 		    <tal:block tal:condition="python: isGroup(this_user)">
 		      <td>
@@ -105,7 +136,33 @@
 		</tal:block>
 	      </tbody>
 	    </table>
-	  </tal:block>
+
+	    <div class="formControls">                    
+	      <!-- Export Button -->
+	      <input class="context"
+		tabindex="#"
+		type="submit"
+		name="ecl_participants_export:method"
+		value="Export"
+		tal:attributes="tabindex tabindex/next;"
+		i18n:attributes="value"
+		/>
+	      <!-- Delete Button (Owner and Managers only) -->
+	      <!--
+	      <tal:if_manager condition="python:here.userIsManager(member)">
+	      <input class="context"
+	      tabindex="#"
+	      type="submit"
+	      name="ecq_quiz_results_delete:method"
+	      value="Delete"
+	      i18n:domain="plone"
+	      tal:attributes="tabindex tabindex/next;"
+	      i18n:attributes="value"
+	      />
+	    </tal:if_manager>
+	      -->
+	    </div>
+	  </form>
 
 	  <ul>
 	    <li>
