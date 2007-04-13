@@ -8,6 +8,7 @@ except ImportError:
     
 import types
 
+from types import StringTypes
 from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes import transaction
@@ -25,7 +26,7 @@ def instructor_to_instructors(obj, val, **kwargs):
     log('%s: instructor_to_instructors called for %s' % (ECL_NAME,
                                                          obj.TitleOrId()))
     
-    if type(val) == type('') or type(val) == type(u''):
+    if isinstance(val, StringTypes)
         return [val,]
     else:
         return val
