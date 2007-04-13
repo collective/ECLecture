@@ -26,7 +26,7 @@ def instructor_to_instructors(obj, val, **kwargs):
     log('%s: instructor_to_instructors called for %s' % (ECL_NAME,
                                                          obj.TitleOrId()))
     
-    if isinstance(val, StringTypes)
+    if isinstance(val, StringTypes):
         return [val,]
     else:
         return val
