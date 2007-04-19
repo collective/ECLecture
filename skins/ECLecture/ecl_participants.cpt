@@ -137,7 +137,7 @@
 	      </tbody>
 	    </table>
 
-	    <div class="formControls">                    
+	    <div class="formControls visualNoPrint">                    
 	      <!-- Export Button -->
 	      <input class="context"
 		tabindex="#"
@@ -164,7 +164,7 @@
 	    </div>
 	  </form>
 
-	  <ul>
+	  <ul class="visualNoPrint">
 	    <li>
 	      <a href="#"
 		tal:attributes="href python: here.getGroupMembersMailto(groupMembers)"
