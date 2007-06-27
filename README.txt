@@ -7,13 +7,13 @@ Overview
 
 Download
 
-  * "Project page":http://wwwai.cs.uni-magdeburg.de/software/eclecture
+  * "Project page":http://wwwai.cs.uni-magdeburg.de/software/
 
   * "plone.org products page":http://plone.org/products/eclecture
 
 Prerequisites
 
-  To use ECLecture you need a Plone 2.1.x installation.  Check
+  To use ECLecture you need a Plone 2.1.x or 2.5 installation.  Check
   "plone.org":http://plone.org/products/plone for Plone's
   prerequisites.
  
@@ -58,7 +58,7 @@ License
   ECLecture is licensed under the
   "GPL":http://opensource.org/licenses/gpl-license.
 
-  Copyright © 2006 Otto-von-Guericke-Universität Magdeburg
+  Copyright © 2007 Otto-von-Guericke-Universität Magdeburg
 
   ECLecture is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
