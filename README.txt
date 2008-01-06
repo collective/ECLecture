@@ -13,10 +13,10 @@ Download
 
 Prerequisites
 
-  To use ECLecture you need a Plone 2.1.x or 2.5 installation.  Check
-  "plone.org":http://plone.org/products/plone for Plone's
+  To use ECLecture you need a Plone 2.1.x, 2.5.x or 3.0 installation.
+  Check "plone.org":http://plone.org/products/plone for Plone's
   prerequisites.
- 
+
   You also need DataGridField, available from 
   "plone.org/products/datagridfield/":http://plone.org/products/datagridfield/.
 

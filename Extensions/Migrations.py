@@ -7,11 +7,14 @@ except ImportError:
     haveContentMigrations = False
     
 import types
+try:
+	import transaction
+except:
+	from Products.Archetypes import transaction
 
 from types import StringTypes
 from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName
-from Products.Archetypes import transaction
 from Products.Archetypes.debug import log
 from Products.Archetypes.BaseUnit import BaseUnit
 from Products.CMFPlone.utils import safe_hasattr

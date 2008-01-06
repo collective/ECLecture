@@ -1,3 +1,7 @@
+# Changes in release 1.2.1 (2008-01-06)
+
+- Added Plone-3.0 compatibility / removed deprecation warnings
+
 # Changes in release 1.2 (2007-06-27)
 
 - Inherits from ECFolder (from the ECAssignmentBox product), if
