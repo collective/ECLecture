@@ -46,7 +46,7 @@ from Products.Archetypes.public import TextAreaWidget
 from Products.ATContentTypes.configuration import zconf
 
 from Products.ATContentTypes.content.base import registerATCT
-from Products.ATContentTypes.content.base import updateActions, updateAliases
+#from Products.ATContentTypes.content.base import updateActions, updateAliases
 
 #from Products.ATContentTypes.content.folder import ATFolderSchema
 #from Products.ATContentTypes.content.folder import ATFolder
@@ -367,7 +367,7 @@ class ECLecture(SuperClass):
     typeDescMsgId = 'description_edit_eclecture'
 
     # -- actions --------------------------------------------------------------
-    actions = updateActions(SuperClass, (
+    """actions = updateActions(SuperClass, (
         {
         'action':      'string:$object_url/ecl_participants',
         'category':    'object',
@@ -380,7 +380,7 @@ class ECLecture(SuperClass):
 
     aliases = updateAliases(SuperClass, {
         'view': 'ecl_view',
-        })
+        })"""
 
     # -- methods --------------------------------------------------------------
     security.declarePublic('getRecurrenceDisplayList')
@@ -411,13 +411,19 @@ class ECLecture(SuperClass):
         dl = DisplayList(())
         dl.add(NO_GROUP, '----')
 
-        groups_tool = getToolByName(self, 'portal_groups')
+        #groups_tool = getToolByName(self, 'portal_groups')
         #groups = groups_tool.searchForGroups(REQUEST=None)
         # HINT: There is a problem with searchForGroups in Plone 2.5
-        groups = groups_tool.listGroups()
+        #groups = groups_tool.listGroups()
+        
+        #Plone-3.5 Deprecation warning fix:
+        groups = self.acl_users.getGroups()
 
-        for group in groups:
-            dl.add(group.getGroupId(), group.getGroupName())
+        for group_data in groups:
+            # The following line causes an error under Plone-3:
+            #dl.add(group.getGroupId(), group.getGroupName())
+            # A workaround (does nearly the same as the above functions):
+            dl.add(group_data.getId(), group_data.getName())
         
         return dl
 
@@ -450,8 +456,10 @@ class ECLecture(SuperClass):
         Returns a list of member objects.
         """
         mtool = self.portal_membership
-        groups = self.portal_groups.listGroupIds()
-        
+        #groups = self.portal_groups.listGroupIds()
+        #Plone-3.5 Deprecation warning fix:
+        groups = self.acl_users.getGroupIds()
+
         members = []
 
         if groupname:
@@ -526,7 +534,7 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        groups_tool = getToolByName(self, 'portal_groups')
+        #groups_tool = getToolByName(self, 'portal_groups')
         #group = groups_tool.getGroupById(self.associatedGroup)
         group = self.acl_users.getGroupByName(self.associatedGroup)
 
