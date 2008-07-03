@@ -1,0 +1,2 @@
+* cleanup config.py <-> configure.zcml
+* contentmigration 1.2-1.3

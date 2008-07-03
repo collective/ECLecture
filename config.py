@@ -22,16 +22,8 @@
 from Products.CMFCore import permissions
 
 GLOBALS = globals()
-
 I18N_DOMAIN = 'eduComponents'
 
-# define skins directory
-SKINS_DIR = 'skins'
-
-# define dependencies
-DEPENDENCIES = ['DataGridField']
-
-# define product and tool names
 PRODUCT_NAME = 'ECLecture'
 
 ECL_NAME  = 'ECLecture'

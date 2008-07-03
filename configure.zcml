@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="eduComponents">
+
+    <!-- Dependencies 
+	<include package="Products.DataGridField" /> -->
+
+    <!-- Make this package a Zope 2 product so that it calls the
+         initialize() function on startup
+      -->
+    <five:registerPackage package="." initialize=".initialize" />
+
+
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
+      name="default"
+      title="ECLecture"
+      directory="profiles/default"
+      description="Content types to describe ECLecture"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+
+      />
+
+</configure>

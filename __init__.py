@@ -35,7 +35,7 @@ from Products.CMFCore.DirectoryView import registerDirectory
 from Products.ECLecture.config import *
 
 
-registerDirectory(SKINS_DIR, GLOBALS)
+#registerDirectory(SKINS_DIR, GLOBALS)
 
 def initialize(context):
     """
