@@ -1,5 +1,3 @@
-<!-- -*- coding: utf-8 -*- -->
-
 Overview
 
   ECLecture is a Plone product for managing lectures, seminars and 
@@ -58,7 +56,7 @@ License
   ECLecture is licensed under the
   "GPL":http://opensource.org/licenses/gpl-license.
 
-  Copyright © 2007 Otto-von-Guericke-Universität Magdeburg
+  Copyright (c) 2007 Otto-von-Guericke-Universitaet Magdeburg
 
   ECLecture is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
