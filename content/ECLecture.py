@@ -1,67 +1,40 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006 Otto-von-Guericke-Universität Magdeburg
-#
 # This file is part of ECLecture.
 #
-# ECLecture is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
+# Copyright (c) 2008 by Otto-von-Guericke-Universität Magdeburg
+# 
+# Generator: ArchGenXML Version 2.1
+#            http://plone.org/products/archgenxml
 #
-# ECLecture is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU General Public License (GPL)
 #
-# You should have received a copy of the GNU General Public License
-# along with ECLecture; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+__author__ = """unknown <unknown>"""
+__docformat__ = 'plaintext'
+
+from AccessControl import ClassSecurityInfo
+from Products.Archetypes.atapi import *
+from zope.interface import implements
+import interfaces
+
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.CMFCore.utils import getToolByName
+
+from Products.ATContentTypes.content.folder import ATFolder
+from Products.ATContentTypes.content.folder import ATFolderSchema
+
+##code-section module-header #fill in your manual code here
 import re
 from types import StringType, IntType
 
-from AccessControl import ClassSecurityInfo
-
-from Products.CMFCore import permissions
-from Products.CMFCore.utils import getToolByName
-
-from Products.CMFPlone.utils import log
-
-from Products.Archetypes.public import DisplayList
-from Products.Archetypes.public import Schema
-from Products.Archetypes.public import TextField
-from Products.Archetypes.public import StringField
-from Products.Archetypes.public import LinesField
-from Products.Archetypes.public import DateTimeField
-from Products.Archetypes.public import IntegerField
-from Products.Archetypes.public import StringWidget
-from Products.Archetypes.public import LinesWidget
-from Products.Archetypes.public import RichWidget
-from Products.Archetypes.public import CalendarWidget
-from Products.Archetypes.public import SelectionWidget
-from Products.Archetypes.public import TextAreaWidget
-
-from Products.ATContentTypes.configuration import zconf
-
-from Products.ATContentTypes.content.base import registerATCT
-#from Products.ATContentTypes.content.base import updateActions, updateAliases
-
-#from Products.ATContentTypes.content.folder import ATFolderSchema
-#from Products.ATContentTypes.content.folder import ATFolder
-from Products.ATContentTypes.interfaces import IATEvent
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
-#from Products.DataGridField.Column import Column
-#from Products.DataGridField.LinkColumn import LinkColumn
 
-from DateTime import DateTime
-import urllib
+from Products.ECLecture.content.TimePeriodField import TimePeriodField
+#from TimePeriodField import TimePeriodField #this import works
 
-# local imports
 try:
     from Products.ECAssignmentBox.ECFolder import ECFolder as SuperClass
     from Products.ECAssignmentBox.ECFolder import ECFolderSchema as SuperSchema
@@ -69,9 +42,8 @@ except:
     from Products.ATContentTypes.content.folder import ATFolder as SuperClass
     from Products.ATContentTypes.content.folder import ATFolderSchema as SuperSchema
 
-from Products.ECLecture.config import PRODUCT_NAME, ECL_NAME, ECL_TITLE, \
-     ECL_META, ECL_ICON, I18N_DOMAIN, edit_permission
-from TimePeriodField import TimePeriodField
+#how to reach config?
+from Products.ECLecture.config import *
 
 NO_RECURRENCE = 0
 DAILY = 1
@@ -81,8 +53,9 @@ YEARLY = 4
 
 NO_GROUP = ''
 
-# -- schema definition --------------------------------------------------------
-ECLectureSchema = SuperSchema.copy() + Schema((
+##/code-section module-header
+
+schema = Schema((
 
     StringField('courseType',
         required = False,
@@ -328,61 +301,40 @@ items inside this course are added by default.""",
         )
     ),
 
-),)
+),
+)
 
-if 'directions' in ECLectureSchema:
+##code-section after-local-schema #fill in your manual code here
+
+if 'directions' in schema:
     # hide directions field if inheriting from ECFolder
-    ECLectureSchema['directions'].widget.visible = {'view' : 'invisible',
-                                                    'edit' : 'invisible' }
+    schema['directions'].widget.visible = {'view' : 'invisible',
+                                           'edit' : 'invisible' }
     # move inherited fields to separate edit page
-    ECLectureSchema['completedStates'].schemata = 'ecfolder'
-    ECLectureSchema['projectedAssignments'].schemata = 'ecfolder'
+    schema['completedStates'].schemata = 'ecfolder'
+    schema['projectedAssignments'].schemata = 'ecfolder'
+##/code-section after-local-schema
 
+ECLecture_schema = SuperSchema.copy() + schema.copy()
 
-finalizeATCTSchema(ECLectureSchema, folderish=True, moveDiscussion=False)
-
+##code-section after-schema #fill in your manual code here
+##/code-section after-schema
 
 class ECLecture(SuperClass):
     """A folder which contains lecture information."""
+    security = ClassSecurityInfo()
 
-    __implements__ = (SuperClass.__implements__, IATEvent)
+    implements(interfaces.IECLecture)
 
-    security       = ClassSecurityInfo()
-
-    schema         =  ECLectureSchema
-
-
-    content_icon   = ECL_ICON
-    meta_type      = ECL_META
-    portal_type    = ECL_META
-    archetype_name = ECL_TITLE
-
-    default_view   = 'ecl_view'
-    immediate_view = 'ecl_view'
-
-    #suppl_views    = ()
+    meta_type = 'ECLecture'
     _at_rename_after_creation = True
 
-    typeDescription = "A folder containing details about a lecture or a course."
-    typeDescMsgId = 'description_edit_eclecture'
+    schema = ECLecture_schema
 
-    # -- actions --------------------------------------------------------------
-    """actions = updateActions(SuperClass, (
-        {
-        'action':      'string:$object_url/ecl_participants',
-        'category':    'object',
-        'id':          'ecl_participants',
-        'name':        'Participants',
-        'permissions': (edit_permission,),
-        'condition'  : 'python: here.associatedGroup'
-        },
-    ))
+    ##code-section class-header #fill in your manual code here
+    ##/code-section class-header
 
-    aliases = updateAliases(SuperClass, {
-        'view': 'ecl_view',
-        })"""
-
-    # -- methods --------------------------------------------------------------
+    # Methods
     security.declarePublic('getRecurrenceDisplayList')
     def getRecurrenceDisplayList(self):
         """
@@ -411,19 +363,21 @@ class ECLecture(SuperClass):
         dl = DisplayList(())
         dl.add(NO_GROUP, '----')
 
-        #groups_tool = getToolByName(self, 'portal_groups')
-        #groups = groups_tool.searchForGroups(REQUEST=None)
-        # HINT: There is a problem with searchForGroups in Plone 2.5
-        #groups = groups_tool.listGroups()
+        # Plone 3 compatible ?
+        pas = getToolByName(self, 'acl_users')
+        groups = pas.searchGroups() 
         
-        #Plone-3.5 Deprecation warning fix:
-        groups = self.acl_users.getGroups()
+        #log.debug('xxx: groups: %s' % repr(groups))
+        
+        # HINT: There is a problem with searchForGroups in Plone 2.5
+        #groups = groups_tool.searchForGroups(REQUEST=None)
 
-        for group_data in groups:
-            # The following line causes an error under Plone-3:
-            #dl.add(group.getGroupId(), group.getGroupName())
-            # A workaround (does nearly the same as the above functions):
-            dl.add(group_data.getId(), group_data.getName())
+        groups_tool = getToolByName(self, 'portal_groups')
+        groups = groups_tool.listGroups()
+
+
+        for group in groups:
+            dl.add(group.getGroupId(), group.getGroupName())
         
         return dl
 
@@ -456,10 +410,8 @@ class ECLecture(SuperClass):
         Returns a list of member objects.
         """
         mtool = self.portal_membership
-        #groups = self.portal_groups.listGroupIds()
-        #Plone-3.5 Deprecation warning fix:
-        groups = self.acl_users.getGroupIds()
-
+        groups = self.portal_groups.listGroupIds()
+        
         members = []
 
         if groupname:
@@ -534,7 +486,7 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        #groups_tool = getToolByName(self, 'portal_groups')
+        groups_tool = getToolByName(self, 'portal_groups')
         #group = groups_tool.getGroupById(self.associatedGroup)
         group = self.acl_users.getGroupByName(self.associatedGroup)
 
@@ -681,6 +633,12 @@ class ECLecture(SuperClass):
                 result = False
         return result
 
-    
 
-registerATCT(ECLecture, PRODUCT_NAME)
+registerType(ECLecture, PROJECTNAME)
+# end of class ECLecture
+
+##code-section module-footer #fill in your manual code here
+##/code-section module-footer
+
+
+

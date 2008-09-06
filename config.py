@@ -1,58 +1,59 @@
 # -*- coding: utf-8 -*-
-# $Id$
 #
-# Copyright (c) 2006 Otto-von-Guericke-Universität Magdeburg
+# File: ECLecture.py
 #
-# This file is part of ECLecture.
+# Copyright (c) 2008 by []
+# Generator: ArchGenXML Version 2.1
+#            http://plone.org/products/archgenxml
 #
-# ECLecture is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
+# GNU General Public License (GPL)
 #
-# ECLecture is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+
+__author__ = """unknown <unknown>"""
+__docformat__ = 'plaintext'
+
+
+# Product configuration.
 #
-# You should have received a copy of the GNU General Public License
-# along with ECLecture; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# The contents of this module will be imported into __init__.py, the
+# workflow configuration and every content type module.
+#
+# If you wish to perform custom configuration, you may put a file
+# AppConfig.py in your product's root directory. The items in there
+# will be included (by importing) in this file if found.
 
-from Products.CMFCore import permissions
+from Products.CMFCore.permissions import setDefaultRoles
+##code-section config-head #fill in your manual code here
+##/code-section config-head
 
-GLOBALS = globals()
 
-I18N_DOMAIN = 'eduComponents'
+PROJECTNAME = "ECLecture"
 
-# define skins directory
-SKINS_DIR = 'skins'
+# Permissions
+DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
+setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner'))
+ADD_CONTENT_PERMISSIONS = {
+    'ECLecture': 'ECLecture: Add ECLecture',
+}
 
-# define dependencies
-DEPENDENCIES = ['DataGridField']
+setDefaultRoles('ECLecture: Add ECLecture', ('Manager','Owner'))
 
-# define product and tool names
-PRODUCT_NAME = 'ECLecture'
+product_globals = globals()
 
-ECL_NAME  = 'ECLecture'
-ECL_TITLE = 'Lecture'
-ECL_META  = ECL_NAME
-ECL_ICON  = 'eclecture.png'
+# Dependencies of Products to be installed by quick-installer
+# override in custom configuration
+DEPENDENCIES = []
 
-# define permissions
-add_permission  = permissions.AddPortalContent
-edit_permission = permissions.ModifyPortalContent
-view_permission = permissions.View
+# Dependend products - not quick-installed - used in testcase
+# override in custom configuration
+PRODUCT_DEPENDENCIES = []
 
-# define text types
-TEXT_TYPES = (
-    'text/structured',
-    'text/x-rst',
-    'text/html',
-    'text/plain',
-    )
+##code-section config-bottom #fill in your manual code here
+##/code-section config-bottom
 
-# some LOG levels
-BLATHER=-100
-DEBUG=-200
-TRACE=-300
+
+# Load custom configuration not managed by archgenxml
+try:
+    from Products.ECLecture.AppConfig import *
+except ImportError:
+    pass
