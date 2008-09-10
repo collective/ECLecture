@@ -23,6 +23,7 @@
         </div>
 
 	<div tal:define="groupname here/getAssociatedGroup|nothing;
+      gtool context/portal_groups;
 	  group python:gtool.getGroupById(groupname);
 	  grouptitle group/getGroupTitleOrName|groupname;
 	  groupMembers python: here.acl_users.haveLDAPGroupFolder() and
