@@ -26,7 +26,7 @@
       gtool context/portal_groups;
 	  group python:gtool.getGroupById(groupname);
 	  grouptitle group/getGroupTitleOrName|groupname;
-	  groupMembers python:here.getGroupMembers(groupname) or group.getGroupMembers();
+	  groupMembers python: group.getGroupMembers();
 	  isGroup nocall:gtool/isGroup;
 	  ecab_utils nocall:portal/ecab_utils|nothing;">
 
