@@ -400,7 +400,7 @@ class ECLecture(SuperClass):
             available_langs = available_langs()
         return DisplayList(available_langs)
 
-
+	"""Deprecated for Plone 3.x"""
     def getGroupMembers(self, groupname):
         """
         This is a horrible workaround for the silly and totally
