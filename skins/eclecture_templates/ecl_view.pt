@@ -170,7 +170,7 @@
                   tal:content="current"/>)
               </span>
               <!-- DEBUG -->
-              <span tal:content="groupname"/>Groupname</span>
+              <span tal:content="groupname">Groupname</span>
             </td>
           </tr>
 
