@@ -60,5 +60,7 @@ else:
             default = 'Cancellation of enrollment failed, please contact the instructor.')
 
 #return state.set(status = status, portal_status_message = msg)
-context.REQUEST.RESPONSE.redirect('%s?portal_status_message=%s' % 
-            (context.absolute_url(), msg,))
+#context.REQUEST.RESPONSE.redirect('%s?portal_status_message=%s' % 
+#            (context.absolute_url(), msg,))
+state.setKwargs({"portal_status_message": msg})
+return state
