@@ -161,7 +161,7 @@
             groupMembers python: group.getGroupMembers();
             isGroup nocall:gtool/isGroup;
             ecab_utils nocall:portal/ecab_utils|nothing;
-            urrent python: len(groupMembers)">
+            current python: len(groupMembers)">
               <span tal:omit-tag="" tal:content="max"/>
               <span tal:omit-tag="" i18n:translate="current_enrollment">
                 (currently enrolled:
