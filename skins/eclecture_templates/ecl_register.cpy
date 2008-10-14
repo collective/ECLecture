@@ -20,6 +20,9 @@ action  = ''
 status  = 'failure'
 msg     = 'Enrollment error'
 
+context.plone_utils.addPortalMessage(msg)
+return state
+
 if not context.isParticipant(user_id):
     # check enrollment limit
     if not context.hasEnrollmentLimitReached():
@@ -62,5 +65,9 @@ else:
 #return state.set(status = status, portal_status_message = msg)
 #context.REQUEST.RESPONSE.redirect('%s?portal_status_message=%s' % 
 #            (context.absolute_url(), msg,))
-state.setKwargs({"portal_status_message": msg})
+
+#state.setKwargs({"portal_status_message": msg})
+#return state
+
+context.plone_utils.addPortalMessage(msg)
 return state
