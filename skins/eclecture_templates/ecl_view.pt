@@ -169,8 +169,8 @@
                   tal:attributes="style python:test(current >= max, 'color:red;;', '');"
                   tal:content="current"/>)
               </span>
-              <!-- DEBUG -->
-              <span tal:content="groupname">Groupname</span>
+              <!-- DEBUG 
+              <span tal:content="groupname">Groupname</span>-->
             </td>
           </tr>
 
