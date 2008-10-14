@@ -20,9 +20,6 @@ action  = ''
 status  = 'failure'
 msg     = 'Enrollment error'
 
-context.plone_utils.addPortalMessage(msg)
-return state
-
 if not context.isParticipant(user_id):
     # check enrollment limit
     if not context.hasEnrollmentLimitReached():
