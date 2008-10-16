@@ -147,6 +147,7 @@
                     Click here to cancel your enrollment in this course
                   </a>
                 </tal:if>
+               </div>
               </tal:if>
               
               <!-- show registration link if this course does not use ecl_register -->
@@ -159,7 +160,6 @@
                     Click here to enroll in this course
                 </a>
               </tal:if>
-              </div>
             </td>
           </tr>
 
