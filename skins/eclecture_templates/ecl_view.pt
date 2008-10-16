@@ -119,13 +119,14 @@
                 groupMembers python: group.getGroupMembers();
                 isGroup nocall:gtool/isGroup;
                 ecab_utils nocall:portal/ecab_utils|nothing;
-                current python: len(groupMembers)"/> 
+                current python: len(groupMembers)"> 
                 <tal:if condition="python: test(current >= max)">
                   <span tal:attributes="style python:'color:red;;';" 
-                      i18n:translate="label_enrollment_limit_reached">
+                      i18n:translate="label_enrollment_limit_reached"> 
                     The maximum number of participants has been reached.
                   </span>
                 </tal:if>
+                </div>
 
                 <!-- user isn't already enrolled and enrollment limit has not been reached -->
                 <tal:if condition="python: (not isAnon) and (not isParticipant) and (canEnroll)">
