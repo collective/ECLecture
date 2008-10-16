@@ -140,12 +140,19 @@
               <!-- show registration link if this course does not use ecl_register -->
               <!-- FIXME: add a condition so the link will not be shown if the enrollment limit has been reached -->
               <tal:if condition="python: not (joinURL == 'ecl_register')">
-                <a href=""
-                   class="link-plain" 
-                   tal:attributes="href joinURL;"
-                    i18n:translate="label_enroll">
-                    Click here to enroll in this course
-                </a>
+                <tal:if condition="python: isParticipant">
+                    <span i18n:translate="link_enrolled">
+                        You are enrolled in this course.
+                    </span>
+                </tal:if>
+                <tal:if condition="python: not isParticipant">
+                  <a href=""
+                     class="link-plain" 
+                     tal:attributes="href joinURL;"
+                     i18n:translate="label_enroll">
+                       Click here to enroll in this course
+                  </a>
+                </tal:if>
               </tal:if>
             </td>
           </tr>
