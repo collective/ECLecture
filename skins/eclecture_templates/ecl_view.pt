@@ -94,7 +94,7 @@
                 groupMembers python: group.getGroupMembers();
                 isGroup nocall:gtool/isGroup;
                 ecab_utils nocall:portal/ecab_utils|nothing;
-                current python: len(groupMembers)>
+                current python: len(groupMembers)">
         <table class="vertical listing">
           <tr tal:define="joinURL here/joinURL;"
               tal:condition="joinURL">
