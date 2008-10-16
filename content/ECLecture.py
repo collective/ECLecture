@@ -455,8 +455,8 @@ class ECLecture(SuperClass):
     def isParticipant(self, user_id):
         """ """
         #groups_tool = getToolByName(self, 'portal_groups', None)
-        group = self.acl_users.getGroupByName(self.associatedGroup)
-        #group = self.associatedGroup
+        #group = self.acl_users.getGroupByName(self.associatedGroup)
+        group = self.associatedGroup
         member = self.portal_membership.getMemberById(str(user_id))
         if hasattr(member, 'getGroupsWithoutPrefix'):
             return group in member.getGroupsWithoutPrefix()

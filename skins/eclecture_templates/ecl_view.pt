@@ -160,8 +160,8 @@
                 (currently enrolled:
                <!-- <span i18n:name="number"
                   tal:attributes="style python:test(current >= max, 'color:red;;', '');"
-                  tal:content="current"/>)
-              </span>-->
+                  tal:content="current"/>)-->
+              </span>
             </td>
           </tr>
 
