@@ -126,10 +126,10 @@
                     The maximum number of participants has been reached.
                   </span>
                 </tal:if>
-                </div>
+                
 
                 <!-- user isn't already enrolled and enrollment limit has not been reached -->
-                <tal:if condition="python: (not isAnon) and (not isParticipant) and (canEnroll)">
+                <tal:if condition="python: test(current >= max)">
                   <a href=""
                     class="link-plain" 
                     tal:attributes="href here/getJoinURL;"
@@ -159,6 +159,7 @@
                     Click here to enroll in this course
                 </a>
               </tal:if>
+              </div>
             </td>
           </tr>
 
