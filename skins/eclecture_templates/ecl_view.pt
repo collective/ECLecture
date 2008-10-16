@@ -152,8 +152,8 @@
 
           <tr tal:condition="here/getMaxParticipants">
             <th i18n:translate="label_max_participants">Enrollment limit</th>
-            <td tal:define="max here/getMaxParticipants;
-              current python: len(here.getGroupMembers(here.associatedGroup))">
+            <td tal:define="max     here/getMaxParticipants;
+                            current here/getCurrentParticipants;">
               <span tal:omit-tag="" tal:content="max"/>
               <span tal:omit-tag="" i18n:translate="current_enrollment">
                 (currently enrolled:

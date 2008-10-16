@@ -418,12 +418,12 @@ class ECLecture(SuperClass):
         @deprecated do not use with Plone 3.x
         """
         mtool = getToolByName(self, 'portal_membership')
-        gtool = getToolByName(self, 'portal_groups')
-        groups = gtool.listGroupIds()
+        #gtool = getToolByName(self, 'portal_groups')
+        #groups = gtool.listGroupIds()
         
         # listGroupIds will be removed in Plone 3.5
         # we should use searchGroups instead
-        #groups = self.acl_users.searchGroups()
+        groups = self.acl_users.searchGroups()
 
         members = []
 
@@ -501,6 +501,23 @@ class ECLecture(SuperClass):
         return false
 
 
+    security.declarePublic('getCurrentParticipants')
+    def getCurrentParticipants(self):
+        """
+        Returns the number of user in the associated group.
+        """
+        groups_tool = getToolByName(self, 'portal_groups')
+        
+        if groups_tool:
+            group = groups_tool.getGroupById(str(self.associatedGroup))
+        
+            if group:
+                return len(group.getAllGroupMemberIds())
+        #end if
+        
+        return 0
+        
+
     security.declarePublic('hasEnrollmentLimitReached')
     def hasEnrollmentLimitReached(self):
         """
@@ -508,7 +525,8 @@ class ECLecture(SuperClass):
         enrollment limit (maxParticipants).
         """
         max = self.getMaxParticipants();
-        current = len(self.getGroupMembers(self.getAssociatedGroup()))
+        #current = len(self.getGroupMembers(self.getAssociatedGroup()))
+        current = self.getCurrentParticipants();
         
         if max: 
             result = not (current < max)
@@ -561,7 +579,7 @@ class ECLecture(SuperClass):
             except ValueError, ve:
                 # This can happen for users who are not members of the
                 # Plone site (admin)
-                log('removeParticipant: %s', ve)
+                logger.warn('removeParticipant: %s', ve)
                 return False
             return True
 
