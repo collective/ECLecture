@@ -454,7 +454,9 @@ class ECLecture(SuperClass):
     security.declarePublic('isParticipant')
     def isParticipant(self, user_id):
         """ """
-        group = self.associatedGroup
+        #groups_tool = getToolByName(self, 'portal_groups', None)
+        group = self.acl_users.getGroupByName(self.associatedGroup)
+        #group = self.associatedGroup
         member = self.portal_membership.getMemberById(str(user_id))
         if hasattr(member, 'getGroupsWithoutPrefix'):
             return group in member.getGroupsWithoutPrefix()
@@ -486,7 +488,7 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        groups_tool = getToolByName(self, 'portal_groups')
+        groups_tool = getToolByName(self, 'portal_groups', None)
         #group = groups_tool.getGroupById(self.associatedGroup)
         group = self.acl_users.getGroupByName(self.associatedGroup)
 
