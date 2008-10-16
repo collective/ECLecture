@@ -110,7 +110,17 @@
                 </tal:if>
 
                 <!-- user isn't already enrolled but the enrollment limit has been reached -->
-                <tal:if condition="python: (not canEnroll)">
+                <!-- quick and dirty hack -->
+                <div tal:define="max here/getMaxParticipants;
+                groupname here/getAssociatedGroup|nothing;
+                gtool context/portal_groups;
+                group python:gtool.getGroupById(groupname);
+                grouptitle group/getGroupTitleOrName|groupname;
+                groupMembers python: group.getGroupMembers();
+                isGroup nocall:gtool/isGroup;
+                ecab_utils nocall:portal/ecab_utils|nothing;
+                current python: len(groupMembers)"/> 
+                <tal:if condition="python: current >= max">
                   <span tal:attributes="style python:'color:red;;';" 
                       i18n:translate="label_enrollment_limit_reached">
                     The maximum number of participants has been reached.
