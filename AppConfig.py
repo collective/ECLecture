@@ -20,6 +20,12 @@ add_permission  = permissions.AddPortalContent
 edit_permission = permissions.ModifyPortalContent
 view_permission = permissions.View
 
+ECS_NAME = 'ecspooler_tool'
+ECS_META = ECS_NAME
+
+# FIXME: entries are already defined in AppConfig.py of ECAssignmentBox
+ECA_WF_NAME = 'ec_assignment_workflow'
+
 # content types
 #default_content_type = zconf.
 #allowable_content_types = zconf.
