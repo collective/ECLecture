@@ -129,7 +129,7 @@
                 
 
                 <!-- user isn't already enrolled and enrollment limit has not been reached -->
-                <tal:if condition="python: test(current >= max)">
+                <tal:if condition="python: test(current < max)">
                   <a href=""
                     class="link-plain" 
                     tal:attributes="href here/getJoinURL;"
