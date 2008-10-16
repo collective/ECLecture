@@ -38,7 +38,7 @@
     
         <h2 i18n:translate="label_lecture_descr">Lecture Description</h2>
 -->
-       
+
         <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;"
             tal:define="externalRes here/getAvailableResources;
                         searchPath  python: '/'.join(here.getPhysicalPath());
@@ -93,15 +93,7 @@
               tal:condition="joinURL">
             <th i18n:translate="label_registration">Registration</th>
             <td>
-            <div tal:define="max here/getMaxParticipants;
-                groupname here/getAssociatedGroup|nothing;
-                gtool context/portal_groups;
-                group python:gtool.getGroupById(groupname);
-                grouptitle group/getGroupTitleOrName|groupname;
-                groupMembers python: group.getGroupMembers();
-                isGroup nocall:gtool/isGroup;
-                ecab_utils nocall:portal/ecab_utils|nothing;
-                current python: len(groupMembers)"> 
+
               <!-- ecl_register is used, thats fine -->
               <tal:if condition="python: (joinURL == 'ecl_register')"
                   define="canEnroll python:not here.hasEnrollmentLimitReached();
@@ -118,18 +110,15 @@
                 </tal:if>
 
                 <!-- user isn't already enrolled but the enrollment limit has been reached -->
-                <!-- quick and dirty hack -->
-               
-                <tal:if condition="python: test(current >= max)">
+                <tal:if condition="python: (not isAnon) and (not isParticipant) and (not canEnroll)">
                   <span tal:attributes="style python:'color:red;;';" 
-                      i18n:translate="label_enrollment_limit_reached"> 
+                      i18n:translate="label_enrollment_limit_reached">
                     The maximum number of participants has been reached.
                   </span>
                 </tal:if>
-                
 
                 <!-- user isn't already enrolled and enrollment limit has not been reached -->
-                <tal:if condition="python: test(current < max)">
+                <tal:if condition="python: (not isAnon) and (not isParticipant) and (canEnroll)">
                   <a href=""
                     class="link-plain" 
                     tal:attributes="href here/getJoinURL;"
@@ -147,13 +136,11 @@
                     Click here to cancel your enrollment in this course
                   </a>
                 </tal:if>
-              
               </tal:if>
               
               <!-- show registration link if this course does not use ecl_register -->
               <!-- FIXME: add a condition so the link will not be shown if the enrollment limit has been reached -->
-              <tal:if condition="python: not (joinURL == 'ecl_register') and test(current <= max)">
-             
+              <tal:if condition="python: not (joinURL == 'ecl_register')">
                 <a href=""
                    class="link-plain" 
                    tal:attributes="href joinURL;"
@@ -161,22 +148,13 @@
                     Click here to enroll in this course
                 </a>
               </tal:if>
-              
-              </div>
             </td>
           </tr>
 
           <tr tal:condition="here/getMaxParticipants">
             <th i18n:translate="label_max_participants">Enrollment limit</th>
             <td tal:define="max here/getMaxParticipants;
-            groupname here/getAssociatedGroup|nothing;
-            gtool context/portal_groups;
-            group python:gtool.getGroupById(groupname);
-            grouptitle group/getGroupTitleOrName|groupname;
-            groupMembers python: group.getGroupMembers();
-            isGroup nocall:gtool/isGroup;
-            ecab_utils nocall:portal/ecab_utils|nothing;
-            current python: len(groupMembers)">
+              current python: len(here.getGroupMembers(here.associatedGroup))">
               <span tal:omit-tag="" tal:content="max"/>
               <span tal:omit-tag="" i18n:translate="current_enrollment">
                 (currently enrolled:
@@ -184,8 +162,6 @@
                   tal:attributes="style python:test(current >= max, 'color:red;;', '');"
                   tal:content="current"/>)
               </span>
-              <!-- DEBUG 
-              <span tal:content="groupname">Groupname</span>-->
             </td>
           </tr>
 
