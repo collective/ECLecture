@@ -87,14 +87,7 @@
             </tal:resources>
           </ul>
         </fieldset>
-         <div tal:define="groupname here/getAssociatedGroup|nothing;
-                gtool context/portal_groups;
-                group python:gtool.getGroupById(groupname);
-                grouptitle group/getGroupTitleOrName|groupname;
-                groupMembers python: group.getGroupMembers();
-                isGroup nocall:gtool/isGroup;
-                ecab_utils nocall:portal/ecab_utils|nothing;
-                current python: len(groupMembers)">
+
         <table class="vertical listing">
           <tr tal:define="joinURL here/joinURL;"
               tal:condition="joinURL">
@@ -102,7 +95,6 @@
             <td>
 
               <!-- ecl_register is used, thats fine -->
-             
               <tal:if condition="python: (joinURL == 'ecl_register')"
                   define="canEnroll python:not here.hasEnrollmentLimitReached();
                           isParticipant python:here.isParticipant(user_id);"
@@ -162,14 +154,14 @@
           <tr tal:condition="here/getMaxParticipants">
             <th i18n:translate="label_max_participants">Enrollment limit</th>
             <td tal:define="max here/getMaxParticipants;
-              current python: len(groupMembers)">
+              current python: len(here.getGroupMembers(here.associatedGroup))">
               <span tal:omit-tag="" tal:content="max"/>
               <span tal:omit-tag="" i18n:translate="current_enrollment">
                 (currently enrolled:
-                <span i18n:name="number"
+               <!-- <span i18n:name="number"
                   tal:attributes="style python:test(current >= max, 'color:red;;', '');"
                   tal:content="current"/>)
-              </span>
+              </span>-->
             </td>
           </tr>
 
@@ -276,7 +268,7 @@
             </td>
           </tr>
         </table>
-        </div>
+
 
         <div class="visualClear"/>
 
