@@ -29,11 +29,12 @@ from Products.ATContentTypes.content.folder import ATFolderSchema
 import re
 from types import StringType, IntType
 
+import logging
+
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
 from Products.ECLecture.content.TimePeriodField import TimePeriodField
-#from TimePeriodField import TimePeriodField #this import works
 
 try:
     from Products.ECAssignmentBox.ECFolder import ECFolder as SuperClass
@@ -52,6 +53,9 @@ MONTHLY = 3
 YEARLY = 4
 
 NO_GROUP = ''
+
+# get logger
+logger = logging.getLogger('ECLecture')
 
 ##/code-section module-header
 
@@ -364,10 +368,10 @@ class ECLecture(SuperClass):
         dl.add(NO_GROUP, '----')
 
         # Plone 3 compatible ?
-        pas = getToolByName(self, 'acl_users')
-        groups = pas.searchGroups() 
+        #pas = getToolByName(self, 'acl_users')
+        #groups = pas.searchGroups() 
         
-        #log.debug('xxx: groups: %s' % repr(groups))
+        #logger.debug('xxx: groups: %s' % repr(groups))
         
         # HINT: There is a problem with searchForGroups in Plone 2.5
         #groups = groups_tool.searchForGroups(REQUEST=None)
@@ -375,6 +379,7 @@ class ECLecture(SuperClass):
         groups_tool = getToolByName(self, 'portal_groups')
         groups = groups_tool.listGroups()
 
+        #logger.info('getGroupsDisplayList: groups: %s' % groups)
 
         for group in groups:
             dl.add(group.getGroupId(), group.getGroupName())
@@ -400,7 +405,8 @@ class ECLecture(SuperClass):
             available_langs = available_langs()
         return DisplayList(available_langs)
 
-	"""Deprecated for Plone 3.x"""
+
+	# deprecated for Plone 3.x
     def getGroupMembers(self, groupname):
         """
         This is a horrible workaround for the silly and totally
@@ -408,17 +414,25 @@ class ECLecture(SuperClass):
         can't retrieve the group members for groups stored in LDAP.
 
         Returns a list of member objects.
-        """
-        mtool = self.portal_membership
-        groups = self.portal_groups.listGroupIds()
         
+        @deprecated do not use with Plone 3.x
+        """
+        mtool = getToolByName(self, 'portal_membership')
+        gtool = getToolByName(self, 'portal_groups')
+        groups = gtool.listGroupIds()
+        
+        # listGroupIds will be removed in Plone 3.5
+        # we should use searchGroups instead
+        #groups = self.acl_users.searchGroups()
+
         members = []
 
         if groupname:
             for userid in mtool.listMemberIds():
                 if userid:
                     member = mtool.getMemberById(userid)
-                    if 'group_' + groupname in member.getGroups():
+                    #if 'group_' + groupname in member.getGroups():
+                    if str(groupname) in member.getGroups():
                         members.append(member)
             # end for
         # end if
@@ -453,17 +467,38 @@ class ECLecture(SuperClass):
 
     security.declarePublic('isParticipant')
     def isParticipant(self, user_id):
-        """ """
-        #groups_tool = getToolByName(self, 'portal_groups', None)
-        #group = self.acl_users.getGroupByName(self.associatedGroup)
-        group = self.associatedGroup
-        member = self.portal_membership.getMemberById(str(user_id))
-        if hasattr(member, 'getGroupsWithoutPrefix'):
-            return group in member.getGroupsWithoutPrefix()
-        else:
-            # This can happen for users who are not members of the
-            # Plone site (admin)
-            return False
+        """
+        Returns true, if the associated group contains the given 'user_id'. 
+        """
+        
+        """
+        examples from the Web:
+        
+            member and (member.id in here.portal_groups.getGroupById('group_name').getAllGroupMemberIds())
+
+            membership = getToolByName(self, 'portal_membership')
+            if membership.getMemberById(id) is not None:
+                return 0
+            groups = getToolByName(self, 'portal_groups')
+            if groups.getGroupById(id) is not None:
+                return 0
+        """
+
+        groups_tool = getToolByName(self, 'portal_groups')
+        
+        if groups_tool:
+            group = groups_tool.getGroupById(str(self.associatedGroup))
+        
+            #logger.info('xxx: isParticipant')
+            #logger.info('associatedGroup: %s' % self.associatedGroup)
+            #logger.info('user_id: %s' % user_id)
+            #logger.info('group: %s' % group)
+            
+            if group:
+                return (user_id in group.getAllGroupMemberIds())
+        #end if
+    
+        return false
 
 
     security.declarePublic('hasEnrollmentLimitReached')
@@ -488,12 +523,13 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        groups_tool = getToolByName(self, 'portal_groups', None)
-        #group = groups_tool.getGroupById(self.associatedGroup)
-        group = self.acl_users.getGroupByName(self.associatedGroup)
+        #groups_tool = getToolByName(self, 'portal_groups')
+        #group = groups_tool.getGroupById(str(self.associatedGroup))
 
-        #log('xxx: %s' % self.associatedGroup)
-        #log('xxx: %s' % group)
+        group = self.acl_users.getGroupByName(str(self.associatedGroup))
+
+        logger.info('xxx: associatedGroup: %s' % self.associatedGroup)
+        logger.info('xxx: group: %s' % group)
 
         # FIXME: There is a problem in Plone 2.5: acl_users.getGroupByName 
         #        returns None
@@ -503,10 +539,11 @@ class ECLecture(SuperClass):
             except ValueError, ve:
                 # This can happen for users who are not members of the
                 # Plone site (admin)
-                log('addParticipant: %s' % ve)
+                logger.warn('addParticipant: %s' % ve)
                 return False
+
         else:
-            raise Exception('%s is not a valid group.' % self.associatedGroup)
+            raise Exception('%s is not a valid group.' % str(self.associatedGroup))
             
         return True
             
