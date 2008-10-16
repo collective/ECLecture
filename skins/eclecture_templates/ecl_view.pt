@@ -110,7 +110,7 @@
                 </tal:if>
 
                 <!-- user isn't already enrolled but the enrollment limit has been reached -->
-                <tal:if condition="python: (not isAnon) and (not isParticipant) and (not canEnroll)">
+                <tal:if condition="python: (not isParticipant) and (not canEnroll)">
                   <span tal:attributes="style python:'color:red;;';" 
                       i18n:translate="label_enrollment_limit_reached">
                     The maximum number of participants has been reached.
