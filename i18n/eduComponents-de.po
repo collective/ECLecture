@@ -403,7 +403,7 @@ msgstr "<strong>Hinweis:</strong> Sie sind für diese Lehrveranstaltung angemeld
 #. Default: "You are enrolled in this course."
 #: skins/ECLecture/ecl_view.pt
 msgid "link_enrolled"
-msgstr "You are enrolled in this course."
+msgstr "Sie sind für diese Lehrveranstaltung angemeldet."
 
 #. Default: "(currently enrolled: ${number})"
 #: skins/ECLecture/ecl_view.pt
