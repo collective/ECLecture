@@ -386,7 +386,7 @@ class ECLecture(SuperClass):
         groups_tool = getToolByName(self, 'portal_groups')
         groups = groups_tool.listGroups()
 
-        #logger.info('getGroupsDisplayList: groups: %s' % groups)
+        #logger.debug('getGroupsDisplayList: groups: %s' % groups)
 
         for group in groups:
             dl.add(group.getGroupId(), group.getGroupName())
@@ -489,7 +489,7 @@ class ECLecture(SuperClass):
             if groups.getGroupById(id) is not None:
                 return 0
         """
-        logger.info('here we are in ECLecture#isParticipant')
+        logger.debug('here we are in ECLecture#isParticipant')
 
         groups_tool = getToolByName(self, 'portal_groups')
         
@@ -508,7 +508,7 @@ class ECLecture(SuperClass):
         """
         Returns the number of user in the associated group.
         """
-        logger.info('here we are in ECLecture#getCurrentParticipants')
+        logger.debug('here we are in ECLecture#getCurrentParticipants')
 
         groups_tool = getToolByName(self, 'portal_groups')
         
@@ -528,7 +528,7 @@ class ECLecture(SuperClass):
         Returns wether or not a user can enroll in this course due to the
         enrollment limit (maxParticipants).
         """
-        logger.info('here we are in ECLecture#hasEnrollmentLimitReached')
+        logger.debug('here we are in ECLecture#hasEnrollmentLimitReached')
 
         max = self.getMaxParticipants();
         current = len(self.getCurrentParticipants());
@@ -546,7 +546,7 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        logger.info('here we are in ECLecture#addParticipant: %s' % user_id)
+        logger.debug('here we are in ECLecture#addParticipant: %s' % user_id)
 
         group = self.acl_users.getGroupByName(str(self.associatedGroup))
 
@@ -570,7 +570,7 @@ class ECLecture(SuperClass):
         """
         Remove a user from the group associated with this lecture.
         """
-        logger.info('here we are in ECLecture#removeParticipant: %s' % user_id)
+        logger.debug('here we are in ECLecture#removeParticipant: %s' % user_id)
 
         group = self.associatedGroup
 
