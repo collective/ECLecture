@@ -15,7 +15,12 @@
     <div metal:fill-slot="main">
       <div metal:define-macro="main"
         tal:define="user_id       python: member.getId();
-                    isParticipant python: here.isParticipant(user_id);">
+                    participants  here/getCurrentParticipants;
+                    max           here/getMaxParticipants;
+                    current       python: len(participants);
+                    isParticipant python: (user_id in participants);
+                    limitReached  python: max and (current >= max);"
+      >
 
         <div metal:use-macro="here/document_actions/macros/document_actions">
             Document actions (print, sendto etc)
@@ -29,9 +34,15 @@
           Get the byline - contains details about author and modification date.
         </div>
 
+        <div class="documentDescription">
+          <metal:field use-macro="python:here.widget('description', mode='view')" />
+        </div>
+
+<!--
         <div class="documentDescription" tal:content="here/Description">
             Description
         </div>
+-->
 
 <!--
         <div class="visualClear"></div>
@@ -96,7 +107,7 @@
 
               <!-- ecl_register is used, thats fine -->
               <tal:if condition="python: (joinURL == 'ecl_register')"
-                  define="canEnroll python:not here.hasEnrollmentLimitReached();"
+                  define="canEnroll python:not limitReached;"
               >
                 <!-- Anonymous user, please log in -->
                 <tal:if condition="python: isAnon">
@@ -140,12 +151,12 @@
               <!-- show registration link if this course does not use ecl_register -->
               <!-- FIXME: add a condition so the link will not be shown if the enrollment limit has been reached -->
               <tal:if condition="python: not (joinURL == 'ecl_register')">
-                <tal:if condition="python: isParticipant">
+                <tal:if condition="isParticipant">
                     <span i18n:translate="link_enrolled">
                         You are enrolled in this course.
                     </span>
                 </tal:if>
-                <tal:if condition="python: not isParticipant">
+                <tal:if condition="not:isParticipant">
                   <a href=""
                      class="link-plain" 
                      tal:attributes="href joinURL;"
@@ -157,10 +168,9 @@
             </td>
           </tr>
 
-          <tr tal:condition="here/getMaxParticipants">
+          <tr tal:condition="max">
             <th i18n:translate="label_max_participants">Enrollment limit</th>
-            <td tal:define="max     here/getMaxParticipants;
-                            current here/getCurrentParticipants;">
+            <td>
               <span tal:omit-tag="" tal:content="max"/>
               <span tal:omit-tag="" i18n:translate="current_enrollment">
                 (currently enrolled:
@@ -278,9 +288,9 @@
 
         <div class="visualClear"/>
 
-        <tal:block condition="python: not isParticipant">
+        <tal:block condition="not:isParticipant">
           <tal:if condition="python: here.getJoinURL()
-            and not here.getMaxParticipants ()">
+            and not here.getMaxParticipants()">
             <p class="portalMessage"
               i18n:translate="notice_registration">
               Note: This course requires
@@ -316,7 +326,7 @@
           </tal:if>
         </tal:block>
 
-        <tal:block condition="python: isParticipant">
+        <tal:block condition="isParticipant">
           <p class="ec-hint" i18n:translate="note_enrolled">
             Note: You are enrolled in this course.</p>
         </tal:block>
