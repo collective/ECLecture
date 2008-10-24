@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
+# Copyright (c) 2006-2008 Otto-von-Guericke-Universität Magdeburg
+#
 # This file is part of ECLecture.
 #
-# Copyright (c) 2008 by Otto-von-Guericke-Universität Magdeburg
-# 
-# Generator: ArchGenXML Version 2.1
-#            http://plone.org/products/archgenxml
+# ECLecture is free software; you can redistribute it and/or 
+# modify it under the terms of the GNU General Public License as 
+# published by the Free Software Foundation; either version 2 of the 
+# License, or (at your option) any later version.
 #
-# GNU General Public License (GPL)
+# ECLecture is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-
-__author__ = """unknown <unknown>"""
+# You should have received a copy of the GNU General Public License
+# along with ECLecture; if not, write to the Free Software Foundation, 
+# Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+__author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
+
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
@@ -29,7 +38,9 @@ from Products.ATContentTypes.content.folder import ATFolderSchema
 import re
 from types import StringType, IntType
 
+# set logger
 import logging
+logger = logging.getLogger('ECLecture')
 
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
@@ -37,13 +48,13 @@ from Products.DataGridField.DataGridWidget import DataGridWidget
 from Products.ECLecture.content.TimePeriodField import TimePeriodField
 
 try:
-    from Products.ECAssignmentBox.ECFolder import ECFolder as SuperClass
-    from Products.ECAssignmentBox.ECFolder import ECFolderSchema as SuperSchema
+    from Products.ECAssignmentBox.content.ECFolder import ECFolder as SuperClass
+    from Products.ECAssignmentBox.content.ECFolder import ECFolder_schema as SuperSchema
 except:
+    logger.debug('Import failed: Products.ECAssignmentBox.content.ECFolder')
     from Products.ATContentTypes.content.folder import ATFolder as SuperClass
     from Products.ATContentTypes.content.folder import ATFolderSchema as SuperSchema
 
-#how to reach config?
 from Products.ECLecture.config import *
 
 NO_RECURRENCE = 0
@@ -53,10 +64,6 @@ MONTHLY = 3
 YEARLY = 4
 
 NO_GROUP = ''
-
-# get logger
-logger = logging.getLogger('ECLecture')
-
 ##/code-section module-header
 
 schema = Schema((
@@ -188,9 +195,9 @@ schema = Schema((
 
     TextField('prereq',
         required = False,
-        default_content_type = zconf.ATDocument.default_content_type,
-        default_output_type = 'text/x-html-safe',
-        allowable_content_types = zconf.ATDocument.allowed_content_types,
+        default_content_type = EC_DEFAULT_MIME_TYPE,
+        default_output_type = EC_DEFAULT_FORMAT,
+        allowable_content_types = EC_MIME_TYPES,
         widget = TextAreaWidget(
             label = "Prerequisites",
             description = "Describe which prerequisites are required for this course",
@@ -202,9 +209,9 @@ schema = Schema((
 
     TextField('target',
         required = False,
-        default_content_type = zconf.ATDocument.default_content_type,
-        default_output_type = 'text/x-html-safe',
-        allowable_content_types = zconf.ATDocument.allowed_content_types,
+        default_content_type = EC_DEFAULT_MIME_TYPE,
+        default_output_type = EC_DEFAULT_FORMAT,
+        allowable_content_types = EC_MIME_TYPES,
         widget = TextAreaWidget(
             label = "Target group",
             description = "Describe for which audience this course is intended",
@@ -290,9 +297,9 @@ items inside this course are added by default.""",
         #storage = AnnotationStorage(migrate=True),
         validators = ('isTidyHtmlWithCleanup',),
         #validators = ('isTidyHtml',),
-        default_content_type = zconf.ATDocument.default_content_type,
-        default_output_type = 'text/x-html-safe',
-        allowable_content_types = zconf.ATDocument.allowed_content_types,
+        default_content_type = EC_DEFAULT_MIME_TYPE,
+        default_output_type = EC_DEFAULT_FORMAT,
+        allowable_content_types = EC_MIME_TYPES,
         widget = RichWidget(
             label = "Body Text",
             label_msgid = "label_body_text",
@@ -309,19 +316,19 @@ items inside this course are added by default.""",
 )
 
 ##code-section after-local-schema #fill in your manual code here
-
-if 'directions' in schema:
-    # hide directions field if inheriting from ECFolder
-    schema['directions'].widget.visible = {'view' : 'invisible',
-                                           'edit' : 'invisible' }
-    # move inherited fields to separate edit page
-    schema['completedStates'].schemata = 'ecfolder'
-    schema['projectedAssignments'].schemata = 'ecfolder'
 ##/code-section after-local-schema
 
 ECLecture_schema = SuperSchema.copy() + schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+
+if 'directions' in ECLecture_schema:
+    # hide directions field if inheriting from ECFolder
+    ECLecture_schema['directions'].widget.visible = {'view' : 'invisible',
+                                           'edit' : 'invisible' }
+    # move inherited fields to separate edit page
+    ECLecture_schema['completedStates'].schemata = 'ecfolder'
+    ECLecture_schema['projectedAssignments'].schemata = 'ecfolder'
 ##/code-section after-schema
 
 class ECLecture(SuperClass):
@@ -371,7 +378,7 @@ class ECLecture(SuperClass):
         #pas = getToolByName(self, 'acl_users')
         #groups = pas.searchGroups() 
         
-        #logger.debug('xxx: groups: %s' % repr(groups))
+        #logger.debug('groups: %s' % repr(groups))
         
         # HINT: There is a problem with searchForGroups in Plone 2.5
         #groups = groups_tool.searchForGroups(REQUEST=None)
@@ -406,7 +413,6 @@ class ECLecture(SuperClass):
         return DisplayList(available_langs)
 
 
-	# deprecated for Plone 3.x
     def getGroupMembers(self, groupname):
         """
         This is a horrible workaround for the silly and totally
@@ -415,7 +421,7 @@ class ECLecture(SuperClass):
 
         Returns a list of member objects.
         
-        @deprecated do not use with Plone 3.x
+        @deprecated in Plone 3 we shouldn't need this work-around 
         """
         mtool = getToolByName(self, 'portal_membership')
         #gtool = getToolByName(self, 'portal_groups')
@@ -483,17 +489,13 @@ class ECLecture(SuperClass):
             if groups.getGroupById(id) is not None:
                 return 0
         """
+        logger.info('here we are in ECLecture#isParticipant')
 
         groups_tool = getToolByName(self, 'portal_groups')
         
         if groups_tool:
             group = groups_tool.getGroupById(str(self.associatedGroup))
         
-            #logger.info('xxx: isParticipant')
-            #logger.info('associatedGroup: %s' % self.associatedGroup)
-            #logger.info('user_id: %s' % user_id)
-            #logger.info('group: %s' % group)
-            
             if group:
                 return (user_id in group.getAllGroupMemberIds())
         #end if
@@ -506,16 +508,18 @@ class ECLecture(SuperClass):
         """
         Returns the number of user in the associated group.
         """
+        logger.info('here we are in ECLecture#getCurrentParticipants')
+
         groups_tool = getToolByName(self, 'portal_groups')
         
         if groups_tool:
             group = groups_tool.getGroupById(str(self.associatedGroup))
         
             if group:
-                return len(group.getAllGroupMemberIds())
+                return group.getAllGroupMemberIds()
         #end if
         
-        return 0
+        return []
         
 
     security.declarePublic('hasEnrollmentLimitReached')
@@ -524,9 +528,10 @@ class ECLecture(SuperClass):
         Returns wether or not a user can enroll in this course due to the
         enrollment limit (maxParticipants).
         """
+        logger.info('here we are in ECLecture#hasEnrollmentLimitReached')
+
         max = self.getMaxParticipants();
-        #current = len(self.getGroupMembers(self.getAssociatedGroup()))
-        current = self.getCurrentParticipants();
+        current = len(self.getCurrentParticipants());
         
         if max: 
             result = not (current < max)
@@ -541,22 +546,16 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        #groups_tool = getToolByName(self, 'portal_groups')
-        #group = groups_tool.getGroupById(str(self.associatedGroup))
+        logger.info('here we are in ECLecture#addParticipant: %s' % user_id)
 
         group = self.acl_users.getGroupByName(str(self.associatedGroup))
 
-        logger.info('xxx: associatedGroup: %s' % self.associatedGroup)
-        logger.info('xxx: group: %s' % group)
-
-        # FIXME: There is a problem in Plone 2.5: acl_users.getGroupByName 
-        #        returns None
         if group:
             try:
                 group.addMember(user_id)
             except ValueError, ve:
-                # This can happen for users who are not members of the
-                # Plone site (admin)
+                # This could happen for users who are not members of the
+                # Plone site (e.g., admin)
                 logger.warn('addParticipant: %s' % ve)
                 return False
 
@@ -571,14 +570,16 @@ class ECLecture(SuperClass):
         """
         Remove a user from the group associated with this lecture.
         """
+        logger.info('here we are in ECLecture#removeParticipant: %s' % user_id)
+
         group = self.associatedGroup
 
         if group:
             try:
                 self.acl_users.getGroupByName(group).removeMember(user_id)
             except ValueError, ve:
-                # This can happen for users who are not members of the
-                # Plone site (admin)
+                # This could happen for users who are not members of the
+                # Plone site (e.g., admin)
                 logger.warn('removeParticipant: %s', ve)
                 return False
             return True
