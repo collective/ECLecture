@@ -21,6 +21,25 @@
  </import-step>
 
 <!-- ##code-section ADDITIONALSTEPS -->
+
+ <import-step 
+    id="ECLecture-GS-dependencies" 
+    handler="Products.ECLecture.setuphandlers.installGSDependencies"
+    title="Dependend GS profiles for ECLecture"
+    version="20081026-01">
+   <dependency step="plone-final"/>
+   install Generic Setup profile dependencies for ECLecture
+ </import-step>
+
+ <import-step 
+    id="ECLecture-QI-dependencies" 
+    handler="Products.ECLecture.setuphandlers.installQIDependencies"
+    title="Dependend QI installables for ECLecture"
+    version="20081026-01">
+   <dependency step="ECLecture-GS-dependencies"/>
+   install quickinstaller dependencies for ECLecture
+ </import-step>
+
 <!-- ##/code-section ADDITIONALSTEPS --> 
 
 </import-steps>
