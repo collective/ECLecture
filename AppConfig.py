@@ -22,7 +22,6 @@
 __author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
 
-
 from Products.ATContentTypes.configuration.config import zconf
 
 try: # New CMF 
