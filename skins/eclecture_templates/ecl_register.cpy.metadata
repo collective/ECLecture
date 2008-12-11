@@ -15,5 +15,5 @@ View = 0:Authenticated
 validators=
 
 [actions]
-action.success=traverse_to:string:ecl_view
-action.failure=traverse_to:string:ecl_view
+action.success=traverse_to:string:view
+action.failure=traverse_to:string:view
