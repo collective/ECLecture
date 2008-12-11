@@ -50,6 +50,30 @@
          visible="True">
   <permission value="Modify portal content"/>
  </action>
+  <action title="Assignments" 
+         action_id="all_assignments"
+         category="object" 
+         condition_expr="object/isECFolderish"
+         url_expr="string:${object_url}/all_assignments" 
+         visible="True">
+  <permission value="View"/>
+ </action>
+ <action title="Statistics" 
+         action_id="by_student"
+         category="object" 
+         condition_expr="object/isECFolderish"
+         url_expr="string:${object_url}/by_student" 
+         visible="True">
+  <permission value="View"/>
+ </action>
+ <action title="Analysis" 
+         action_id="analysis"
+         category="object" 
+         condition_expr="object/isECFolderish"
+         url_expr="string:${object_url}/analysis" 
+         visible="True">
+  <permission value="Manage Properties"/>
+ </action>
  <action title="Properties" 
          action_id="metadata"
          category="object" 

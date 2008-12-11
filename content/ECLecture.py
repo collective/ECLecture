@@ -22,7 +22,6 @@
 __author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
 
-
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
@@ -46,6 +45,7 @@ from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
 from Products.ECLecture.content.TimePeriodField import TimePeriodField
+from Products.ECLecture.config import *
 
 try:
     from Products.ECAssignmentBox.content.ECFolder import ECFolder as SuperClass
@@ -55,7 +55,6 @@ except:
     from Products.ATContentTypes.content.folder import ATFolder as SuperClass
     from Products.ATContentTypes.content.folder import ATFolderSchema as SuperSchema
 
-from Products.ECLecture.config import *
 
 NO_RECURRENCE = 0
 DAILY = 1
@@ -346,6 +345,17 @@ class ECLecture(SuperClass):
     ##/code-section class-header
 
     # Methods
+    security.declarePublic('isECFolderish')
+    def isECFolderish(self):
+        """
+        @return: True, if ECAssignmentBox is installed and ECLecture is 
+                 derived from ECFolder    
+        """
+        # check whether or not ECAssignmentBox is installed
+        qi = getToolByName(self, 'portal_quickinstaller')
+        return  qi.isProductInstalled('ECAssignmentBox')
+
+    
     security.declarePublic('getRecurrenceDisplayList')
     def getRecurrenceDisplayList(self):
         """
@@ -374,15 +384,11 @@ class ECLecture(SuperClass):
         dl = DisplayList(())
         dl.add(NO_GROUP, '----')
 
-        # Plone 3 compatible ?
+        # portal_groups.listGroups is deprecated and will be removed in 
+        # Plone 3.5. Use PAS searchGroups instead.
         #pas = getToolByName(self, 'acl_users')
         #groups = pas.searchGroups() 
         
-        #logger.debug('groups: %s' % repr(groups))
-        
-        # HINT: There is a problem with searchForGroups in Plone 2.5
-        #groups = groups_tool.searchForGroups(REQUEST=None)
-
         groups_tool = getToolByName(self, 'portal_groups')
         groups = groups_tool.listGroups()
 
