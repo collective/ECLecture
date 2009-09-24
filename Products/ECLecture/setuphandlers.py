@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006-2008 Otto-von-Guericke-Universität Magdeburg
+# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
 #
 # This file is part of ECLecture.
 #
@@ -22,17 +22,13 @@
 __author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
 
-
+#import os
+import transaction
 import logging
 log = logging.getLogger('ECLecture: setuphandlers')
 
-from Products.ECLecture.config import PROJECTNAME
-from Products.ECLecture.config import DEPENDENCIES
-import os
+from Products.ECLecture import config
 from Products.CMFCore.utils import getToolByName
-import transaction
-##code-section HEAD
-##/code-section HEAD
 
 def isNotECLectureProfile(context):
     return context.readDataFile("ECLecture_marker.txt") is None
@@ -50,10 +46,10 @@ def postInstall(context):
     """Called as at the end of the setup process. """
     # the right place for your custom code
     if isNotECLectureProfile(context): return
-    site = context.getSite()
 
+    #site = context.getSite()
+    reindexIndexes(context)
 
-##code-section FOOT
 
 def installGSDependencies(context):
     """Install dependend profiles."""
@@ -73,9 +69,35 @@ def installQIDependencies(context):
 
     portal = getToolByName(site, 'portal_url').getPortalObject()
     quickinstaller = portal.portal_quickinstaller
-    for dependency in DEPENDENCIES:
+    for dependency in config.DEPENDENCIES:
         log.info('Installing dependency %s:' % dependency)
         quickinstaller.installProduct(dependency)
         transaction.savepoint() 
 
-##/code-section FOOT
+
+def reindexIndexes(context):
+    """Reindex some indexes.
+
+    Indexes that are added in the catalog.xml file get cleared
+    everytime the GenericSetup profile is applied.  So we need to
+    reindex them.
+
+    Since we are forced to do that, we might as well make sure that
+    these get reindexed in the correct order.
+    """
+    if isNotECLectureProfile(context): return 
+
+    site = context.getSite()
+
+    pc = getToolByName(site, 'portal_catalog')
+    indexes = [
+        'getTimePeriod',
+        ]
+
+    # Don't reindex an index if it isn't actually in the catalog.
+    # Should not happen, but cannot do any harm.
+    ids = [id for id in indexes if id in pc.indexes()]
+    if ids:
+        pc.manage_reindexIndex(ids=ids)
+    
+    log.info('Reindexed %s' % indexes)
