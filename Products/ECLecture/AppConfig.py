@@ -9,7 +9,7 @@ __author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
 
 
-from Products.ATContentTypes.configuration import config
+from Products.ATContentTypes.configuration.config import zconf
 
 try: # New CMF 
     from Products.CMFCore import permissions
@@ -25,12 +25,12 @@ DEPENDENCIES = ['DataGridField']
 
 # supported mime types for textfields
 #EC_MIME_TYPES = ('text/x-web-intelligent',)
-EC_MIME_TYPES = config.zconf.ATDocument.allowed_content_types
+EC_MIME_TYPES = zconf.ATDocument.allowed_content_types
 #EC_MIME_TYPES = ('text/plain', 'text/structured', 'text/x-rst', 'text/x-web-intelligent', 'text/html', )
 
 # default mime type for textfields
 #EC_DEFAULT_MIME_TYPE = 'text/x-web-intelligent'
-EC_DEFAULT_MIME_TYPE = config.zconf.ATDocument.default_content_type
+EC_DEFAULT_MIME_TYPE = zconf.ATDocument.default_content_type
 #EC_DEFAULT_MIME_TYPE = 'text/plain'
 
 # default output format of textfields
