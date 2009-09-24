@@ -1,54 +1,45 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006-2008 Otto-von-Guericke-Universität Magdeburg
-#
-# This file is part of ECLecture.
-#
-# ECLecture is free software; you can redistribute it and/or 
-# modify it under the terms of the GNU General Public License as 
-# published by the Free Software Foundation; either version 2 of the 
-# License, or (at your option) any later version.
-#
-# ECLecture is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with ECLecture; if not, write to the Free Software Foundation, 
-# Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
 #
 __author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
-
-from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
-import interfaces
-
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.CMFCore.utils import getToolByName
-
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.ATContentTypes.content.folder import ATFolderSchema
-
-##code-section module-header #fill in your manual code here
-import re
-from types import StringType, IntType
-from DateTime import DateTime
-import urllib
-
 
 # set logger
 import logging
 logger = logging.getLogger('ECLecture')
 
+#import re
+#import urllib
+import interfaces
+from types import StringType, IntType
+from DateTime import DateTime
+from AccessControl import ClassSecurityInfo
+from zope.interface import implements
+
+#from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.ATContentTypes.configuration.config import zconf
+#from Products.ATContentTypes.content.folder import ATFolder
+#from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.CMFCore.utils import getToolByName
+
+from Products.Archetypes.atapi import Schema, DisplayList, registerType
+from Products.Archetypes.atapi import StringField, LinesField, DateTimeField, \
+    IntegerField, TextField
+from Products.Archetypes.atapi import StringWidget, LinesWidget, \
+    CalendarWidget, SelectionWidget, TextAreaWidget, RichWidget
+
+try: # New CMF 
+    from Products.CMFCore import permissions
+except: # Old CMF 
+    from Products.CMFCore import CMFCorePermissions as permissions
+
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
 from Products.ECLecture.content.TimePeriodField import TimePeriodField
-from Products.ECLecture.config import *
+from Products.ECLecture import config
 
 try:
     from Products.ECAssignmentBox.content.ECFolder import ECFolder as SuperClass
@@ -77,7 +68,7 @@ schema = Schema((
             description = "Enter the type of this course (e.g., Lecture or Lab Exercise)",
             label_msgid = 'label_course_type',
             description_msgid = 'help_course_type',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -90,7 +81,7 @@ schema = Schema((
             description = "User names or names of instructors, one per line",
             label_msgid = 'label_instructors',
             description_msgid = 'help_instructors',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -107,7 +98,7 @@ schema = Schema((
             description = "Start and end times of this course",
             label_msgid = 'label_time_period',
             description_msgid = 'help_time_period',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -120,7 +111,7 @@ schema = Schema((
             description_msgid = 'help_start_date',
             show_hm = False, 
             #show_ymd = True,
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
     
@@ -133,7 +124,7 @@ schema = Schema((
             description_msgid = 'help_end_date',
             show_hm = False, 
             #show_ymd = True,
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
                                                    
@@ -147,7 +138,7 @@ schema = Schema((
             description = "How often this course takes place",
             label_msgid = 'label_recurrence',
             description_msgid = 'help_recurrence',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
                                                    
@@ -158,7 +149,7 @@ schema = Schema((
             label_msgid = 'label_first_session',
             description_msgid = 'help_first_session',
             #show_hm = False, 
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -169,7 +160,7 @@ schema = Schema((
             description = "Location for this course",
             label_msgid = 'label_location',
             description_msgid = 'help_location',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -180,7 +171,7 @@ schema = Schema((
             description = 'The language used for teaching this course',
             label_msgid = 'label_course_language',
             description_msgid = 'help_course_language',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -191,35 +182,35 @@ schema = Schema((
             description = "Credits which can be gained in this course",
             label_msgid = 'label_credits',
             description_msgid = 'help_credits',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
     TextField('prereq',
         required = False,
-        default_content_type = EC_DEFAULT_MIME_TYPE,
-        default_output_type = EC_DEFAULT_FORMAT,
-        allowable_content_types = EC_MIME_TYPES,
+        default_content_type = config.EC_DEFAULT_MIME_TYPE,
+        default_output_type = config.EC_DEFAULT_FORMAT,
+        allowable_content_types = config.EC_MIME_TYPES,
         widget = TextAreaWidget(
             label = "Prerequisites",
             description = "Describe which prerequisites are required for this course",
             label_msgid = 'label_prereq',
             description_msgid = 'help_prereq',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
     TextField('target',
         required = False,
-        default_content_type = EC_DEFAULT_MIME_TYPE,
-        default_output_type = EC_DEFAULT_FORMAT,
-        allowable_content_types = EC_MIME_TYPES,
+        default_content_type = config.EC_DEFAULT_MIME_TYPE,
+        default_output_type = config.EC_DEFAULT_FORMAT,
+        allowable_content_types = config.EC_MIME_TYPES,
         widget = TextAreaWidget(
             label = "Target group",
             description = "Describe for which audience this course is intended",
             label_msgid = 'label_target',
             description_msgid = 'help_target',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -231,7 +222,7 @@ schema = Schema((
             description = "If there is an enrollment limit, specify the maximum number of participants",
             label_msgid = 'label_max_participants',
             description_msgid = 'help_max_participants',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -243,7 +234,7 @@ schema = Schema((
             label_msgid = 'label_join_url',
             description_msgid = 'help_join_url',
             size = 65,
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -255,7 +246,7 @@ schema = Schema((
             label_msgid = 'label_directory_entry',
             description_msgid = 'help_directory_entry',
             size = 65,
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -269,7 +260,7 @@ schema = Schema((
             description = "You can associate a group with this course to represent its participants",
             label_msgid = 'label_associated_group',
             description_msgid = 'help_associated_group',
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
         ),
     ),
 
@@ -288,7 +279,7 @@ is the name of a resource as shown to the user, URL must be a path inside
 this site or an URL to an external source. Please remember that published 
 items inside this course are added by default.""",
             column_names = ('Title', 'URL',),
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain =  config.I18N_DOMAIN,
         ),
     ),
 
@@ -299,16 +290,16 @@ items inside this course are added by default.""",
         #storage = AnnotationStorage(migrate=True),
         validators = ('isTidyHtmlWithCleanup',),
         #validators = ('isTidyHtml',),
-        default_content_type = EC_DEFAULT_MIME_TYPE,
-        default_output_type = EC_DEFAULT_FORMAT,
-        allowable_content_types = EC_MIME_TYPES,
+        default_content_type = config.EC_DEFAULT_MIME_TYPE,
+        default_output_type = config.EC_DEFAULT_FORMAT,
+        allowable_content_types = config.EC_MIME_TYPES,
         widget = RichWidget(
             label = "Body Text",
             label_msgid = "label_body_text",
             description = "Enter course information",
             description_msgid = "help_body_text",
             rows = 18,
-            i18n_domain = I18N_DOMAIN,
+            i18n_domain = config.I18N_DOMAIN,
             allow_file_upload = zconf.ATDocument.allow_document_upload, 
 
         )
@@ -366,13 +357,13 @@ class ECLecture(SuperClass):
         """
         dl = DisplayList(())
         
-        dl.add(NO_RECURRENCE, self.translate(msgid='once', domain=I18N_DOMAIN,
+        dl.add(NO_RECURRENCE, self.translate(msgid='once', domain=config.I18N_DOMAIN,
                                              default='once'))
-        dl.add(DAILY, self.translate(msgid='daily', domain=I18N_DOMAIN,
+        dl.add(DAILY, self.translate(msgid='daily', domain=config.I18N_DOMAIN,
                                      default='daily'))
-        dl.add(WEEKLY, self.translate(msgid='weekly', domain=I18N_DOMAIN,
+        dl.add(WEEKLY, self.translate(msgid='weekly', domain=config.I18N_DOMAIN,
                                       default='weekly'))
-        dl.add(MONTHLY, self.translate(msgid='monthly', domain=I18N_DOMAIN,
+        dl.add(MONTHLY, self.translate(msgid='monthly', domain=config.I18N_DOMAIN,
                                        default='monthly'))
         # dl.add(YEARLY, self.translate(msgid='yearly', domain=I18N_DOMAIN,
         #                               default='yearly'))
@@ -438,7 +429,7 @@ class ECLecture(SuperClass):
         
         # listGroupIds will be removed in Plone 3.5
         # we should use searchGroups instead
-        groups = self.acl_users.searchGroups()
+        #groups = self.acl_users.searchGroups()
 
         members = []
 
@@ -509,7 +500,7 @@ class ECLecture(SuperClass):
                 return (user_id in group.getAllGroupMemberIds())
         #end if
     
-        return false
+        return False
 
 
     security.declarePublic('getCurrentParticipants')
@@ -701,7 +692,7 @@ class ECLecture(SuperClass):
         return result
 
 
-registerType(ECLecture, PROJECTNAME)
+registerType(ECLecture, config.PROJECTNAME)
 # end of class ECLecture
 
 ##code-section module-footer #fill in your manual code here

@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
+# $Id$
+#
+# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
+#
+# This file is part of ECLecture.
+#
+__author__ = """Mario Amelung <mario.amelung@gmx.de>"""
+__docformat__ = 'plaintext'
 
-from zope.component import getMultiAdapter, ComponentLookupError
+#from Acquisition import aq_inner
+
+from zope.component import getMultiAdapter#, ComponentLookupError
 from zope.interface import implements
 
 from plone.portlets.interfaces import IPortletDataProvider
