@@ -85,7 +85,7 @@ James.  They are licensed under a `Creative Commons Attribution
 2.5 License`_.
 
 ECLecture was ported to Plone 3 by `Eudemonia Solutions AG`_ 
-with support from `Katrin Krieger``_ and the Otto-von-Guericke 
+with support from `Katrin Krieger`_ and the Otto-von-Guericke 
 University of Magdeburg.
 
 .. _Mario Amelung: mario.amelung@gmx.de
