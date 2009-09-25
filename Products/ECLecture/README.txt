@@ -39,7 +39,7 @@ Installing with buildout
 ------------------------
 
 If you are using `buildout`_ to manage your instance installing 
-ECAssigmentBox is very simple.  You can install it by adding it to the 
+ECLecture is very simple.  You can install it by adding it to the 
 eggs line for your instance::
 
   [instance]
@@ -69,7 +69,7 @@ Setup to install ECLecture.
 Support
 =======
 
-For questions and discussions about ECAssignmentBox, please join the
+For questions and discussions about ECLecture, please join the
 `eduComponents mailing list`_.
 
 .. _eduComponents mailing list: https://listserv.uni-magdeburg.de/mailman/listinfo/educomponents.
