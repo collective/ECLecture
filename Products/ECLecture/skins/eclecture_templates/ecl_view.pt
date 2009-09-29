@@ -82,17 +82,12 @@
             </tal:resources>
             
             <tal:resources repeat="resource localRes">
-              <li>
+              <li  class="discreet" tal:define="item_icon python:plone_view.getIcon(resource);">
                 <!-- link with icon of this protal type -->
-                <span tal:attributes="class python: 'contenttype-' + normalizeString(resource.portal_type) + ' visualIconPadding'">
-                  <a href="" 
-                     class="link-plain" 
-                     title=""
-                     tal:attributes="href resource/getURL" 
-                     tal:content="resource/pretty_title_or_id">
-                    Link to the resource
+                  <a tal:attributes="href resource/getURL" class="link-plain">
+                    <img tal:replace="structure item_icon/html_tag" />
+                    <span tal:content="resource/pretty_title_or_id" />
                   </a>
-                </span>
 
               </li>
             </tal:resources>
