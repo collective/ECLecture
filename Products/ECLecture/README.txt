@@ -72,7 +72,7 @@ Support
 For questions and discussions about ECLecture, please join the
 `eduComponents mailing list`_.
 
-.. _eduComponents mailing list: https://listserv.uni-magdeburg.de/mailman/listinfo/educomponents.
+.. _eduComponents mailing list: https://listserv.uni-magdeburg.de/mailman/listinfo/educomponents
 
 
 Credits
