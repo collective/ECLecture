@@ -17,6 +17,9 @@
  <property name="allow_discussion">False</property>
  <property name="default_view">ecl_view</property>
  <property name="view_methods">
+  <element value="folder_summary_view"/>
+  <element value="folder_tabular_view"/>
+  <element value="folder_listing"/>
   <element value="base_view"/>
   <element value="ecl_view"/>
  </property>
