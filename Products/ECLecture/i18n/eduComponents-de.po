@@ -135,7 +135,7 @@ msgstr "Benutzernamen oder Namen der Dozenten; ein Name pro Zeile"
 #. Default: "Link to the registration for this course"
 #: content/ECLecture.py
 msgid "help_join_url"
-msgstr "Link zur Anmeldeseite"
+msgstr "Link zur Anmeldeseite, z. B. ecl_register"
 
 #. Default: "Location for this course"
 #: content/ECLecture.py
@@ -298,6 +298,11 @@ msgstr "Anmeldung"
 msgid "link_to_registration"
 msgstr "Anmeldung"
 
+#. Default: "Note:"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "box_note"
+msgstr "Hinweis:"
+
 #. Default: "Note: There is an enrollment limit for this course."
 #: ./skins/ECLecture/ecl_view.pt
 msgid "notice_limited"
@@ -308,7 +313,7 @@ msgstr "Die Teilnehmerzahl dieser Veranstaltung ist beschränkt."
 #. Default: "Note: This course requires ${registration}."
 #: ./skins/ECLecture/ecl_view.pt
 msgid "notice_registration"
-msgstr "Hinweis: Für diese Veranstaltung ist eine ${registration} erforderlich."
+msgstr "Für diese Veranstaltung ist eine ${registration} erforderlich."
 
 #  ${registration} will be replaced with the text specified in
 #  link_to_registration.

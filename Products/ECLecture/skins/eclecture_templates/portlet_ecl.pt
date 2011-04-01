@@ -3,7 +3,7 @@
       i18n:domain="eduComponents">
 <body>
 <div metal:define-macro="portlet"
-     tal:define="results python: here.portal_catalog.searchResults(
+     tal:define="results python:here.portal_catalog.searchResults(
                                    portal_type='ECLecture',
                                    end={'query':here.ZopeTime(), 'range':'min'},
                                    sort_on='getTimePeriod',

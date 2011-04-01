@@ -27,8 +27,10 @@
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="view" to="(selected layout)"/>
  <alias from="edit" to="base_edit"/>
+ <!-- 
  <alias from="properties" to="base_metadata"/>
  <alias from="sharing" to="folder_localrole_form"/>
+ -->
  <action title="View" 
          action_id="view"
          category="object" 
@@ -77,14 +79,4 @@
          visible="True">
   <permission value="Manage Properties"/>
  </action>
-<!-- 
- <action title="Properties" 
-         action_id="metadata"
-         category="object" 
-         condition_expr=""
-         url_expr="string:${object_url}/properties" 
-         visible="True">
-  <permission value="Modify portal content"/>
- </action>
--->
 </object>

@@ -14,41 +14,40 @@
 
     <div metal:fill-slot="main">
       <div metal:define-macro="main"
-        tal:define="user_id       python: member.getId();
+        tal:define="mtool         context/portal_membership;
+                    member        context/@@plone_portal_state/member;
+                    isAnon        context/@@plone_portal_state/anonymous;
+                    user_id       python:member.getId();
                     participants  here/getCurrentParticipants;
                     max           here/getMaxParticipants;
-                    current       python: len(participants);
-                    isParticipant python: (user_id in participants);
-                    limitReached  python: max and (current >= max);"
+                    current       python:len(participants);
+                    isParticipant python:(user_id in participants);
+                    limitReached  python:max and (current >= max);"
       >
 
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
+        <div tal:replace="structure provider:plone.documentactions" />
     
         <h1 class="documentFirstHeading" tal:content="here/title_or_id">
           Title or id
         </h1>
 
-        <div metal:use-macro="here/document_byline/macros/byline">
-          Get the byline - contains details about author and modification date.
-        </div>
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <div class="documentDescription">
           <metal:field use-macro="python:here.widget('description', mode='view')" />
         </div>
 
-<!--
+        <!--
         <div class="documentDescription" tal:content="here/Description">
             Description
         </div>
--->
+        -->
 
-<!--
+        <!--
         <div class="visualClear"></div>
     
         <h2 i18n:translate="label_lecture_descr">Lecture Description</h2>
--->
+        -->
 
         <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;"
             tal:define="externalRes here/getAvailableResources;
@@ -193,8 +192,8 @@
                   <a href="#"
                     tal:attributes="href python: mtool.getHomeUrl(userid)"
                     tal:content="python: mtool.getMemberInfo(userid)
-                    and mtool.getMemberInfo(userid)['fullname']
-                    or userid">
+                                         and mtool.getMemberInfo(userid)['fullname']
+                                         or userid">
                     The instructors' fullnames or user IDs
                   </a><span tal:condition="not: repeat/userid/end"
                     tal:replace="string:, "/>
@@ -280,50 +279,75 @@
           </tr>
         </table>
 
-
-        <div class="visualClear"/>
+        <div class="visualClear" />
 
         <tal:block condition="not:isParticipant">
-          <tal:if condition="python: here.getJoinURL()
-            and not here.getMaxParticipants()">
-            <p class="portalMessage"
-              i18n:translate="notice_registration">
-              Note: This course requires
-              <span i18n:name="registration">
-                <a i18n:translate="link_to_registration"
-                  href="#"
-                  tal:attributes="href  here/getJoinURL;
-                  class string:link-plain">registration</a>
-              </span>.
-            </p>
+          <tal:if condition="python:here.getJoinURL() and not here.getMaxParticipants()">
+            <dl style="display: none;" class="portalMessage info">
+              <dt>Info</dt>
+              <dd></dd>
+            </dl>
+            <dl class="portalMessage info">
+              <dt i18n:translate="box_note">Note:</dt>
+              <dd i18n:translate="notice_registration">
+                This course requires
+                <span i18n:name="registration">
+                  <a i18n:translate="link_to_registration"
+                      tal:attributes="href  here/getJoinURL;
+                                      class string:link-plain">
+                    registration
+                  </a>
+                </span>.
+              </dd>
+            </dl>
           </tal:if>
 
-          <tal:if condition="python: not here.getJoinURL()
-            and here.getMaxParticipants()">
-            <p class="portalMessage"
-              i18n:translate="notice_limited">Note: There is an enrollment limit
-              for this course.
-            </p>
+          <tal:if condition="python: not here.getJoinURL() and here.getMaxParticipants()">
+            <dl style="display: none;"  class="portalMessage info">
+              <dt>Info</dt>
+              <dd></dd>
+            </dl>
+            <dl class="portalMessage info">
+              <dt i18n:translate="box_note">Note:</dt>
+              <dd i18n:translate="notice_limited">
+                There is an enrollment limit for this course.
+              </dd>
+            </dl>
           </tal:if>
 
-          <tal:if condition="python: here.getJoinURL()
-            and here.getMaxParticipants()">
-            <p class="portalMessage"
-              i18n:translate="notice_limited_registration">Note: There is an
-              enrollment limit for this course and
-              <span i18n:name="registration">
-                <a i18n:translate="link_to_registration"
-                  href="#"
-                  tal:attributes="href  here/getJoinURL;
-                  class string:link-plain">registration</a>
-              </span> is required.
-            </p>
+          <tal:if condition="python: here.getJoinURL() and here.getMaxParticipants()">
+            <dl style="display: none;" class="portalMessage info">
+              <dt>Info</dt>
+              <dd></dd>
+            </dl>
+            <dl class="portalMessage info">
+              <dt i18n:translate="box_note">Note:</dt>
+              <dd i18n:translate="notice_limited_registration">
+                There is an enrollment limit for this course and
+                <span i18n:name="registration">
+                  <a i18n:translate="link_to_registration"
+                      href="#"
+                      tal:attributes="href  here/getJoinURL;
+                                      class string:link-plain">
+                    registration
+                  </a>
+                </span> is required.
+              </dd>
+            </dl>
           </tal:if>
         </tal:block>
 
         <tal:block condition="isParticipant">
-          <p class="ec-hint" i18n:translate="note_enrolled">
-            Note: You are enrolled in this course.</p>
+          <dl style="display: none;" class="portalMessage info">
+            <dt>Info</dt>
+            <dd></dd>
+          </dl>
+          <dl class="portalMessage info">
+            <dt i18n:translate="box_note">Note:</dt>
+            <dd i18n:translate="note_enrolled">
+              You are enrolled in this course.
+            </dd>
+          </dl>
         </tal:block>
 
         <div tal:replace="structure here/getText"/>

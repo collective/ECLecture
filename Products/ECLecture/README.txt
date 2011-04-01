@@ -16,10 +16,10 @@ Download
 Prerequisites
 =============
 
-- Plone_: 3.2 or 3.3 with Zope 2.10.
+- Plone_: 4.x
 
-- DataGridField_: 1.6.  This version of ECQuiz has been tested 
-extensively with DataGridField version 1.6.  Newer versions might or 
+- DataGridField_: 1.8.  This version of ECQuiz has been tested 
+extensively with DataGridField version 1.8.  Newer versions might or 
 might not work as well.
 
 .. _Plone: http://plone.org/products/
@@ -84,7 +84,7 @@ The icons used in ECLecture are from the `Silk icon set`_ by Mark
 James.  They are licensed under a `Creative Commons Attribution 
 2.5 License`_.
 
-ECLecture was ported to Plone 3 by `Eudemonia Solutions AG`_ 
+ECLecture was ported to Plone 3 and 4 by `Eudemonia Solutions AG`_ 
 with support from `Katrin Krieger`_ and the Otto-von-Guericke 
 University of Magdeburg.
 
