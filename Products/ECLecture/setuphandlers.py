@@ -9,11 +9,12 @@ __author__ = """Mario Amelung <mario.amelung@gmx.de>"""
 __docformat__ = 'plaintext'
 
 import transaction
-import logging
-log = logging.getLogger('ECLecture: setuphandlers')
+
+from Products.CMFCore.utils import getToolByName
 
 from Products.ECLecture import config
-from Products.CMFCore.utils import getToolByName
+from Products.ECLecture import LOG
+
 
 def isNotECLectureProfile(context):
     return context.readDataFile("ECLecture_marker.txt") is None
@@ -55,7 +56,7 @@ def installQIDependencies(context):
     portal = getToolByName(site, 'portal_url').getPortalObject()
     quickinstaller = portal.portal_quickinstaller
     for dependency in config.DEPENDENCIES:
-        log.info('Installing dependency %s:' % dependency)
+        LOG.info('Installing dependency %s:' % dependency)
         quickinstaller.installProduct(dependency)
         transaction.savepoint() 
 
@@ -85,4 +86,4 @@ def reindexIndexes(context):
     if ids:
         pc.manage_reindexIndex(ids=ids)
     
-    log.info('Reindexed %s' % indexes)
+    LOG.info('Indexes %s re-indexed' % indexes)

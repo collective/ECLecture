@@ -5,7 +5,7 @@
 #
 # This file is part of ECLecture.
 #
-__author__ = """Mario Amelung <mario.amelung@gmx.de>"""
+__author__ = 'Mario Amelung <mario.amelung@gmx.de>'
 __docformat__ = 'plaintext'
 
 #import re
@@ -16,10 +16,6 @@ from DateTime import DateTime
 from AccessControl import ClassSecurityInfo
 from zope.interface import implements
 
-#from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.ATContentTypes.configuration.config import zconf
-#from Products.ATContentTypes.content.folder import ATFolder
-#from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.CMFCore.utils import getToolByName
 
 from Products.Archetypes.atapi import Schema, DisplayList, registerType
@@ -34,8 +30,8 @@ from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
 
-from Products.ECLecture import LOG
 from Products.ECLecture import config
+from Products.ECLecture import LOG
 from Products.ECLecture import ECMessageFactory as _
 from Products.ECLecture.content.TimePeriodField import TimePeriodField
 
@@ -186,9 +182,9 @@ schema = Schema((
 
     TextField('prereq',
         required = False,
-        default_content_type = config.EC_DEFAULT_MIME_TYPE,
-        default_output_type = config.EC_DEFAULT_FORMAT,
-        allowable_content_types = config.EC_ALLOWED_CONTENT_TYPES,
+        default_content_type = config.DEFAULT_CONTENT_TYPE,
+        default_output_type = config.DEFAULT_OUTPUT_TYPE,
+        allowable_content_types = config.ALLOWED_CONTENT_TYPES,
         widget = TextAreaWidget(
             label = "Prerequisites",
             description = "Describe which prerequisites are required for this course",
@@ -200,9 +196,9 @@ schema = Schema((
 
     TextField('target',
         required = False,
-        default_content_type = config.EC_DEFAULT_MIME_TYPE,
-        default_output_type = config.EC_DEFAULT_FORMAT,
-        allowable_content_types = config.EC_ALLOWED_CONTENT_TYPES,
+        default_content_type = config.DEFAULT_CONTENT_TYPE,
+        default_output_type = config.DEFAULT_OUTPUT_TYPE,
+        allowable_content_types = config.ALLOWED_CONTENT_TYPES,
         widget = TextAreaWidget(
             label = "Target group",
             description = "Describe for which audience this course is intended",
@@ -288,9 +284,9 @@ items inside this course are added by default.""",
         #storage = AnnotationStorage(migrate=True),
         validators = ('isTidyHtmlWithCleanup',),
         #validators = ('isTidyHtml',),
-        default_content_type = config.EC_DEFAULT_MIME_TYPE,
-        default_output_type = config.EC_DEFAULT_FORMAT,
-        allowable_content_types = config.EC_ALLOWED_CONTENT_TYPES,
+        default_content_type = config.DEFAULT_CONTENT_TYPE,
+        default_output_type = config.DEFAULT_OUTPUT_TYPE,
+        allowable_content_types = config.ALLOWED_CONTENT_TYPES,
         widget = RichWidget(
             label = "Body Text",
             label_msgid = "label_body_text",
@@ -298,7 +294,7 @@ items inside this course are added by default.""",
             description_msgid = "help_body_text",
             rows = 18,
             i18n_domain = config.I18N_DOMAIN,
-            allow_file_upload = zconf.ATDocument.allow_document_upload, 
+            allow_file_upload = config.ALLOW_DOCUMENT_UPLOAD,
 
         )
     ),
@@ -314,8 +310,8 @@ if 'directions' in ECLecture_schema:
     ECLecture_schema['directions'].widget.visible = {'view' : 'invisible',
                                            'edit' : 'invisible' }
     # move inherited fields to separate edit page
-    ECLecture_schema['completedStates'].schemata = 'ecfolder'
-    ECLecture_schema['projectedAssignments'].schemata = 'ecfolder'
+    ECLecture_schema['completedStates'].schemata = 'more'
+    ECLecture_schema['projectedAssignments'].schemata = 'more'
 
 
 class ECLecture(SuperClass):

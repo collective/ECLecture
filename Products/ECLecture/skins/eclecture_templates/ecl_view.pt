@@ -12,50 +12,40 @@
       </style>
     </metal:block>
 
-    <div metal:fill-slot="main">
-      <div metal:define-macro="main"
-        tal:define="mtool         context/portal_membership;
-                    member        context/@@plone_portal_state/member;
-                    isAnon        context/@@plone_portal_state/anonymous;
-                    user_id       python:member.getId();
-                    participants  here/getCurrentParticipants;
-                    max           here/getMaxParticipants;
-                    current       python:len(participants);
-                    isParticipant python:(user_id in participants);
-                    limitReached  python:max and (current >= max);"
+    <metal:main fill-slot="main">
+      <tal:main-macro metal:define-macro="main"
+          tal:define="mtool         context/portal_membership;
+                      member        context/@@plone_portal_state/member;
+                      isAnon        context/@@plone_portal_state/anonymous;
+                      user_id       python:member.getId();
+                      participants  here/getCurrentParticipants;
+                      max           here/getMaxParticipants;
+                      current       python:len(participants);
+                      isParticipant python:(user_id in participants);
+                      limitReached  python:max and (current >= max);"
       >
 
         <div tal:replace="structure provider:plone.documentactions" />
     
-        <h1 class="documentFirstHeading" tal:content="here/title_or_id">
-          Title or id
+        <h1 class="documentFirstHeading">
+          <metal:field use-macro="python:here.widget('title', mode='view')" />
         </h1>
-
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <div class="documentDescription">
           <metal:field use-macro="python:here.widget('description', mode='view')" />
         </div>
 
         <!--
-        <div class="documentDescription" tal:content="here/Description">
-            Description
-        </div>
-        -->
-
-        <!--
-        <div class="visualClear"></div>
-    
         <h2 i18n:translate="label_lecture_descr">Lecture Description</h2>
         -->
-
+        <div>
         <fieldset style="float: right; margin-left: 0.5em; margin-top: 0;"
             tal:define="externalRes here/getAvailableResources;
                         searchPath  python: '/'.join(here.getPhysicalPath());
                         localRes    python: here.portal_catalog.searchResults(
-                            path={'query':searchPath, 'depth':1,}, 
-                            sort_on='getObjPositionInParent', 
-                            review_state='published');"
+                                      path={'query':searchPath, 'depth':1,}, 
+                                      sort_on='getObjPositionInParent', 
+                                      review_state='published');"
             tal:condition="python: externalRes or localRes"
         >
 
@@ -66,7 +56,7 @@
               <li tal:define="title resource/title;
                               url   resource/url;"
               >
-                <!-- link with default icon -->
+
                 <span class="contenttype-topic visualIconPadding">
                   <a href="" 
                      class="link-plain" 
@@ -82,17 +72,17 @@
             
             <tal:resources repeat="resource localRes">
               <li  class="discreet" tal:define="item_icon python:plone_view.getIcon(resource);">
-                <!-- link with icon of this protal type -->
-                  <a tal:attributes="href resource/getURL" class="link-plain">
-                    <img tal:replace="structure item_icon/html_tag" />
-                    <span tal:content="resource/pretty_title_or_id" />
-                  </a>
-
+                <a tal:attributes="href resource/getURL" class="link-plain">
+                  <img tal:replace="structure item_icon/html_tag" />
+                  <span tal:content="resource/pretty_title_or_id" />
+                </a>
               </li>
             </tal:resources>
           </ul>
         </fieldset>
+        </div>
 
+        <div>
         <table class="vertical listing">
           <tr tal:define="joinURL here/joinURL;"
               tal:condition="joinURL">
@@ -278,8 +268,7 @@
             </td>
           </tr>
         </table>
-
-        <div class="visualClear" />
+        </div>
 
         <tal:block condition="not:isParticipant">
           <tal:if condition="python:here.getJoinURL() and not here.getMaxParticipants()">
@@ -350,22 +339,22 @@
           </dl>
         </tal:block>
 
-        <div tal:replace="structure here/getText"/>
-
-        <div class="visualClear"/>
+        <metal:field use-macro="python:here.widget('text', mode='view')" />
 
         <div tal:condition="here/getPrereq">
           <h2 i18n:translate="label_prereq">Prerequisites</h2>
-          <div tal:replace="structure here/getPrereq"/>
+          <metal:field use-macro="python:here.widget('prereq', mode='view')" />
         </div>
 
         <div tal:condition="here/getTarget">
           <h2 i18n:translate="label_target">Target group</h2>
-          <div tal:replace="structure here/getTarget"/>
+          <metal:field use-macro="python:here.widget('target', mode='view')" />
         </div>
 
-      </div>
-    </div>
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+      </tal:main-macro>
+    </metal:main>
 
   </body>
 </html>
