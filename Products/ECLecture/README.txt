@@ -18,9 +18,7 @@ Prerequisites
 
 - Plone_: 4.x
 
-- DataGridField_: 1.8.  This version of ECQuiz has been tested 
-extensively with DataGridField version 1.8.  Newer versions might or 
-might not work as well.
+- DataGridField_: 1.6 or newer
 
 .. _Plone: http://plone.org/products/
 .. _DataGridField: http://plone.org/products/datagridfield/

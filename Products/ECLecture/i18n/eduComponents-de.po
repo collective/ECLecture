@@ -252,7 +252,7 @@ msgstr "Dozenten"
 #. Default: "Registration link"
 #: content/ECLecture.py
 msgid "label_join_url"
-msgstr "Link zur Anmeldung"
+msgstr "Link zur Anmeldung. Nutzen Sie 'ecl_register', falls ECLecture die Verwaltung der Anmeldungen übernehmen soll."
 
 #. Default: "Location"
 #: ./skins/ECLecture/ecl_view.pt
