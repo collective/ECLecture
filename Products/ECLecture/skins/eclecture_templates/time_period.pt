@@ -26,10 +26,8 @@
       	       value=""
       	       size="5"
       	       maxlength="5"
-      	       tabindex="#"
-      	       tal:attributes="name fieldName;
-      	           value python:value and value[0] or '';
-      	           tabindex tabindex/next;"
+      	       tal:attributes="name  fieldName;
+      	                       value python:value and value[0] or '';"
       	       />
       	<span> - </span>
       	<input
@@ -38,10 +36,8 @@
       	       value=""
       	       size="5"
       	       maxlength="5"
-      	       tabindex="#"
-      	       tal:attributes="name fieldName;
-      	           value python:value and value[1] or '';
-      	           tabindex tabindex/next;"
+      	       tal:attributes="name  fieldName;
+      	                       value python:value and value[1] or '';"
       	       />
         </metal:fill>
       </metal:use>

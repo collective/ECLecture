@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
+# Copyright (c) 2006-2011 Otto-von-Guericke-UniversitŠt Magdeburg
 #
 # This file is part of ECLecture.
 #
@@ -19,7 +19,7 @@ from plone.memoize.view import memoize
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from Products.ECLecture import ECLMessageFactory as _
+from Products.ECLecture import ECMessageFactory as _
 
 class IECLecturePortlet(IPortletDataProvider):
     """A portlet

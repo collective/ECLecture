@@ -298,21 +298,26 @@ msgstr ""
 msgid "link_to_registration"
 msgstr ""
 
-#. Default: "Note: There is an enrollment limit for this course."
+#. Default: "Note:"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "box_note"
+msgstr "Hinweis:"
+
+#. Default: "There is an enrollment limit for this course."
 #: ./skins/ECLecture/ecl_view.pt
 msgid "notice_limited"
 msgstr ""
 
 #  ${registration} will be replaced with the text specified in
 #  link_to_registration.
-#. Default: "Note: This course requires ${registration}."
+#. Default: "This course requires ${registration}."
 #: ./skins/ECLecture/ecl_view.pt
 msgid "notice_registration"
 msgstr ""
 
 #  ${registration} will be replaced with the text specified in
 #  link_to_registration.
-#. Default: "Note: There is an enrollment limit for this course and ${registration} is required."
+#. Default: "There is an enrollment limit for this course and ${registration} is required."
 #: ./skins/ECLecture/ecl_view.pt
 msgid "notice_limited_registration"
 msgstr ""

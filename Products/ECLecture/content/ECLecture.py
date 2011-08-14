@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
+# Copyright (c) 2006-2011 Otto-von-Guericke-UniversitŠt Magdeburg
 #
-__author__ = """Mario Amelung <mario.amelung@gmx.de>"""
+# This file is part of ECLecture.
+#
+__author__ = 'Mario Amelung <mario.amelung@gmx.de>'
 __docformat__ = 'plaintext'
-
-# set logger
-import logging
-logger = logging.getLogger('ECLecture')
 
 #import re
 #import urllib
@@ -18,10 +16,6 @@ from DateTime import DateTime
 from AccessControl import ClassSecurityInfo
 from zope.interface import implements
 
-#from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.ATContentTypes.configuration.config import zconf
-#from Products.ATContentTypes.content.folder import ATFolder
-#from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.CMFCore.utils import getToolByName
 
 from Products.Archetypes.atapi import Schema, DisplayList, registerType
@@ -30,34 +24,34 @@ from Products.Archetypes.atapi import StringField, LinesField, DateTimeField, \
 from Products.Archetypes.atapi import StringWidget, LinesWidget, \
     CalendarWidget, SelectionWidget, TextAreaWidget, RichWidget
 
-try: # New CMF 
-    from Products.CMFCore import permissions
-except: # Old CMF 
-    from Products.CMFCore import CMFCorePermissions as permissions
+from Products.CMFCore import permissions
 
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
 
-from Products.ECLecture.content.TimePeriodField import TimePeriodField
+
 from Products.ECLecture import config
+from Products.ECLecture import LOG
+from Products.ECLecture import ECMessageFactory as _
+from Products.ECLecture.content.TimePeriodField import TimePeriodField
 
 try:
     from Products.ECAssignmentBox.content.ECFolder import ECFolder as SuperClass
     from Products.ECAssignmentBox.content.ECFolder import ECFolder_schema as SuperSchema
 except:
-    logger.debug('Import failed: Products.ECAssignmentBox.content.ECFolder')
+    LOG.debug('Import failed: Products.ECAssignmentBox.content.ECFolder')
     from Products.ATContentTypes.content.folder import ATFolder as SuperClass
     from Products.ATContentTypes.content.folder import ATFolderSchema as SuperSchema
 
 
-NO_RECURRENCE = 0
-DAILY = 1
-WEEKLY = 2
-MONTHLY = 3
-YEARLY = 4
+NO_RECURRENCE = "0"
+DAILY = "1"
+WEEKLY = "2"
+MONTHLY = "3"
+YEARLY = "4"
 
-NO_GROUP = ''
-##/code-section module-header
+NO_GROUP = ""
+
 
 schema = Schema((
 
@@ -128,7 +122,7 @@ schema = Schema((
         ),
     ),
                                                    
-    IntegerField('recurrence',
+    StringField('recurrence',
         required = True,
         vocabulary = 'getRecurrenceDisplayList',
         default = WEEKLY,
@@ -188,9 +182,9 @@ schema = Schema((
 
     TextField('prereq',
         required = False,
-        default_content_type = config.EC_DEFAULT_MIME_TYPE,
-        default_output_type = config.EC_DEFAULT_FORMAT,
-        allowable_content_types = config.EC_MIME_TYPES,
+        default_content_type = config.DEFAULT_CONTENT_TYPE,
+        default_output_type = config.DEFAULT_OUTPUT_TYPE,
+        allowable_content_types = config.ALLOWED_CONTENT_TYPES,
         widget = TextAreaWidget(
             label = "Prerequisites",
             description = "Describe which prerequisites are required for this course",
@@ -202,9 +196,9 @@ schema = Schema((
 
     TextField('target',
         required = False,
-        default_content_type = config.EC_DEFAULT_MIME_TYPE,
-        default_output_type = config.EC_DEFAULT_FORMAT,
-        allowable_content_types = config.EC_MIME_TYPES,
+        default_content_type = config.DEFAULT_CONTENT_TYPE,
+        default_output_type = config.DEFAULT_OUTPUT_TYPE,
+        allowable_content_types = config.ALLOWED_CONTENT_TYPES,
         widget = TextAreaWidget(
             label = "Target group",
             description = "Describe for which audience this course is intended",
@@ -230,7 +224,7 @@ schema = Schema((
         required = False,
         widget = StringWidget(
             label = "Registration link",
-            description = "Link to the registration for this course",
+            description = "Link to the registration for this course. Use 'ecl_register' to let ECLecture handle enrollments for this course.",
             label_msgid = 'label_join_url',
             description_msgid = 'help_join_url',
             size = 65,
@@ -242,7 +236,7 @@ schema = Schema((
         required = False,
         widget = StringWidget(
             label = "Directory entry",
-            description = "Link to the directory entry for this course",
+            description = "Link to the directory entry for this course.",
             label_msgid = 'label_directory_entry',
             description_msgid = 'help_directory_entry',
             size = 65,
@@ -257,7 +251,9 @@ schema = Schema((
         widget = SelectionWidget(
             format = "select", # possible values: flex, select, radio
             label = "Associated group",
-            description = "You can associate a group with this course to represent its participants",
+            description = """You can associate a group with this course to 
+represent its participants; necessary if 'ecl_register' is used for enrollment 
+management.""",
             label_msgid = 'label_associated_group',
             description_msgid = 'help_associated_group',
             i18n_domain = config.I18N_DOMAIN,
@@ -290,9 +286,9 @@ items inside this course are added by default.""",
         #storage = AnnotationStorage(migrate=True),
         validators = ('isTidyHtmlWithCleanup',),
         #validators = ('isTidyHtml',),
-        default_content_type = config.EC_DEFAULT_MIME_TYPE,
-        default_output_type = config.EC_DEFAULT_FORMAT,
-        allowable_content_types = config.EC_MIME_TYPES,
+        default_content_type = config.DEFAULT_CONTENT_TYPE,
+        default_output_type = config.DEFAULT_OUTPUT_TYPE,
+        allowable_content_types = config.ALLOWED_CONTENT_TYPES,
         widget = RichWidget(
             label = "Body Text",
             label_msgid = "label_body_text",
@@ -300,7 +296,7 @@ items inside this course are added by default.""",
             description_msgid = "help_body_text",
             rows = 18,
             i18n_domain = config.I18N_DOMAIN,
-            allow_file_upload = zconf.ATDocument.allow_document_upload, 
+            allow_file_upload = config.ALLOW_DOCUMENT_UPLOAD,
 
         )
     ),
@@ -308,21 +304,17 @@ items inside this course are added by default.""",
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
 
 ECLecture_schema = SuperSchema.copy() + schema.copy()
-
-##code-section after-schema #fill in your manual code here
 
 if 'directions' in ECLecture_schema:
     # hide directions field if inheriting from ECFolder
     ECLecture_schema['directions'].widget.visible = {'view' : 'invisible',
                                            'edit' : 'invisible' }
     # move inherited fields to separate edit page
-    ECLecture_schema['completedStates'].schemata = 'ecfolder'
-    ECLecture_schema['projectedAssignments'].schemata = 'ecfolder'
-##/code-section after-schema
+    ECLecture_schema['completedStates'].schemata = 'more'
+    ECLecture_schema['projectedAssignments'].schemata = 'more'
+
 
 class ECLecture(SuperClass):
     """A folder which contains lecture information."""
@@ -335,8 +327,6 @@ class ECLecture(SuperClass):
 
     schema = ECLecture_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
 
     # Methods
     security.declarePublic('isECFolderish')
@@ -357,16 +347,11 @@ class ECLecture(SuperClass):
         """
         dl = DisplayList(())
         
-        dl.add(NO_RECURRENCE, self.translate(msgid='once', domain=config.I18N_DOMAIN,
-                                             default='once'))
-        dl.add(DAILY, self.translate(msgid='daily', domain=config.I18N_DOMAIN,
-                                     default='daily'))
-        dl.add(WEEKLY, self.translate(msgid='weekly', domain=config.I18N_DOMAIN,
-                                      default='weekly'))
-        dl.add(MONTHLY, self.translate(msgid='monthly', domain=config.I18N_DOMAIN,
-                                       default='monthly'))
-        # dl.add(YEARLY, self.translate(msgid='yearly', domain=I18N_DOMAIN,
-        #                               default='yearly'))
+        dl.add(NO_RECURRENCE, _(u'once', default=u'once'))
+        dl.add(DAILY, _(u'daily', default=u'daily'))
+        dl.add(WEEKLY, _(u'weekly', default=u'weekly'))
+        dl.add(MONTHLY, _(u'monthly',default=u'monthly'))
+        #dl.add(YEARLY, _(u'yearly', default=u'yearly'))
 
         return dl
 
@@ -386,7 +371,7 @@ class ECLecture(SuperClass):
         groups_tool = getToolByName(self, 'portal_groups')
         groups = groups_tool.listGroups()
 
-        #logger.debug('getGroupsDisplayList: groups: %s' % groups)
+        #LOG.debug('getGroupsDisplayList: groups: %s' % groups)
 
         for group in groups:
             dl.add(group.getGroupId(), group.getGroupName())
@@ -489,7 +474,7 @@ class ECLecture(SuperClass):
             if groups.getGroupById(id) is not None:
                 return 0
         """
-        logger.debug('here we are in ECLecture#isParticipant')
+        LOG.debug('here we are in ECLecture#isParticipant')
 
         groups_tool = getToolByName(self, 'portal_groups')
         
@@ -508,7 +493,7 @@ class ECLecture(SuperClass):
         """
         Returns the number of user in the associated group.
         """
-        logger.debug('here we are in ECLecture#getCurrentParticipants')
+        LOG.debug('here we are in ECLecture#getCurrentParticipants')
 
         groups_tool = getToolByName(self, 'portal_groups')
         
@@ -528,7 +513,7 @@ class ECLecture(SuperClass):
         Returns wether or not a user can enroll in this course due to the
         enrollment limit (maxParticipants).
         """
-        logger.debug('here we are in ECLecture#hasEnrollmentLimitReached')
+        LOG.debug('here we are in ECLecture#hasEnrollmentLimitReached')
 
         max = self.getMaxParticipants();
         current = len(self.getCurrentParticipants());
@@ -546,7 +531,7 @@ class ECLecture(SuperClass):
         """
         Add a user to the group associated with this lecture.
         """
-        logger.debug('here we are in ECLecture#addParticipant: %s' % user_id)
+        #LOG.info("xdebug: Adding user '%s' to '%s'" % (user_id, self.associatedGroup))
 
         group = self.acl_users.getGroupByName(str(self.associatedGroup))
 
@@ -556,7 +541,7 @@ class ECLecture(SuperClass):
             except ValueError, ve:
                 # This could happen for users who are not members of the
                 # Plone site (e.g., admin)
-                logger.warn('addParticipant: %s' % ve)
+                LOG.warn('Could not add participant: %s' % ve)
                 return False
 
         else:
@@ -570,7 +555,7 @@ class ECLecture(SuperClass):
         """
         Remove a user from the group associated with this lecture.
         """
-        logger.debug('here we are in ECLecture#removeParticipant: %s' % user_id)
+        LOG.debug('here we are in ECLecture#removeParticipant: %s' % user_id)
 
         group = self.associatedGroup
 
@@ -580,7 +565,7 @@ class ECLecture(SuperClass):
             except ValueError, ve:
                 # This could happen for users who are not members of the
                 # Plone site (e.g., admin)
-                logger.warn('removeParticipant: %s', ve)
+                LOG.warn('removeParticipant: %s', ve)
                 return False
             return True
 
@@ -694,9 +679,3 @@ class ECLecture(SuperClass):
 
 registerType(ECLecture, config.PROJECTNAME)
 # end of class ECLecture
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
-
-

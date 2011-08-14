@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
+# Copyright (c) 2006-2011 Otto-von-Guericke-UniversitŠt Magdeburg
 #
 # This file is part of ECLecture.
 #
@@ -10,22 +10,22 @@ __docformat__ = 'plaintext'
 
 import re
 
-try:
-    from Products.validation.interfaces.IValidator import IValidator
-except ImportError:
-    import sys, os
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), os.pardir))
-    from interfaces.IValidator import IValidator
-    del sys, os
+from zope.interface import implements
 
+from Products.validation import validation
+from Products.validation.interfaces.IValidator import IValidator
+
+TIME_PERIOD_VALIDATOR_NAME = 'isTimePeriod'
 
 class TimePeriodValidator:
     """
     Ensure that we don't get a value for start and/or end time of a time period
     which are not valid.
     """
-    __implements__ = IValidator
 
+    #__implements__ = IValidator
+    implements(IValidator)
+    
     def __init__(self, name, title='', description=''):
         self.name = name
         self.title = title or name
@@ -44,3 +44,7 @@ class TimePeriodValidator:
                             { 'value': item, })
         
         return True
+
+# register time period validator 
+isTimePeriod = TimePeriodValidator(TIME_PERIOD_VALIDATOR_NAME)
+validation.register(isTimePeriod)

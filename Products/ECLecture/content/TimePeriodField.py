@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # $Id$
 #
-# Copyright (c) 2006-2009 Otto-von-Guericke-Universität Magdeburg
+# Copyright (c) 2006-2011 Otto-von-Guericke-UniversitŠt Magdeburg
 #
 # This file is part of ECLecture.
 #
@@ -16,14 +16,9 @@ from Products.Archetypes.public import ObjectField
 from Products.Archetypes.public import StringWidget
 from Products.Archetypes.Registry import registerField
 
-from Products.validation import validation
-
-
-from validators import TimePeriodValidator
-
-# -- register time period validator -------------------------------------------
-isTimePeriod = TimePeriodValidator("isTimePeriod")
-validation.register(isTimePeriod)
+# Import validators first to ensure, that  
+# isTimePeriod/TimePeriodValidator is registered
+from Products.ECLecture.content import validators 
 
 
 class TimePeriodField(ObjectField):
@@ -32,7 +27,7 @@ class TimePeriodField(ObjectField):
     a time period
     """
 
-    __implements__ = ObjectField.__implements__
+    #__implements__ = ObjectField.__implements__
 
     _properties = ObjectField._properties.copy()
     _properties.update({
@@ -40,7 +35,7 @@ class TimePeriodField(ObjectField):
         'size' : '5',
         'widget' : StringWidget,
         'default' : [],
-        'validators' : ('isTimePeriod'),
+        'validators' : (validators.TIME_PERIOD_VALIDATOR_NAME),
         })
 
     security  = ClassSecurityInfo()
