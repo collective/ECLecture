@@ -20,6 +20,13 @@ action  = ''
 status  = 'failure'
 msg     = 'Enrollment error'
 
+#print user_id
+#print member
+#print groups
+#print context.isParticipant(user_id)
+#print context.hasEnrollmentLimitReached()
+#return printed
+
 if not context.isParticipant(user_id):
     # check enrollment limit
     if not context.hasEnrollmentLimitReached():

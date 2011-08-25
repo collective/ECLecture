@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-#
 # $Id$
-
+#
+# This file is part of ECLecture.
+#
 import os
 from setuptools import setup, find_packages
 
@@ -19,7 +20,7 @@ setup(name='Products.ECLecture',
       description = "Managing lectures, seminars and other courses.",
       long_description = long_description,
 
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+      # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
