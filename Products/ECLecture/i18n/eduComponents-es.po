@@ -1,0 +1,463 @@
+# Mario Amelung <amelung@iws.cs.uni-magdeburg.de>, 2006.
+# -*- coding: utf-8 -*-
+# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: ECLecture\n"
+"POT-Creation-Date: 2006-05-12 15:17+0000\n"
+"PO-Revision-Date: 2014-01-17 11:18-0430\n"
+"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
+"Language-Team: ES <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"Language-Code: es\n"
+"Language-Name: Spanish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: eduComponents\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+
+#. Default: "Friday"
+#: ECLecture.py
+msgid "Friday"
+msgstr "Viernes"
+
+#. Default: "Icon"
+#: ECLecture.py
+msgid "Icon"
+msgstr "Icono"
+
+#. Default: "Monday"
+#: ECLecture.py
+msgid "Monday"
+msgstr "Lunes"
+
+#. Default: "Saturday"
+#: ECLecture.py
+msgid "Saturday"
+msgstr "Sábado"
+
+#. Default: "Sunday"
+#: ECLecture.py
+msgid "Sunday"
+msgstr "Domingo"
+
+#. Default: "Thursday"
+#: ECLecture.py
+msgid "Thursday"
+msgstr "Jueves"
+
+#. Default: "Title"
+#: ECLecture.py
+msgid "Title"
+msgstr "Título"
+
+#. Default: "Tuesday"
+#: ECLecture.py
+msgid "Tuesday"
+msgstr "Martes"
+
+#. Default: "URL"
+#: ECLecture.py
+msgid "URL"
+msgstr "Dirección URL"
+
+#. Default: "Wednesday"
+#: ECLecture.py
+msgid "Wednesday"
+msgstr "Miércoles"
+
+#. Default: "daily"
+#: ECLecture.py
+msgid "daily"
+msgstr "diariamente"
+
+#. Default: "Assignments"
+#: ECLecture.py
+msgid "default_assignments_title"
+msgstr "Asignaciones"
+
+#. Default: "Slides"
+#: ECLecture.py
+msgid "default_slides_title"
+msgstr "Laminas"
+
+#. Default: "You can associate a group with this course to represent its participants"
+#: content/ECLecture.py
+msgid "help_associated_group"
+msgstr ""
+"Puede asociar un grupo con este curso para representar a sus participantes"
+
+#. Default: "Enter available resources for this course. Title  is the name of a resource as shown to the user; URL must be a path inside this site or an URL to an external source; Icon is optional."
+#: content/ECLecture.py
+msgid "help_available_resources"
+msgstr ""
+"Introduzca los recursos disponibles para este curso. El título es el nombre "
+"de un recurso, como se muestra para el usuario; URL debe ser una ruta dentro "
+"de este sitio web o una dirección URL a una fuente externa; Icon es "
+"opcional."
+
+#. Default: "Enter course information"
+#: content/ECLecture.py
+msgid "help_body_text"
+msgstr "Ingrese información del curso"
+
+#. Default: "The language used for teaching this course"
+#: content/ECLecture.py
+msgid "help_course_language"
+msgstr "El idioma usado para enseñar este curso"
+
+#. Default: "Enter the type of this course (e.g., Lecture or Lab Exercise)"
+#: content/ECLecture.py
+msgid "help_course_type"
+msgstr ""
+"Introduzca el tipo de este curso (por ejemplo, \"Conferencia\" o el \"ejercicio "
+"de laboratorio\")"
+
+#. Default: "Credits which can be gained in this course"
+#: content/ECLecture.py
+msgid "help_credits"
+msgstr "Los créditos que se pueden obtener en este curso"
+
+#. Default: "Link to the directory entry for this lecture"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "help_directory_entry"
+msgstr "Enlace a la entrada de directorio para esta conferencia"
+
+#. Default: "Last regular date"
+#: content/ECLecture.py
+msgid "help_end_date"
+msgstr "Última fecha normal"
+
+#. Default: "Date for the first session for this course"
+#: content/ECLecture.py
+msgid "help_first_session"
+msgstr "Fecha de la primera sesión de este curso"
+
+#. Default: "Enter user name of the instructor"
+#: content/ECLecture.py
+msgid "help_instructors"
+msgstr "Introduzca el nombre de usuario del instructor o nombre de instructores, uno por linea"
+
+#. Default: "Link to the registration for this course"
+#: content/ECLecture.py
+msgid "help_join_url"
+msgstr "Enlace para el registro de este curso"
+
+#. Default: "Location for this course"
+#: content/ECLecture.py
+msgid "help_location"
+msgstr "Ubicación para este curso"
+
+#. Default: "If there is an enrollment limit, specify the maximum number of participants"
+#: content/ECLecture.py
+msgid "help_max_participants"
+msgstr ""
+"Si hay un límite de inscripción, especificar el número máximo de "
+"participantes"
+
+#. Default: "Describe which prerequisites are required for this course"
+#: content/ECLecture.py
+msgid "help_prereq"
+msgstr "Describir los requisitos previos que son necesarios para este curso"
+
+#. Default: "How often this course takes place"
+#: content/ECLecture.py
+msgid "help_recurrence"
+msgstr "¿Con qué frecuencia este curso se lleva a cabo?"
+
+#. Default: "First regular date"
+#: content/ECLecture.py
+msgid "help_start_date"
+msgstr "Primera fecha normal"
+
+#. Default: "Describe for which audience this course is intended"
+#: content/ECLecture.py
+msgid "help_target"
+msgstr "Describa para qué público está destinado este curso"
+
+#. Default: "Start and end times of this course"
+#: content/ECLecture.py
+msgid "help_time_period"
+msgstr "Horas de inicio y de fin a este curso"
+
+#. Default: "Associated group"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "label_associated_group"
+msgstr "Grupo asociado"
+
+#. Default: "# Participants"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "label_number_participants"
+msgstr "Número de Participantes"
+
+#. Default: "Send e-mail to all participants"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "send_mail_to_all_participants"
+msgstr "Enviar correo electrónico a todos los participantes"
+
+#. Default: "Send e-mail to all participants using Bcc:"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "send_mail_to_all_participants_bcc"
+msgstr "Enviar correo electrónico a todos los participantes usando CCO:"
+
+#. Default: "Available resources"
+#: content/ECLecture.py
+msgid "label_available_resourcess"
+msgstr "Recursos disponibles"
+
+#. Default: "Body Text"
+#: content/ECLecture.py
+msgid "label_body_text"
+msgstr "Cuerpo del texto"
+
+#. Default: "Language of instruction"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_course_language"
+msgstr "Idioma de enseñanza"
+
+#. Default: "Course type"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "label_course_type"
+msgstr "Tipo de curso"
+
+#. Default: "Credits"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_credits"
+msgstr "Creditos"
+
+#. Default: "Directory"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_directory"
+msgstr "Directorio"
+
+#. Default: "Directory entry"
+#: content/ECLecture.py
+#, fuzzy
+msgid "label_directory_entry"
+msgstr "Acceso al directorio"
+
+#. Default: "End date"
+#: content/ECLecture.py
+msgid "label_end_date"
+msgstr "Fecha de culminación"
+
+#. Default: "First session"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_first_session"
+msgstr "Primera sesión"
+
+#. Default: "Instructor"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_instructor"
+msgstr "Instructor"
+
+#. Default: "Instructors"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "label_instructors"
+msgstr "Instructores"
+
+#. Default: "Registration link"
+#: content/ECLecture.py
+msgid "label_join_url"
+msgstr "Enlace de registro"
+
+#. Default: "Location"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "label_location"
+msgstr "Ubicación"
+
+#. Default: "Major"
+#: ./skins/ECLecture/ecl_participants.pt
+#, fuzzy
+msgid "label_major"
+msgstr "Mayor"
+
+#. Default: "Enrollment limit"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_max_participants"
+msgstr "Límite de inscripción"
+
+#. Default: "Prerequisites"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_prereq"
+msgstr "Requisitos previos"
+
+#. Default: "Recurrence"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "label_recurrence"
+msgstr "Recurrencia"
+
+#. Default: "Click here to register for this lecture"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_enroll"
+msgstr "Haga clic aquí para registrarse en esta conferencia"
+
+#. Default: "Registration"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_registration"
+msgstr "Registro"
+
+#  This text is used in place of ${registration} in the messages
+#  notice_registration and notice_limited_registration.
+#. Default: "registration"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "link_to_registration"
+msgstr "registro"
+
+#. Default: "Note:"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "box_note"
+msgstr "Nota:"
+
+#. Default: "Note: There is an enrollment limit for this course."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_limited"
+msgstr "Nota: No existe un límite de inscripción para este curso."
+
+#  ${registration} will be replaced with the text specified in
+#  link_to_registration.
+#. Default: "Note: This course requires ${registration}."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_registration"
+msgstr "Nota: Este curso requiere ${registration}."
+
+#  ${registration} will be replaced with the text specified in
+#  link_to_registration.
+#. Default: "Note: There is an enrollment limit for this course and ${registration} is required."
+#: ./skins/ECLecture/ecl_view.pt
+msgid "notice_limited_registration"
+msgstr ""
+"Nota: Hay un límite de inscripción para este curso y se requiere "
+"${registration}."
+
+#. Default: "Available resources"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_resources_legend"
+msgstr "Recursos disponibles"
+
+#. Default: "Start date"
+#: content/ECLecture.py
+msgid "label_start_date"
+msgstr "Fecha de inicio"
+
+#. Default: "Student ID"
+#: ./skins/ECLecture/ecl_participants.pt
+msgid "label_student_id"
+msgstr "ID de Estudiante"
+
+#. Default: "Target group"
+#: ./skins/ECLecture/ecl_view.pt
+msgid "label_target"
+msgstr "Grupo destinatario"
+
+#. Default: "Time"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "label_time"
+msgstr "Hora"
+
+#. Default: "Time period"
+#: content/ECLecture.py
+msgid "label_time_period"
+msgstr "Periodo de tiempo"
+
+#. Default: "<strong>Note:</strong> The <em>lectures view</em> was selected for this folder. However, this folder doesn't contain any lecture items. A standard folder listing is displayed instead. You may want to select a different view mode from the <em>display</em> menu."
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "lectures_view_no_lectures"
+msgstr ""
+"<strong>Nota:</strong> Las <em>vista conferencias</em> se seleccionó para "
+"esta carpeta. Sin embargo, esta carpeta no contiene ningún elemento de "
+"ningún conferencia. Una lista de carpetas estándar se muestra en su lugar. "
+"Es posible que desee seleccionar un modo de vista diferente de la pantalla "
+"<em>mostrar</em> del menú."
+
+#. Default: "monthly"
+#: ECLecture.py
+msgid "monthly"
+msgstr "mensualmente"
+
+#. Default: "once"
+#: ECLecture.py
+msgid "once"
+msgstr "una vez"
+
+#. Default: "${recurrence} from ${start_date} until ${end_date}"
+#: ./skins/ECLecture/ecl_view.pt
+#: ./skins/ECLecture/folder_lectures_view.pt
+msgid "recurrence_text"
+msgstr "${recurrence} desde ${start_date} hasta ${end_date}"
+
+#. Default: "weekly"
+#: ECLecture.py
+msgid "weekly"
+msgstr "semanalmente"
+
+#. Default: "yearly"
+#: ECLecture.py
+msgid "yearly"
+msgstr "anualmente"
+
+#. Default: "Today's Lectures"
+#: skins/ECLecture/portlet_ecl.pt
+msgid "portlet_ecl_title"
+msgstr "Las conferencias de hoy"
+
+#. Default: "Please login in to see if you are already enrolled in this course."
+#: skins/ECLecture/ecl_view.pt
+msgid "label_login_to_see_enrollment"
+msgstr "Por favor, ingrese para ver si ya está inscrito en este curso."
+
+#. Default: "Click here to cancel your enrollment in this course"
+#: skins/ECLecture/ecl_view.pt
+msgid "label_cancellation"
+msgstr "Haga clic aquí para cancelar su inscripción en este curso"
+
+#. Default: "<b>Note:</b> You are enrolled in this course.</p>"
+#: skins/ECLecture/ecl_view.pt
+msgid "note_enrolled"
+msgstr "<b>Nota:</b> Usted está inscrito en este curso.</p>"
+
+#. Default: "You are enrolled in this course."
+#: skins/ECLecture/ecl_view.pt
+msgid "link_enrolled"
+msgstr "Usted está inscrito en este curso."
+
+#. Default: "(currently enrolled: ${number})"
+#: skins/ECLecture/ecl_view.pt
+msgid "current_enrollment"
+msgstr "(actualmente inscritos: ${number})"
+
+#. Default: "The maximum number of participants has been reached."
+#: skins/ECLecture/ecl_view.pt
+msgid "label_enrollment_limit_reached"
+msgstr "Se ha alcanzado el número máximo de participantes."
+
+#. Default: "You have been successfully enrolled."
+#: skins/ECLecture/ecl_register.cpy
+msgid "enrollment_sucessful"
+msgstr "Usted ha sido inscrito con éxito."
+
+#. Default: "Enrollment failed, please contact the instructor."
+#: skins/ECLecture/ecl_register.cpy
+msgid "enrollment_failed"
+msgstr "La inscripción fallo, por favor póngase en contacto con el instructor."
+
+#. Default: "You are no longer enrolled."
+#: skins/ECLecture/ecl_register.cpy
+msgid "cancellation_successful"
+msgstr "Usted ya no esta inscrito."
+
+#. Default: "Cancellation of enrollment failed, please contact the instructor."
+#: skins/ECLecture/ecl_register.cpy
+msgid "cancellation_failed"
+msgstr ""
+"La cancelación de la inscripción fallo, por favor póngase en contacto con el "
+"instructor."
